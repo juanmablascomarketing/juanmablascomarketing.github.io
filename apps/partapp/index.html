@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PartApp — De la llamada a la factura cobrada</title>
+<meta name="description" content="La app para autónomos de oficios. Presupuesto, parte, firma y factura cobrada. Todo desde el móvil en tres clics.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --blue:#2563eb;
+  --blue-dark:#1d4ed8;
+  --blue-light:#eff6ff;
+  --green:#22c55e;
+  --gray:#64748b;
+  --border:#e2e8f0;
+  --section-pad:4.5rem 5vw;
+  --h2:clamp(1.9rem,3.5vw,2.6rem);
+  --body-text:0.92rem;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',system-ui,sans-serif;background:#fff;color:#0f172a;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:0.85rem 5vw;background:rgba(5,10,20,0.93);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);}
+.nav-logo{font-size:1.25rem;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-0.5px;}
+.nav-logo span{color:var(--blue);}
+.nav-links{display:flex;align-items:center;gap:1.75rem;}
+.nav-links a{font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.45);text-decoration:none;text-transform:uppercase;letter-spacing:0.08em;transition:color 0.2s;}
+.nav-links a:hover{color:#fff;}
+.nav-cta{background:var(--blue);color:#fff;padding:0.5rem 1.1rem;font-size:0.8rem;font-weight:700;text-decoration:none;border-radius:6px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--blue-dark);}
+
+/* HAMBURGER */
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;}
+.nav-hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all 0.3s;}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-hamburger.open span:nth-child(2){opacity:0;}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* MOBILE MENU */
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;z-index:99;background:rgba(5,10,20,0.98);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);padding:1.5rem 5vw;flex-direction:column;gap:0;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-size:1rem;font-weight:600;color:rgba(255,255,255,0.6);text-decoration:none;text-transform:uppercase;letter-spacing:0.08em;padding:0.85rem 0;border-bottom:1px solid rgba(255,255,255,0.06);transition:color 0.2s;}
+.mobile-menu a:last-child{border:none;}
+.mobile-menu a:hover{color:#fff;}
+.mobile-menu .mobile-cta{background:var(--blue);color:#fff;text-align:center;border-radius:8px;padding:0.9rem;margin-top:1rem;border:none;}
+
+/* SHARED */
+.section-eyebrow{display:block;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.55rem;}
+.eyebrow-blue{color:var(--blue);}
+.eyebrow-green{color:var(--green);}
+.eyebrow-dim{color:rgba(255,255,255,0.35);}
+.section-title{font-size:var(--h2);font-weight:900;letter-spacing:-0.8px;line-height:1.08;margin-bottom:0.8rem;}
+.title-white{color:#fff;}
+.title-dark{color:#0f172a;}
+.section-intro{font-size:var(--body-text);color:rgba(255,255,255,0.5);line-height:1.75;max-width:520px;margin-bottom:2.5rem;}
+.btn-primary{background:var(--blue);color:#fff;padding:0.8rem 1.75rem;font-size:0.88rem;font-weight:700;text-decoration:none;border-radius:8px;transition:all 0.2s;display:inline-block;}
+.btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px);}
+
+/* HERO */
+.hero{min-height:100vh;background-color:#050a14;background-image:url('hero.png');background-size:cover;background-position:center right;display:flex;align-items:center;padding:6rem 5vw 4rem;}
+.hero-content{max-width:520px;}
+.hero-badge{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.68rem;font-weight:700;color:var(--green);border:1px solid rgba(34,197,94,0.35);background:rgba(34,197,94,0.08);padding:0.28rem 0.8rem;border-radius:20px;margin-bottom:1.4rem;text-transform:uppercase;letter-spacing:0.1em;}
+.hero-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.hero h1{font-size:clamp(2.8rem,5.5vw,4.2rem);font-weight:900;line-height:1;letter-spacing:-2px;color:#fff;margin-bottom:1.1rem;}
+.hero h1 em{font-style:normal;color:var(--blue);}
+.hero-tagline{font-size:0.98rem;font-weight:600;color:#fff;padding-left:0.9rem;border-left:2px solid var(--blue);margin-bottom:1.1rem;line-height:1.6;}
+.hero-sub{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.75;max-width:430px;margin-bottom:1.8rem;}
+.hero-actions{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:0.6rem;}
+.btn-ghost{color:rgba(255,255,255,0.45);font-size:0.82rem;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;transition:color 0.2s;}
+.btn-ghost:hover{color:#fff;}
+.hero-trial{font-size:0.7rem;color:rgba(255,255,255,0.25);}
+
+/* FLUJO */
+.flujo{padding:var(--section-pad);background:#0a0f1e;}
+.inner{max-width:1100px;margin:0 auto;}
+.flujo-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;margin-top:0.5rem;}
+.flujo-steps::before{content:'';position:absolute;top:22px;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(37,99,235,0.4),transparent);}
+.flujo-step{text-align:center;padding:0 0.4rem;}
+.flujo-icon{width:44px;height:44px;border-radius:50%;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 0.75rem;position:relative;z-index:1;}
+.flujo-icon i{font-size:18px;color:var(--blue);}
+.flujo-step h3{font-size:0.82rem;font-weight:700;color:#fff;margin-bottom:0.25rem;}
+.flujo-step p{font-size:0.72rem;color:rgba(255,255,255,0.35);line-height:1.5;}
+
+/* FUNCIONALIDADES */
+.funciones{background-color:#030f07;background-image:url('funcionalidades.png');background-size:cover;background-position:center right;min-height:560px;display:flex;align-items:center;padding:var(--section-pad);}
+.funciones-content{max-width:440px;}
+.funciones-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.55rem;margin-top:1.25rem;}
+.funcion-card{background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.09);border-radius:9px;padding:0.8rem 0.9rem;backdrop-filter:blur(6px);}
+.funcion-card h4{font-size:0.78rem;font-weight:700;color:#fff;margin-bottom:0.3rem;display:flex;align-items:center;gap:0.35rem;}
+.funcion-card h4 i{font-size:12px;color:var(--green);}
+.funcion-card p{font-size:0.72rem;color:rgba(255,255,255,0.4);line-height:1.5;}
+
+/* VOZ */
+.voz{padding:var(--section-pad);background:#fff;}
+.voz-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5vw;align-items:center;}
+.voz-text p{font-size:0.88rem;color:var(--gray);line-height:1.75;margin-top:0.75rem;}
+.voz-demo{background:#f8faff;border:1px solid var(--border);border-radius:12px;padding:1.1rem;display:flex;flex-direction:column;gap:0.55rem;}
+.voz-field{background:#fff;border:1px solid var(--border);border-radius:7px;padding:0.65rem 0.85rem;display:flex;align-items:center;gap:0.65rem;}
+.voz-field-left{flex:1;}
+.voz-field-label{font-size:0.62rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:2px;}
+.voz-field-value{font-size:0.84rem;font-weight:500;color:#0f172a;line-height:1.3;}
+.voz-mic{width:26px;height:26px;border-radius:50%;background:var(--blue-light);border:1.5px solid var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.voz-mic i{font-size:11px;color:var(--blue);}
+.voz-mic.on{background:var(--blue);animation:micpulse 1.2s infinite;}
+.voz-mic.on i{color:#fff;}
+@keyframes micpulse{0%,100%{box-shadow:0 0 0 0 rgba(37,99,235,0.3);}50%{box-shadow:0 0 0 5px rgba(37,99,235,0);}}
+.desp-block{background:var(--blue-light);border:1px solid #bfdbfe;border-radius:7px;padding:0.7rem 0.85rem;}
+.desp-title{font-size:0.62rem;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;}
+.desp-row{display:flex;align-items:center;gap:0.45rem;margin-bottom:0.3rem;}
+.desp-num{background:#fff;border:1px solid #bfdbfe;border-radius:4px;width:28px;text-align:center;font-size:0.88rem;font-weight:800;color:#0f172a;padding:2px 0;}
+.desp-label{font-size:0.72rem;color:var(--gray);flex:1;}
+.desp-total{font-size:0.82rem;font-weight:800;color:var(--blue);}
+.desp-toggle{display:flex;align-items:center;gap:0.45rem;margin-top:0.3rem;}
+.toggle{width:20px;height:11px;background:#dbeafe;border-radius:6px;position:relative;flex-shrink:0;}
+.toggle .k{width:8px;height:8px;border-radius:50%;background:rgba(37,99,235,0.3);position:absolute;top:1.5px;left:1.5px;}
+.toggle-label{font-size:0.66rem;color:var(--gray);}
+
+/* COBROS */
+.cobros{background-color:#030a1a;background-image:url('cobros.png');background-size:cover;background-position:center right;min-height:560px;display:flex;align-items:center;padding:var(--section-pad);}
+.cobros-content{max-width:440px;}
+.cobros-stat{background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:1.1rem 1.3rem;margin:1.1rem 0;backdrop-filter:blur(6px);}
+.cobros-stat-num{font-size:3.5rem;font-weight:900;color:var(--green);letter-spacing:-2px;line-height:1;}
+.cobros-stat-label{font-size:0.85rem;color:rgba(255,255,255,0.5);margin-top:0.3rem;line-height:1.5;}
+.cobros-desc{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.75;margin-bottom:1.1rem;}
+.cobros-metodos{display:flex;flex-direction:column;gap:0.45rem;margin-bottom:1.25rem;}
+.cobro-metodo{background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.75rem 0.9rem;display:flex;align-items:center;gap:0.7rem;backdrop-filter:blur(4px);}
+.cobro-metodo.sel{border-color:rgba(37,99,235,0.55);background:rgba(37,99,235,0.1);}
+.cobro-metodo-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cobro-metodo.sel .cobro-metodo-icon{background:rgba(37,99,235,0.22);}
+.cobro-metodo:not(.sel) .cobro-metodo-icon{background:rgba(34,197,94,0.1);}
+.cobro-metodo.sel .cobro-metodo-icon i{font-size:14px;color:var(--blue);}
+.cobro-metodo:not(.sel) .cobro-metodo-icon i{font-size:14px;color:var(--green);}
+.cobro-metodo-name{font-size:0.85rem;font-weight:700;color:#fff;}
+.cobro-metodo-sub{font-size:0.7rem;color:rgba(255,255,255,0.35);}
+
+/* PRECIO */
+.precio{background-color:#0a0f1e;background-image:url('precio.png');background-size:cover;background-position:center right;min-height:560px;display:flex;align-items:center;padding:var(--section-pad);}
+.precio-content{max-width:400px;}
+.precio-content .section-title{color:#fff;}
+.precio-card{background:rgba(255,255,255,0.96);border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.6rem;backdrop-filter:blur(10px);margin-top:1.25rem;box-shadow:0 16px 48px rgba(0,0,0,0.25);}
+.precio-badge{display:inline-block;background:var(--green);color:#fff;font-size:0.66rem;font-weight:700;padding:0.22rem 0.7rem;border-radius:20px;margin-bottom:0.85rem;letter-spacing:0.05em;}
+.precio-num{font-size:3rem;font-weight:900;color:#0f172a;letter-spacing:-2px;line-height:1;}
+.precio-num span{font-size:1.2rem;color:var(--gray);font-weight:400;}
+.precio-period{font-size:0.78rem;color:var(--gray);margin-bottom:0.15rem;}
+.precio-trial{font-size:0.78rem;color:var(--green);font-weight:600;margin-bottom:1.25rem;}
+.precio-features{list-style:none;margin-bottom:1.25rem;}
+.precio-features li{font-size:0.82rem;color:#374151;padding:0.32rem 0;display:flex;gap:0.55rem;align-items:flex-start;border-bottom:1px solid var(--border);}
+.precio-features li:last-child{border:none;}
+.precio-features li::before{content:"✓";color:var(--green);font-weight:700;flex-shrink:0;}
+.btn-precio{display:block;background:var(--blue);color:#fff;padding:0.8rem;font-size:0.88rem;font-weight:700;text-decoration:none;text-align:center;border-radius:7px;transition:background 0.2s;}
+.btn-precio:hover{background:var(--blue-dark);}
+.precio-nota{font-size:0.66rem;color:var(--gray);margin-top:0.65rem;text-align:center;line-height:1.5;}
+
+/* STRIPE BAR */
+.stripe-bar{background:#050a14;padding:1.25rem 5vw;display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.05);}
+.stripe-item{display:flex;align-items:center;gap:0.45rem;font-size:0.72rem;color:rgba(255,255,255,0.28);font-weight:600;}
+.stripe-item i{font-size:13px;color:rgba(255,255,255,0.18);}
+
+/* FOOTER */
+footer{background:#050a14;padding:1.75rem 5vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-top:1px solid rgba(255,255,255,0.04);}
+footer p,footer a{font-size:0.7rem;color:rgba(255,255,255,0.2);text-decoration:none;transition:color 0.2s;}
+footer a:hover{color:rgba(255,255,255,0.45);}
+.footer-logo{font-size:1rem;font-weight:900;color:rgba(255,255,255,0.22);letter-spacing:-0.3px;}
+.footer-logo span{color:rgba(37,99,235,0.45);}
+
+/* RESPONSIVE TABLET */
+@media(max-width:900px){
+  .nav-links,.nav-cta{display:none;}
+  .nav-hamburger{display:flex;}
+}
+
+/* RESPONSIVE MOBILE */
+@media(max-width:640px){
+  .hero{background-image:none;padding:5rem 1.5rem 3rem;}
+  .hero h1{font-size:2.6rem;}
+  .funciones{background-image:none;background-color:#030f07;min-height:auto;}
+  .funciones-grid{grid-template-columns:1fr;}
+  .cobros{background-image:none;background-color:#030a1a;min-height:auto;}
+  .precio{background-image:none;background-color:#0a0f1e;min-height:auto;}
+  .flujo-steps{grid-template-columns:1fr 1fr;gap:1.5rem;}
+  .flujo-steps::before{display:none;}
+  .voz-inner{grid-template-columns:1fr;}
+  .stripe-bar{gap:1.25rem;}
+  footer{flex-direction:column;align-items:flex-start;gap:0.5rem;}
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.hero-badge{animation:fadeUp 0.5s ease both;}
+.hero h1{animation:fadeUp 0.5s 0.1s ease both;}
+.hero-tagline{animation:fadeUp 0.5s 0.2s ease both;}
+.hero-sub{animation:fadeUp 0.5s 0.25s ease both;}
+.hero-actions{animation:fadeUp 0.5s 0.3s ease both;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Part<span>App</span></a>
+  <div class="nav-links">
+    <a href="#como-funciona">Cómo funciona</a>
+    <a href="#funciones">Funciones</a>
+    <a href="#cobros">Cobros</a>
+    <a href="#precio">Precio</a>
+    <a href="/" style="color:rgba(255,255,255,0.22);">← JB Marketing</a>
+  </div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+  <a href="#precio" class="nav-cta">Empieza gratis</a>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#como-funciona" onclick="closeMenu()">Cómo funciona</a>
+  <a href="#funciones" onclick="closeMenu()">Funciones</a>
+  <a href="#cobros" onclick="closeMenu()">Cobros</a>
+  <a href="#precio" onclick="closeMenu()">Precio</a>
+  <a href="/" onclick="closeMenu()" style="color:rgba(255,255,255,0.3);">← JB Marketing</a>
+  <a href="#precio" class="mobile-cta" onclick="closeMenu()">Empieza 30 días gratis</a>
+</div>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">App para autónomos de oficios</div>
+    <h1>De la llamada<br>a la factura<br><em>cobrada.</em></h1>
+    <p class="hero-tagline">Sin papeles. Sin Excel.<br>Sin "vuelve mañana que te pago."</p>
+    <p class="hero-sub">Presupuesto, parte de trabajo, firma del cliente y factura. Todo desde el móvil, mientras tienes las manos sucias.</p>
+    <div class="hero-actions">
+      <a href="#precio" class="btn-primary">Empieza 30 días gratis</a>
+      <a href="#como-funciona" class="btn-ghost">Ver cómo funciona <i class="ti ti-arrow-down"></i></a>
+    </div>
+    <p class="hero-trial">Sin compromiso · Cancela cuando quieras · 24,99€/mes después</p>
+  </div>
+</section>
+
+<section class="flujo" id="como-funciona">
+  <div class="inner">
+    <span class="section-eyebrow eyebrow-blue">Cómo funciona</span>
+    <h2 class="section-title title-white">El flujo completo,<br>de principio a fin</h2>
+    <p class="section-intro">Desde que el cliente llama hasta que el dinero está en tu cuenta. Todo conectado en la misma app.</p>
+    <div class="flujo-steps">
+      <div class="flujo-step">
+        <div class="flujo-icon"><i class="ti ti-phone-incoming"></i></div>
+        <h3>Cliente llama</h3>
+        <p>Alta en segundos por voz o teclado</p>
+      </div>
+      <div class="flujo-step">
+        <div class="flujo-icon"><i class="ti ti-file-text"></i></div>
+        <h3>Presupuesto</h3>
+        <p>PDF y envío por WhatsApp o email</p>
+      </div>
+      <div class="flujo-step">
+        <div class="flujo-icon"><i class="ti ti-tool"></i></div>
+        <h3>Parte de trabajo</h3>
+        <p>Horas, materiales y desplazamiento</p>
+      </div>
+      <div class="flujo-step">
+        <div class="flujo-icon"><i class="ti ti-signature"></i></div>
+        <h3>Firma cliente</h3>
+        <p>En pantalla o por enlace remoto</p>
+      </div>
+      <div class="flujo-step">
+        <div class="flujo-icon"><i class="ti ti-coin"></i></div>
+        <h3>Factura y cobra</h3>
+        <p>Un clic. Cobro en el acto si quieres</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="funciones" id="funciones">
+  <div class="funciones-content">
+    <span class="section-eyebrow eyebrow-dim">Funcionalidades</span>
+    <h2 class="section-title title-white">Todo lo que<br>necesitas.</h2>
+    <div class="funciones-grid">
+      <div class="funcion-card">
+        <h4><i class="ti ti-users"></i>Clientes</h4>
+        <p>Alta por voz o teclado. Historial de trabajos, partes y facturas por cliente.</p>
+      </div>
+      <div class="funcion-card">
+        <h4><i class="ti ti-file-invoice"></i>Presupuestos</h4>
+        <p>Genera un PDF en segundos y envíalo por WhatsApp o email.</p>
+      </div>
+      <div class="funcion-card">
+        <h4><i class="ti ti-clipboard-list"></i>Partes</h4>
+        <p>Horas, materiales y desplazamiento. Firma en pantalla o por enlace.</p>
+      </div>
+      <div class="funcion-card">
+        <h4><i class="ti ti-receipt"></i>Facturación</h4>
+        <p>Parte a factura en un clic. Series por epígrafe. IVA automático.</p>
+      </div>
+      <div class="funcion-card">
+        <h4><i class="ti ti-car"></i>Desplazamiento</h4>
+        <p>Km y cuartos de hora configurables. On/off por cliente.</p>
+      </div>
+      <div class="funcion-card">
+        <h4><i class="ti ti-microphone"></i>Todo por voz</h4>
+        <p>Cada campo tiene su micrófono. Dicta mientras trabajas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="voz">
+  <div class="voz-inner">
+    <div class="voz-text">
+      <span class="section-eyebrow eyebrow-blue">Diferencial</span>
+      <h2 class="section-title title-dark">Dicta con<br>las manos<br>sucias.</h2>
+      <p>Cada campo tiene su botón de micrófono. Cliente, descripción, materiales. La app transcribe mientras trabajas. Sin parar, sin teclear, sin perder tiempo.</p>
+      <p>El desplazamiento se calcula solo: cuántos cuartos de hora y cuántos kilómetros.</p>
+    </div>
+    <div class="voz-demo">
+      <div class="voz-field">
+        <div class="voz-field-left"><div class="voz-field-label">Cliente</div><div class="voz-field-value">Bar Mediterráneo</div></div>
+        <div class="voz-mic"><i class="ti ti-microphone"></i></div>
+      </div>
+      <div class="voz-field">
+        <div class="voz-field-left"><div class="voz-field-label">Descripción</div><div class="voz-field-value">Reparación fuga bajo fregadero cocina...</div></div>
+        <div class="voz-mic on"><i class="ti ti-microphone"></i></div>
+      </div>
+      <div class="voz-field">
+        <div class="voz-field-left"><div class="voz-field-label">Horas trabajadas</div><div class="voz-field-value">2h 30min</div></div>
+        <div class="voz-mic"><i class="ti ti-microphone"></i></div>
+      </div>
+      <div class="voz-field">
+        <div class="voz-field-left"><div class="voz-field-label">Materiales</div><div class="voz-field-value">Válvula 3/4, racor latón, teflón</div></div>
+        <div class="voz-mic"><i class="ti ti-microphone"></i></div>
+      </div>
+      <div class="desp-block">
+        <div class="desp-title"><i class="ti ti-car" style="font-size:9px;margin-right:3px;"></i>Desplazamiento</div>
+        <div class="desp-row"><div class="desp-num">6</div><div class="desp-label">cuartos de hora (1h 30min)</div><div class="desp-total">30,75€</div></div>
+        <div class="desp-row"><div class="desp-num">24</div><div class="desp-label">kilómetros recorridos</div><div class="desp-total">10,08€</div></div>
+        <div class="desp-toggle"><div class="toggle"><div class="k"></div></div><span class="toggle-label">Sin cargo de desplazamiento (acuerdo con cliente)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cobros" id="cobros">
+  <div class="cobros-content">
+    <span class="section-eyebrow eyebrow-green">Cobra en el acto</span>
+    <h2 class="section-title title-white">El "vuelve mañana"<br>ya no existe.</h2>
+    <div class="cobros-stat">
+      <div class="cobros-stat-num">200–400€</div>
+      <div class="cobros-stat-label">pierde de media al mes un autónomo por cobros tardíos o impagados</div>
+    </div>
+    <p class="cobros-desc">Con PartApp envías el enlace de pago desde la misma app. El cliente paga desde su móvil, tú cobras al instante.</p>
+    <div class="cobros-metodos">
+      <div class="cobro-metodo sel">
+        <div class="cobro-metodo-icon"><i class="ti ti-credit-card"></i></div>
+        <div><div class="cobro-metodo-name">Tarjeta · Stripe</div><div class="cobro-metodo-sub">Visa, Mastercard · cobro inmediato</div></div>
+      </div>
+      <div class="cobro-metodo">
+        <div class="cobro-metodo-icon"><i class="ti ti-device-mobile"></i></div>
+        <div><div class="cobro-metodo-name">Bizum</div><div class="cobro-metodo-sub">Enlace al móvil del cliente</div></div>
+      </div>
+    </div>
+    <a href="#precio" class="btn-primary">Empieza gratis 30 días</a>
+  </div>
+</section>
+
+<section class="precio" id="precio">
+  <div class="precio-content">
+    <span class="section-eyebrow eyebrow-blue">Precio</span>
+    <h2 class="section-title">Un precio.<br>Sin sorpresas.</h2>
+    <div class="precio-card">
+      <div class="precio-badge">30 días gratis · Sin compromiso</div>
+      <div class="precio-num"><span>€</span>24,99</div>
+      <div class="precio-period">al mes · IVA no incluido</div>
+      <div class="precio-trial">Primeros 30 días completamente gratis</div>
+      <ul class="precio-features">
+        <li>Clientes, partes y facturas ilimitados</li>
+        <li>Entrada de datos por voz en todos los campos</li>
+        <li>Desplazamiento configurable por cliente</li>
+        <li>Cobro en el acto por Stripe o Bizum</li>
+        <li>Series de facturación por epígrafe</li>
+        <li>Firma digital en pantalla o por enlace</li>
+        <li>Facturación automática vía Stripe</li>
+        <li>Soporte directo en español</li>
+      </ul>
+      <a href="#" class="btn-precio">Empezar 30 días gratis</a>
+      <p class="precio-nota">Introduces tu tarjeta al registrarte. Si no cancelas antes de los 30 días, se activa la suscripción automáticamente.</p>
+    </div>
+  </div>
+</section>
+
+<div class="stripe-bar">
+  <div class="stripe-item"><i class="ti ti-lock"></i>Pagos seguros con Stripe</div>
+  <div class="stripe-item"><i class="ti ti-shield-check"></i>Cancela cuando quieras</div>
+  <div class="stripe-item"><i class="ti ti-device-mobile"></i>100% desde el móvil</div>
+  <div class="stripe-item"><i class="ti ti-headset"></i>Soporte en español</div>
+</div>
+
+<footer>
+  <span class="footer-logo">Part<span>App</span></span>
+  <p>© 2026 · <a href="/">JB Marketing & Events</a></p>
+  <p><a href="mailto:juanmablascooficial@gmail.com">juanmablascooficial@gmail.com</a> · <a href="https://wa.me/34615613366">615 613 366</a></p>
+</footer>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+function closeMenu() {
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+}
+</script>
+
+</body>
+</html>
