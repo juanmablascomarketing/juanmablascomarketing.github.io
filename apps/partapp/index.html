@@ -158,6 +158,39 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .btn-precio:hover{background:var(--blue-dark);}
 .precio-nota{font-size:0.66rem;color:var(--gray);margin-top:0.65rem;text-align:center;line-height:1.5;}
 
+/* CONTACTO */
+.contacto{
+  background:linear-gradient(180deg,#050a14 0%,#020610 100%);
+  padding:5rem 5vw;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  scroll-margin-top:60px;
+}
+.contacto-titulo{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:900;color:#fff;letter-spacing:-0.8px;margin-bottom:0.6rem;}
+.contacto-sub{font-size:0.9rem;color:rgba(255,255,255,0.5);max-width:460px;line-height:1.7;margin-bottom:0;}
+.contacto-form{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:16px;
+  padding:2rem 2.2rem;
+  max-width:500px;
+  width:100%;
+  margin-top:2rem;
+  text-align:left;
+}
+.contacto-form-title{font-size:1rem;font-weight:700;color:#fff;margin-bottom:1.25rem;text-align:center;}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;}
+.cf-field{margin-bottom:0.75rem;}
+.cf-field label{font-size:0.65rem;font-weight:700;color:rgba(255,255,255,0.4);display:block;margin-bottom:0.3rem;letter-spacing:0.08em;text-transform:uppercase;}
+.cf-field input{width:100%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);border-radius:7px;padding:0.65rem 0.85rem;font-size:0.85rem;color:#fff;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.2s;}
+.cf-field input::placeholder{color:rgba(255,255,255,0.25);}
+.cf-field input:focus{border-color:var(--blue);}
+.cf-submit{width:100%;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:0.85rem;font-size:0.95rem;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;margin-top:0.5rem;transition:background 0.2s;}
+.cf-submit:hover{background:var(--blue-dark);}
+.cf-privacy{font-size:0.65rem;color:rgba(255,255,255,0.25);text-align:center;margin-top:0.75rem;line-height:1.5;}
+
 /* STRIPE BAR */
 .stripe-bar{background:#050a14;padding:1.25rem 5vw;display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.05);}
 .stripe-item{display:flex;align-items:center;gap:0.45rem;font-size:0.72rem;color:rgba(255,255,255,0.28);font-weight:600;}
@@ -189,6 +222,8 @@ footer a:hover{color:rgba(255,255,255,0.45);}
   .voz-inner{grid-template-columns:1fr;}
   .stripe-bar{gap:1.25rem;}
   footer{flex-direction:column;align-items:flex-start;gap:0.5rem;}
+  .cf-row{grid-template-columns:1fr;}
+  .contacto-form{padding:1.5rem 1.25rem;}
 }
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
@@ -209,12 +244,13 @@ footer a:hover{color:rgba(255,255,255,0.45);}
     <a href="#diferencial">Diferencial</a>
     <a href="#cobros">Cobros</a>
     <a href="#precio">Precio</a>
+    <a href="#contacto">Contacto</a>
     <a href="https://jbmarketing.es" style="color:rgba(255,255,255,0.22);">← JB Marketing</a>
   </div>
   <button class="nav-hamburger" id="hamburger" aria-label="Menú">
     <span></span><span></span><span></span>
   </button>
-  <a href="#precio" class="nav-cta">Empieza gratis</a>
+  <a href="#contacto" class="nav-cta">Empieza gratis</a>
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
@@ -223,8 +259,9 @@ footer a:hover{color:rgba(255,255,255,0.45);}
   <a href="#diferencial" onclick="closeMenu()">Diferencial</a>
   <a href="#cobros" onclick="closeMenu()">Cobros</a>
   <a href="#precio" onclick="closeMenu()">Precio</a>
+  <a href="#contacto" onclick="closeMenu()">Contacto</a>
   <a href="https://jbmarketing.es" onclick="closeMenu()" style="color:rgba(255,255,255,0.3);">← JB Marketing</a>
-  <a href="#precio" class="mobile-cta" onclick="closeMenu()">Empieza 30 días gratis</a>
+  <a href="#contacto" class="mobile-cta" onclick="closeMenu()">Empieza 30 días gratis</a>
 </div>
 
 <section class="hero">
@@ -234,7 +271,7 @@ footer a:hover{color:rgba(255,255,255,0.45);}
     <p class="hero-tagline">Sin papeles. Sin Excel.<br>Sin "vuelve mañana que te pago."</p>
     <p class="hero-sub">Presupuesto, parte de trabajo, firma del cliente y factura. Todo desde el móvil, mientras tienes las manos sucias.</p>
     <div class="hero-actions">
-      <a href="#precio" class="btn-primary">Empieza 30 días gratis</a>
+      <a href="#contacto" class="btn-primary">Empieza 30 días gratis</a>
       <a href="#como-funciona" class="btn-ghost">Ver cómo funciona <i class="ti ti-arrow-down"></i></a>
     </div>
     <p class="hero-trial">Sin compromiso · Cancela cuando quieras · 24,99€/mes después</p>
@@ -363,7 +400,7 @@ footer a:hover{color:rgba(255,255,255,0.45);}
         <div><div class="cobro-metodo-name">Bizum</div><div class="cobro-metodo-sub">Enlace al móvil del cliente</div></div>
       </div>
     </div>
-    <a href="#precio" class="btn-primary">Empieza gratis 30 días</a>
+    <a href="#contacto" class="btn-primary">Empieza gratis 30 días</a>
   </div>
 </section>
 
@@ -386,9 +423,48 @@ footer a:hover{color:rgba(255,255,255,0.45);}
         <li>Facturación automática vía Stripe</li>
         <li>Soporte directo en español</li>
       </ul>
-      <a href="#" class="btn-precio">Empezar 30 días gratis</a>
-      <p class="precio-nota">Introduces tu tarjeta al registrarte. Si no cancelas antes de los 30 días, se activa la suscripción automáticamente.</p>
+      <a href="#contacto" class="btn-precio">Empezar 30 días gratis</a>
+      <p class="precio-nota">Introduce tus datos de contacto y te ayudamos a configurarlo todo desde el primer día.</p>
     </div>
+  </div>
+</section>
+
+<!-- SECCIÓN CONTACTO -->
+<section class="contacto" id="contacto">
+  <span style="display:block;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:var(--blue);margin-bottom:0.6rem;">Contacto</span>
+  <h2 class="contacto-titulo">Empieza a cobrar<br>desde el primer día</h2>
+  <p class="contacto-sub">30 días de prueba gratuita. Te ayudamos a configurarlo todo desde el primer día. Sin compromiso.</p>
+  <div class="contacto-form">
+    <p class="contacto-form-title">Solicita tu prueba gratuita</p>
+    <form action="https://formspree.io/f/mzdqygbd" method="POST">
+      <div class="cf-row">
+        <div class="cf-field">
+          <label>Nombre</label>
+          <input type="text" name="nombre" placeholder="Tu nombre" required />
+        </div>
+        <div class="cf-field">
+          <label>Teléfono</label>
+          <input type="tel" name="telefono" placeholder="+34 600 000 000" required />
+        </div>
+      </div>
+      <div class="cf-field">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="tu@email.es" required />
+      </div>
+      <div class="cf-row">
+        <div class="cf-field">
+          <label>Oficio</label>
+          <input type="text" name="oficio" placeholder="Ej: Fontanero, Electricista..." />
+        </div>
+        <div class="cf-field">
+          <label>Provincia</label>
+          <input type="text" name="provincia" placeholder="Ej: Valencia" />
+        </div>
+      </div>
+      <input type="hidden" name="_subject" value="Nueva solicitud prueba — PartApp" />
+      <button type="submit" class="cf-submit">Empezar prueba gratuita</button>
+      <p class="cf-privacy">Tus datos se usan únicamente para contactarte sobre PartApp. Sin spam.</p>
+    </form>
   </div>
 </section>
 
