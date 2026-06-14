@@ -10,383 +10,98 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --black: #0a0a0a;
-    --white: #f5f3ee;
-    --accent: #c8a96e;
-    --accent-dark: #a8893e;
-    --gray: #888;
-    --light: #1a1a1a;
+    --black: #0a0a0a; --white: #f5f3ee; --accent: #c8a96e;
+    --accent-dark: #a8893e; --gray: #888; --light: #1a1a1a;
   }
-
   html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--black);
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
+  body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.6; overflow-x: hidden; }
 
   /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.2rem 4vw;
-    background: rgba(10,10,10,0.92);
-    backdrop-filter: blur(8px);
-    border-bottom: 0.5px solid rgba(200,169,110,0.2);
-  }
-
-  .nav-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem;
-    letter-spacing: 0.08em;
-    color: var(--white);
-    text-decoration: none;
-  }
-
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 4vw; background: rgba(10,10,10,0.92); backdrop-filter: blur(8px); border-bottom: 0.5px solid rgba(200,169,110,0.2); }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.08em; color: var(--white); text-decoration: none; }
   .nav-logo span { color: var(--accent); }
-
-  nav ul {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
-
-  nav ul a {
-    color: rgba(245,243,238,0.6);
-    text-decoration: none;
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-
+  nav ul { display: flex; gap: 2rem; list-style: none; }
+  nav ul a { color: rgba(245,243,238,0.6); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
   nav ul a:hover { color: var(--accent); }
 
+  /* HAMBURGUESA */
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+  .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* MENÚ MÓVIL */
+  .mobile-menu { display: none; position: fixed; top: 65px; left: 0; right: 0; z-index: 99; background: rgba(10,10,10,0.98); backdrop-filter: blur(12px); border-bottom: 0.5px solid rgba(200,169,110,0.2); padding: 1.5rem 4vw; flex-direction: column; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 1rem; font-weight: 500; color: rgba(245,243,238,0.6); text-decoration: none; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.9rem 0; border-bottom: 0.5px solid rgba(200,169,110,0.12); transition: color 0.2s; }
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu a:hover { color: var(--accent); }
+  .mobile-menu a.app-link { color: var(--accent); font-weight: 600; }
+
   /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 8rem 4vw 4rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: 'JB';
-    position: absolute;
-    right: -2vw;
-    top: 50%;
-    transform: translateY(-50%);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(12rem, 30vw, 28rem);
-    color: rgba(200,169,110,0.04);
-    line-height: 1;
-    pointer-events: none;
-    user-select: none;
-  }
-
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 4vw 4rem; position: relative; overflow: hidden; }
+  .hero::before { content: 'JB'; position: absolute; right: -2vw; top: 50%; transform: translateY(-50%); font-family: 'Bebas Neue', sans-serif; font-size: clamp(12rem, 30vw, 28rem); color: rgba(200,169,110,0.04); line-height: 1; pointer-events: none; user-select: none; }
   .hero-content { max-width: 780px; position: relative; }
+  .hero-tag { display: inline-block; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); border: 0.5px solid var(--accent); padding: 0.35rem 0.9rem; margin-bottom: 2rem; }
+  .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 6vw, 5.5rem); line-height: 0.95; letter-spacing: 0.02em; margin-bottom: 1.5rem; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero-sub { font-size: clamp(1rem, 1.8vw, 1.2rem); color: rgba(245,243,238,0.65); max-width: 540px; margin-bottom: 2.5rem; line-height: 1.7; }
+  .hero-tagline { font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 500; color: var(--white); margin-bottom: 2.5rem; padding-left: 1.2rem; border-left: 2px solid var(--accent); }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { background: var(--accent); color: var(--black); padding: 0.9rem 2rem; text-decoration: none; font-weight: 500; font-size: 0.9rem; letter-spacing: 0.05em; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); }
+  .btn-outline { border: 0.5px solid rgba(245,243,238,0.4); color: var(--white); padding: 0.9rem 2rem; text-decoration: none; font-size: 0.9rem; letter-spacing: 0.05em; transition: border-color 0.2s, color 0.2s; }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
 
-  .hero-tag {
-    display: inline-block;
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    border: 0.5px solid var(--accent);
-    padding: 0.35rem 0.9rem;
-    margin-bottom: 2rem;
-  }
+  .divider { width: 100%; height: 0.5px; background: rgba(200,169,110,0.2); }
 
-  .hero h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3rem, 6vw, 5.5rem);
-    line-height: 0.95;
-    letter-spacing: 0.02em;
-    margin-bottom: 1.5rem;
-  }
+  section { padding: 6rem 4vw; }
+  .section-label { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1; margin-bottom: 1.5rem; }
+  .section-intro { font-size: 1.05rem; color: rgba(245,243,238,0.6); max-width: 600px; line-height: 1.75; margin-bottom: 3.5rem; }
 
-  .hero h1 em {
-    font-style: normal;
-    color: var(--accent);
-  }
-
-  .hero-sub {
-    font-size: clamp(1rem, 1.8vw, 1.2rem);
-    color: rgba(245,243,238,0.65);
-    max-width: 540px;
-    margin-bottom: 2.5rem;
-    line-height: 1.7;
-  }
-
-  .hero-tagline {
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
-    font-weight: 500;
-    color: var(--white);
-    margin-bottom: 2.5rem;
-    padding-left: 1.2rem;
-    border-left: 2px solid var(--accent);
-  }
-
-  .hero-ctas {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .btn-primary {
-    background: var(--accent);
-    color: var(--black);
-    padding: 0.9rem 2rem;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
-    transition: background 0.2s, transform 0.15s;
-  }
-
-  .btn-primary:hover {
-    background: var(--accent-dark);
-    transform: translateY(-1px);
-  }
-
-  .btn-outline {
-    border: 0.5px solid rgba(245,243,238,0.4);
-    color: var(--white);
-    padding: 0.9rem 2rem;
-    text-decoration: none;
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
-    transition: border-color 0.2s, color 0.2s;
-  }
-
-  .btn-outline:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  /* DIVIDER */
-  .divider {
-    width: 100%;
-    height: 0.5px;
-    background: rgba(200,169,110,0.2);
-  }
-
-  /* SECTION */
-  section {
-    padding: 6rem 4vw;
-  }
-
-  .section-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1rem;
-  }
-
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    line-height: 1;
-    margin-bottom: 1.5rem;
-  }
-
-  .section-intro {
-    font-size: 1.05rem;
-    color: rgba(245,243,238,0.6);
-    max-width: 600px;
-    line-height: 1.75;
-    margin-bottom: 3.5rem;
-  }
-
-  /* SERVICIOS */
   #servicios { background: var(--black); }
-
-  .servicios-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1px;
-    background: rgba(200,169,110,0.15);
-    border: 0.5px solid rgba(200,169,110,0.15);
-  }
-
-  .servicio {
-    background: var(--black);
-    padding: 2.5rem 2rem;
-    transition: background 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .servicio::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 0; height: 1px;
-    background: var(--accent);
-    transition: width 0.4s ease;
-  }
-
+  .servicios-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: rgba(200,169,110,0.15); border: 0.5px solid rgba(200,169,110,0.15); }
+  .servicio { background: var(--black); padding: 2.5rem 2rem; transition: background 0.3s; position: relative; overflow: hidden; }
+  .servicio::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.4s ease; }
   .servicio:hover { background: #111; }
   .servicio:hover::after { width: 100%; }
+  .servicio-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(200,169,110,0.15); line-height: 1; margin-bottom: 1rem; }
+  .servicio h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; margin-bottom: 0.75rem; color: var(--white); }
+  .servicio p { font-size: 0.9rem; color: rgba(245,243,238,0.55); line-height: 1.7; }
 
-  .servicio-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3rem;
-    color: rgba(200,169,110,0.15);
-    line-height: 1;
-    margin-bottom: 1rem;
-  }
-
-  .servicio h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.75rem;
-    color: var(--white);
-  }
-
-  .servicio p {
-    font-size: 0.9rem;
-    color: rgba(245,243,238,0.55);
-    line-height: 1.7;
-  }
-
-  /* SOBRE MI */
-  #sobre-mi {
-    background: #0e0e0e;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5vw;
-    align-items: center;
-  }
-
-  .sobre-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  .stat {
-    border-left: 1px solid var(--accent);
-    padding-left: 1rem;
-  }
-
-  .stat-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.8rem;
-    color: var(--accent);
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-size: 0.78rem;
-    color: rgba(245,243,238,0.5);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-top: 0.2rem;
-  }
-
-  .sobre-texto p {
-    color: rgba(245,243,238,0.65);
-    font-size: 1rem;
-    line-height: 1.8;
-    margin-bottom: 1.2rem;
-  }
-
+  #sobre-mi { background: #0e0e0e; display: grid; grid-template-columns: 1fr 1fr; gap: 5vw; align-items: center; }
+  .sobre-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+  .stat { border-left: 1px solid var(--accent); padding-left: 1rem; }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; color: var(--accent); line-height: 1; }
+  .stat-label { font-size: 0.78rem; color: rgba(245,243,238,0.5); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.2rem; }
+  .sobre-texto p { color: rgba(245,243,238,0.65); font-size: 1rem; line-height: 1.8; margin-bottom: 1.2rem; }
   .sobre-texto strong { color: var(--white); font-weight: 500; }
 
-  /* CONTACTO */
-  #contacto {
-    background: var(--black);
-    text-align: center;
-  }
-
+  #contacto { background: var(--black); text-align: center; }
   .contacto-inner { max-width: 700px; margin: 0 auto; }
-
-  .contacto-opciones {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    max-width: 420px;
-    margin: 3rem auto 0;
-  }
-
-  .contacto-opcion {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.1rem 1.5rem;
-    border: 0.5px solid rgba(200,169,110,0.25);
-    text-decoration: none;
-    color: var(--white);
-    font-size: 0.95rem;
-    transition: border-color 0.2s, background 0.2s;
-  }
-
-  .contacto-opcion:hover {
-    border-color: var(--accent);
-    background: rgba(200,169,110,0.05);
-    color: var(--accent);
-  }
-
-  .contacto-opcion svg {
-    flex-shrink: 0;
-    opacity: 0.7;
-  }
-
+  .contacto-opciones { display: flex; flex-direction: column; gap: 1rem; max-width: 420px; margin: 3rem auto 0; }
+  .contacto-opcion { display: flex; align-items: center; gap: 1rem; padding: 1.1rem 1.5rem; border: 0.5px solid rgba(200,169,110,0.25); text-decoration: none; color: var(--white); font-size: 0.95rem; transition: border-color 0.2s, background 0.2s; }
+  .contacto-opcion:hover { border-color: var(--accent); background: rgba(200,169,110,0.05); color: var(--accent); }
+  .contacto-opcion svg { flex-shrink: 0; opacity: 0.7; }
   .contacto-opcion:hover svg { opacity: 1; }
 
-  /* FOOTER */
-  footer {
-    padding: 2rem 4vw;
-    border-top: 0.5px solid rgba(200,169,110,0.15);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
+  footer { padding: 2rem 4vw; border-top: 0.5px solid rgba(200,169,110,0.15); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  footer p { font-size: 0.78rem; color: rgba(245,243,238,0.3); }
+  footer .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: rgba(245,243,238,0.3); letter-spacing: 0.1em; }
 
-  footer p {
-    font-size: 0.78rem;
-    color: rgba(245,243,238,0.3);
-  }
-
-  footer .footer-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.2rem;
-    color: rgba(245,243,238,0.3);
-    letter-spacing: 0.1em;
-  }
-
-  /* RESPONSIVE */
   @media (max-width: 768px) {
     nav ul { display: none; }
+    .nav-hamburger { display: flex; }
     #sobre-mi { grid-template-columns: 1fr; }
     .sobre-stats { margin-top: 2.5rem; }
     .hero { padding-top: 6rem; }
+    footer { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
   }
 
-  /* ANIMACIONES */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
   .hero-tag { animation: fadeUp 0.6s ease both; }
   .hero h1 { animation: fadeUp 0.6s 0.1s ease both; }
   .hero-tagline { animation: fadeUp 0.6s 0.2s ease both; }
@@ -405,9 +120,19 @@
     <li><a href="/apps/partapp/">PartApp</a></li>
     <li><a href="/apps/gestaqua/">GestAqua</a></li>
   </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<!-- HERO -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#servicios" onclick="closeMenu()">Servicios</a>
+  <a href="#sobre-mi" onclick="closeMenu()">Sobre mí</a>
+  <a href="#contacto" onclick="closeMenu()">Contacto</a>
+  <a href="/apps/partapp/" class="app-link" onclick="closeMenu()">PartApp →</a>
+  <a href="/apps/gestaqua/" class="app-link" onclick="closeMenu()">GestAqua →</a>
+</div>
+
 <section class="hero">
   <div class="hero-content">
     <span class="hero-tag">JB Marketing & Events</span>
@@ -423,60 +148,29 @@
 
 <div class="divider"></div>
 
-<!-- SERVICIOS -->
 <section id="servicios">
   <p class="section-label">Lo que hago</p>
   <h2 class="section-title">Servicios</h2>
   <p class="section-intro">Cada proyecto es diferente. Pero el objetivo siempre es el mismo: que funcione, que se entienda y que aporte valor real a tu negocio.</p>
-
   <div class="servicios-grid">
-    <div class="servicio">
-      <div class="servicio-num">01</div>
-      <h3>Marketing estratégico con IA</h3>
-      <p>Estrategia de comunicación, posicionamiento y captación de clientes apoyada en herramientas de inteligencia artificial. Más impacto, menos coste.</p>
-    </div>
-    <div class="servicio">
-      <div class="servicio-num">02</div>
-      <h3>Soluciones digitales y webapps</h3>
-      <p>Aplicaciones web a medida para resolver problemas concretos de tu negocio o sector. Diseñadas para ser simples, útiles y rápidas de adoptar.</p>
-    </div>
-    <div class="servicio">
-      <div class="servicio-num">03</div>
-      <h3>Automatizaciones con IA</h3>
-      <p>Identifico los procesos repetitivos de tu negocio y los automatizo. Menos tiempo perdido en tareas manuales, más foco en lo que importa.</p>
-    </div>
-    <div class="servicio">
-      <div class="servicio-num">04</div>
-      <h3>Eventos y experiencias</h3>
-      <p>Planificación y ejecución de eventos desde cero: formativos, gastronómicos, empresariales y de marketing. Más de 20 años de experiencia real.</p>
-    </div>
+    <div class="servicio"><div class="servicio-num">01</div><h3>Marketing estratégico con IA</h3><p>Estrategia de comunicación, posicionamiento y captación de clientes apoyada en herramientas de inteligencia artificial. Más impacto, menos coste.</p></div>
+    <div class="servicio"><div class="servicio-num">02</div><h3>Soluciones digitales y webapps</h3><p>Aplicaciones web a medida para resolver problemas concretos de tu negocio o sector. Diseñadas para ser simples, útiles y rápidas de adoptar.</p></div>
+    <div class="servicio"><div class="servicio-num">03</div><h3>Automatizaciones con IA</h3><p>Identifico los procesos repetitivos de tu negocio y los automatizo. Menos tiempo perdido en tareas manuales, más foco en lo que importa.</p></div>
+    <div class="servicio"><div class="servicio-num">04</div><h3>Eventos y experiencias</h3><p>Planificación y ejecución de eventos desde cero: formativos, gastronómicos, empresariales y de marketing. Más de 20 años de experiencia real.</p></div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- SOBRE MÍ -->
 <section id="sobre-mi">
   <div>
     <p class="section-label">Quién soy</p>
     <h2 class="section-title">Sobre mí</h2>
     <div class="sobre-stats">
-      <div class="stat">
-        <div class="stat-num">20+</div>
-        <div class="stat-label">Años de experiencia</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">7</div>
-        <div class="stat-label">Años formándome en IA</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">100%</div>
-        <div class="stat-label">Orientado a resultados</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">0</div>
-        <div class="stat-label">Tecnicismos innecesarios</div>
-      </div>
+      <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Años de experiencia</div></div>
+      <div class="stat"><div class="stat-num">7</div><div class="stat-label">Años formándome en IA</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Orientado a resultados</div></div>
+      <div class="stat"><div class="stat-num">0</div><div class="stat-label">Tecnicismos innecesarios</div></div>
     </div>
   </div>
   <div class="sobre-texto">
@@ -489,13 +183,11 @@
 
 <div class="divider"></div>
 
-<!-- CONTACTO -->
 <section id="contacto">
   <div class="contacto-inner">
     <p class="section-label">Hablemos</p>
     <h2 class="section-title">¿Tienes un proyecto<br>o un problema que resolver?</h2>
     <p class="section-intro" style="margin: 1rem auto 0;">Cuéntame qué necesitas. Sin compromiso, sin tecnicismos. Solo una conversación directa para ver si puedo ayudarte.</p>
-
     <div class="contacto-opciones">
       <a href="https://wa.me/34615613366" class="contacto-opcion">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
@@ -509,12 +201,23 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <span class="footer-logo">JB Marketing & Events · Juanma Blasco</span>
   <p>Marketing & Events · Soluciones Digitales · IA Aplicada</p>
   <p>© 2026 · JB Marketing & Events</p>
 </footer>
 
+<script>
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+function closeMenu() {
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+}
+</script>
 </body>
 </html>
