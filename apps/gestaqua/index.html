@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GestAqua — Gestión digital para comunidades de regantes</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --azul: #0B4F6C;
+  --turquesa: #1D9E75;
+  --turq-light: #5DCAA5;
+  --nav-h: 60px;
+  --bg: #071825;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+  background: var(--bg);
+  overflow-x: hidden;
+}
+
+/* ══ NAV ══ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(4,16,24,0.96);
+  backdrop-filter: blur(14px);
+  height: var(--nav-h);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.nav-logo {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+.nav-logo span { color: var(--turquesa); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  overflow-x: auto;
+}
+
+.nav-links a {
+  color: rgba(255,255,255,0.55);
+  font-size: 11.5px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s, background 0.15s;
+}
+.nav-links a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+
+.nav-cta {
+  background: var(--turquesa);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: #178f68; }
+
+/* ══ SECCIÓN BASE FULL HEIGHT ══ */
+.sf {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  scroll-margin-top: var(--nav-h);
+}
+
+/* PNG a sangre — siempre cubre toda la sección */
+.sf .bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  z-index: 0;
+}
+
+/* Overlay uniforme — fondo sólido en la zona del texto, transparente hacia la imagen */
+.sf .ov {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Texto a la izquierda → fondo sólido izquierda, se desvanece a la derecha */
+.ov-l {
+  background: linear-gradient(
+    90deg,
+    rgba(7,24,37,1) 0%,
+    rgba(7,24,37,1) 38%,
+    rgba(7,24,37,0.88) 50%,
+    rgba(7,24,37,0.4) 68%,
+    rgba(7,24,37,0.05) 85%,
+    transparent 100%
+  );
+}
+
+/* Texto a la derecha → fondo sólido derecha, se desvanece a la izquierda */
+.ov-r {
+  background: linear-gradient(
+    270deg,
+    rgba(7,24,37,1) 0%,
+    rgba(7,24,37,1) 38%,
+    rgba(7,24,37,0.88) 50%,
+    rgba(7,24,37,0.4) 68%,
+    rgba(7,24,37,0.05) 85%,
+    transparent 100%
+  );
+}
+
+/* Texto arriba → fondo sólido arriba, imagen visible abajo */
+.ov-t {
+  background: linear-gradient(
+    180deg,
+    rgba(7,24,37,0.97) 0%,
+    rgba(7,24,37,0.92) 28%,
+    rgba(7,24,37,0.55) 50%,
+    rgba(7,24,37,0.2) 72%,
+    transparent 100%
+  );
+}
+
+/* Contenido */
+.sc {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: calc(var(--nav-h) + 48px) 2.5rem 72px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Texto izquierda — ocupa 45% de la pantalla */
+.sc-l {
+  align-items: flex-start;
+  max-width: 48%;
+  padding-left: 5%;
+}
+
+/* Texto derecha — ocupa 45% de la pantalla */
+.sc-r {
+  align-items: flex-start;
+  max-width: 48%;
+  margin-left: auto;
+  padding-right: 5%;
+}
+
+/* Texto centro */
+.sc-c {
+  align-items: center;
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* Texto arriba centrado */
+.sc-top {
+  align-items: center;
+  text-align: center;
+  max-width: 740px;
+  margin: 0 auto;
+  padding-top: calc(var(--nav-h) + 52px);
+  padding-bottom: 48px;
+}
+
+/* ══ TIPOGRAFÍA ══ */
+.ey {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--turq-light);
+  margin-bottom: 14px;
+  display: block;
+}
+
+.h1 {
+  font-size: clamp(38px, 5.2vw, 66px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -1.8px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+.h1 em { font-style: normal; color: var(--turquesa); }
+
+.h2 {
+  font-size: clamp(32px, 4.2vw, 54px);
+  font-weight: 800;
+  line-height: 1.07;
+  letter-spacing: -1.2px;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.h2-lg {
+  font-size: clamp(34px, 4.6vw, 58px);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -1.4px;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.sub {
+  font-size: clamp(15px, 1.8vw, 18px);
+  color: rgba(255,255,255,0.65);
+  line-height: 1.65;
+  margin-bottom: 28px;
+  max-width: 500px;
+}
+
+.fl {
+  list-style: none;
+  margin-bottom: 28px;
+  width: 100%;
+}
+.fl li {
+  font-size: 15px;
+  color: rgba(255,255,255,0.78);
+  padding: 8px 0 8px 26px;
+  position: relative;
+  border-bottom: 1px solid rgba(255,255,255,0.09);
+}
+.fl li:last-child { border-bottom: none; }
+.fl li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--turquesa);
+  font-weight: 800;
+  font-size: 13px;
+  top: 9px;
+}
+
+.br { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.bp {
+  background: var(--turquesa);
+  color: #fff;
+  padding: 13px 26px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.1s;
+}
+.bp:hover { background: #178f68; transform: translateY(-1px); }
+
+.bg-btn {
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.22);
+  padding: 13px 26px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.bg-btn:hover { background: rgba(255,255,255,0.16); }
+
+/* ══ FLECHA SCROLL — muy visible ══ */
+.arrow {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  animation: arrowBounce 1.8s ease-in-out infinite;
+}
+
+@keyframes arrowBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.9; }
+  50% { transform: translateX(-50%) translateY(10px); opacity: 1; }
+}
+
+.arrow svg {
+  display: block;
+  filter: drop-shadow(0 0 8px rgba(29,158,117,0.9));
+}
+
+/* ══ S1 HERO ══ */
+#hero { background: var(--bg); }
+
+/* ══ S2 CÓMO FUNCIONA ══ */
+#flujo { background: linear-gradient(180deg, #071825 0%, #0B3348 100%); }
+
+.flujo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 52px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.fc {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 20px;
+  padding: 36px 24px;
+  text-align: center;
+  position: relative;
+  animation: fcPulse 4s ease-in-out infinite;
+}
+
+.fc:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  right: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--turquesa);
+  font-size: 22px;
+  font-weight: 800;
+  opacity: 0.7;
+  text-shadow: 0 0 10px rgba(29,158,117,0.5);
+}
+
+.fc:nth-child(1) { animation-delay: 0s; }
+.fc:nth-child(2) { animation-delay: 0.8s; }
+.fc:nth-child(3) { animation-delay: 1.6s; }
+.fc:nth-child(4) { animation-delay: 2.4s; }
+
+@keyframes fcPulse {
+  0%, 100% { border-color: rgba(255,255,255,0.14); background: rgba(255,255,255,0.06); }
+  50% { border-color: rgba(29,158,117,0.7); background: rgba(29,158,117,0.12); }
+}
+
+.fc-icon { font-size: 44px; margin-bottom: 18px; }
+.fc-name { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+.fc-desc { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.55; }
+
+/* ══ SECCIONES SIN IMAGEN FULL ══ */
+.sec-plain {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 2.5rem;
+  scroll-margin-top: var(--nav-h);
+  position: relative;
+}
+
+/* Oportunidad */
+#oportunidad { background: linear-gradient(180deg, #0a2030 0%, #071825 100%); }
+
+.opor-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 44px;
+  width: 100%;
+  max-width: 1100px;
+}
+
+.oc {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 28px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.oc-icon {
+  width: 44px; height: 44px;
+  background: rgba(29,158,117,0.15);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.oc h3 { font-size: 15px; font-weight: 700; color: #fff; }
+.oc p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+/* ══ PRICING ══ */
+#pricing {
+  background: linear-gradient(180deg, #071825 0%, #0B3348 100%);
+}
+
+.pricing-box {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 22px;
+  padding: 44px 40px;
+  max-width: 460px;
+  width: 100%;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.pricing-box label {
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.8);
+  display: block;
+  margin-bottom: 24px;
+}
+
+.pi {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.pi input {
+  width: 110px;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 800;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 12px;
+  padding: 10px;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+  -moz-appearance: textfield;
+}
+.pi input::-webkit-inner-spin-button,
+.pi input::-webkit-outer-spin-button { -webkit-appearance: none; }
+.pi input:focus { border-color: var(--turquesa); }
+
+.pi button {
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  font-size: 24px;
+  cursor: pointer;
+  color: #fff;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s;
+  line-height: 1;
+}
+.pi button:hover { background: var(--turquesa); border-color: var(--turquesa); }
+
+.pr {
+  background: rgba(29,158,117,0.12);
+  border: 1px solid rgba(29,158,117,0.3);
+  border-radius: 14px;
+  padding: 26px;
+  margin-bottom: 20px;
+}
+
+.pr-label { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.4); margin-bottom: 8px; letter-spacing: 0.1em; text-transform: uppercase; }
+.pr-price { font-size: 60px; font-weight: 800; color: #fff; letter-spacing: -2px; line-height: 1; }
+.pr-price span { font-size: 22px; font-weight: 400; opacity: 0.6; letter-spacing: 0; }
+.pr-per { font-size: 14px; color: rgba(255,255,255,0.45); margin-top: 8px; }
+
+.pr-note { font-size: 13px; color: rgba(255,255,255,0.35); line-height: 1.7; margin-bottom: 4px; }
+
+.pr-btn {
+  display: inline-block;
+  margin-top: 18px;
+  background: var(--turquesa);
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.pr-btn:hover { background: #178f68; }
+
+/* ══ PARA QUIÉN ══ */
+#paraquien {
+  background: #071825;
+}
+
+.pq-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 44px;
+  width: 100%;
+  max-width: 1100px;
+}
+
+.pqc {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 28px 22px;
+  text-align: center;
+}
+
+.pqc-icon { font-size: 36px; margin-bottom: 14px; }
+.pqc h3 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.pqc p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+/* ══ CONTACTO ══ */
+#contacto {
+  background: linear-gradient(180deg, #071825 0%, #041018 100%);
+  padding: 100px 2.5rem;
+  text-align: center;
+  scroll-margin-top: var(--nav-h);
+}
+
+.cf {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 22px;
+  padding: 40px 36px;
+  max-width: 520px;
+  margin: 40px auto 0;
+  text-align: left;
+}
+
+.cf-title { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 24px; text-align: center; }
+
+.fr2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.ff { margin-bottom: 12px; }
+
+.ff label {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.4);
+  display: block;
+  margin-bottom: 5px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.ff input, .ff select {
+  width: 100%;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 8px;
+  padding: 11px 13px;
+  font-size: 14px;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.ff input::placeholder { color: rgba(255,255,255,0.28); }
+.ff input:focus, .ff select:focus { border-color: var(--turquesa); }
+
+.fs {
+  width: 100%;
+  background: var(--turquesa);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s;
+}
+.fs:hover { background: #178f68; }
+
+.fp { font-size: 11px; color: rgba(255,255,255,0.28); text-align: center; margin-top: 12px; line-height: 1.55; }
+
+/* ══ FOOTER ══ */
+footer {
+  background: #020c14;
+  padding: 28px 2.5rem;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+footer p { font-size: 13px; color: rgba(255,255,255,0.3); }
+footer strong { color: rgba(255,255,255,0.6); }
+footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
+
+/* ══ WHATSAPP ══ */
+.wa {
+  position: fixed;
+  bottom: 28px; right: 28px;
+  z-index: 999;
+  background: #25D366;
+  color: #fff;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-size: 26px;
+}
+.wa:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.6); }
+
+.wa-tip {
+  position: absolute;
+  right: 64px;
+  background: rgba(4,16,24,0.97);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  padding: 7px 13px;
+  border-radius: 8px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.wa:hover .wa-tip { opacity: 1; }
+
+/* ══ RESPONSIVE ══ */
+@media (max-width: 1024px) {
+  .flujo-grid { grid-template-columns: repeat(2, 1fr); }
+  .fc:not(:last-child)::after { display: none; }
+  .opor-grid, .pq-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .sc-l, .sc-r {
+    max-width: 90%;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    margin: 0 auto;
+    align-items: center;
+    text-align: center;
+  }
+  .sc-r { margin-left: auto; margin-right: auto; }
+  .fl li { text-align: left; }
+  .br { justify-content: center; }
+  .ov-l, .ov-r {
+    background: linear-gradient(180deg,
+      rgba(7,24,37,0.95) 0%,
+      rgba(7,24,37,0.88) 35%,
+      rgba(7,24,37,0.65) 65%,
+      rgba(7,24,37,0.9) 100%
+    );
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  nav { padding: 0 1.25rem; }
+  .fr2 { grid-template-columns: 1fr; }
+  .pricing-box { padding: 28px 20px; }
+  .cf { padding: 24px 16px; }
+  .sec-plain { padding: 60px 1.5rem; }
+  #contacto { padding: 70px 1.5rem; }
+}
+
+@media (max-width: 600px) {
+  :root { --nav-h: 56px; }
+  .sc { padding: calc(var(--nav-h) + 32px) 1.25rem 56px; }
+  .sc-top { padding-top: calc(var(--nav-h) + 36px); }
+  .h1 { font-size: clamp(32px, 9vw, 44px); }
+  .h2 { font-size: clamp(26px, 8vw, 38px); }
+  .h2-lg { font-size: clamp(28px, 9vw, 40px); }
+  .sub { font-size: 15px; max-width: 100%; }
+  .flujo-grid { grid-template-columns: 1fr; gap: 14px; }
+  .fc { padding: 26px 20px; }
+  .fc-icon { font-size: 36px; }
+  .opor-grid, .pq-grid { grid-template-columns: 1fr; }
+  .sec-plain { padding: 52px 1.25rem; min-height: 100vh; }
+  .wa { bottom: 20px; right: 20px; width: 50px; height: 50px; font-size: 22px; }
+  .pr-price { font-size: 48px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Gest<span>Aqua</span></a>
+  <div class="nav-links">
+    <a href="#flujo">Cómo funciona</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#socios">Socios</a>
+    <a href="#calendario">Calendario</a>
+    <a href="#cobros">Cobros</a>
+    <a href="#cobro">Cobro auto</a>
+    <a href="#app-socio">App socio</a>
+    <a href="#pricing">Precio</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+  <a href="#contacto" class="nav-cta">Solicitar demo</a>
+</nav>
+
+<!-- ══ S1 HERO ══ -->
+<section class="sf" id="hero">
+  <img src="gestaqua-dashboard.png" class="bg" style="object-position:right center;" alt="" />
+  <div class="ov ov-l"></div>
+  <div class="sc sc-l">
+    <span class="ey">Gestión digital para comunidades de regantes</span>
+    <h1 class="h1">¿Seguís gestionando<br>el riego <em>por WhatsApp<br>y papel?</em></h1>
+    <p class="sub">GestAqua digitaliza la gestión completa de tu comunidad. Socios, turnos, cuotas y cobros — todo en un solo lugar, desde el móvil.</p>
+    <div class="br">
+      <a href="#contacto" class="bp">Solicitar demo gratuita</a>
+      <a href="#flujo" class="bg-btn">Ver cómo funciona</a>
+    </div>
+  </div>
+  <a href="#flujo" class="arrow">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    Descubre más
+  </a>
+</section>
+
+<!-- ══ S2 CÓMO FUNCIONA ══ -->
+<section class="sf" id="flujo" style="background:linear-gradient(180deg,#071825 0%,#0B3348 100%);">
+  <div class="sc sc-c">
+    <span class="ey">Cómo funciona</span>
+    <h2 class="h2-lg">El cobro automático,<br>paso a paso</h2>
+    <p class="sub" style="margin:0 auto 0;max-width:620px;">Introduces la lectura del contador — GestAqua calcula, cobra y envía el recibo al socio. Sin intervención manual. Sin perseguir pagos.</p>
+    <div class="flujo-grid">
+      <div class="fc">
+        <div class="fc-icon">📋</div>
+        <div class="fc-name">Lectura</div>
+        <div class="fc-desc">Introduces los m³ consumidos desde tablet o móvil, directamente en el campo</div>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">🧮</div>
+        <div class="fc-name">Cálculo</div>
+        <div class="fc-desc">El importe se calcula al instante según la tarifa configurada por la comunidad</div>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">💳</div>
+        <div class="fc-name">Cobro</div>
+        <div class="fc-desc">Cargo automático en la cuenta del socio sin ninguna intervención manual</div>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">🧾</div>
+        <div class="fc-name">Recibo</div>
+        <div class="fc-desc">PDF generado y enviado al socio al instante en su app del móvil</div>
+      </div>
+    </div>
+  </div>
+  <a href="#dashboard" class="arrow">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    Siguiente
+  </a>
+</section>
+
+<!-- ══ S3 DASHBOARD ══ -->
+<section class="sf" id="dashboard" style="background:#071825;">
+  <img src="gestaqua-dashboard.png" class="bg" style="object-position:right center;" alt="" />
+  <div class="ov ov-l"></div>
+  <div class="sc sc-l">
+    <span class="ey">Dashboard principal</span>
+    <h2 class="h2">Tu comunidad<br>de un vistazo</h2>
+    <p class="sub">En cuanto entras, ya sabes qué pasa. Socios activos, cobros del mes, próximo turno y alertas — todo en una pantalla.</p>
+    <ul class="fl">
+      <li>Métricas clave en tiempo real</li>
+      <li>Alertas de cobros fallidos y lecturas pendientes</li>
+      <li>Últimos movimientos de la comunidad</li>
+      <li>Acceso rápido a todos los módulos</li>
+      <li>Disponible en web, tablet y móvil</li>
+    </ul>
+    <div class="br"><a href="#contacto" class="bp">Solicitar demo</a></div>
+  </div>
+  <a href="#socios" class="arrow">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    Siguiente
+  </a>
+</section>
+
+<!-- ══ S4 SOCIOS ══ -->
+<section class="sf" id="socios" style="background:#07202f;">
+  <img src="gestaqua-socios.png" class="bg" style="object-position:left center;" alt="" />
+  <div class="ov ov-r"></div>
+  <div class="sc sc-r">
+    <span class="ey">Gestión de socios</span>
+    <h2 class="h2">Altas, bajas<br>y cambios<br>en segundos</h2>
+    <p class="sub">Toda la información de cada socio y sus parcelas en un solo lugar. Sin papeles, sin Excel.</p>
+    <ul class="fl">
+      <li>Alta, baja y cambio de titularidad con historial</li>
+      <li>Cuenta bancaria vinculada para cobro automático</li>
+      <li>Parcelas con referencia catastral y cultivo</li>
+      <li>Exportación del padrón de socios</li>
+    </ul>
+    <div class="br"><a href="#contacto" class="bp">Solicitar demo</a></div>
+  </div>
+  <a href="#calendario" class="arrow">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    Siguiente
+  </a>
+</section>
+
+<!-- ══ S5 CALENDARIO ══ -->
+<section class="sf" id="calendario" style="background:#071825;">
+  <img src="gestaqua-calendario.png" class="bg" style="object-position:right center;" alt="" />
+  <div class="ov ov-l"></div>
+  <div class="sc sc-l">
+    <span class="ey">Calendario de riegos</span>
+    <h2 class="h2">Fin a los PDFs<br>por WhatsApp</h2>
+    <p class="sub">El gestor publica el calendario y cada socio recibe su turno en la app al instante. Sin grupos, sin confusión.</p>
+    <ul class="fl">
+      <li>Vista mensual con turnos por sector y parcela</li>
+      <li>Notificación automática al socio de su turno</li>
+      <li>Visible desde el móvil del socio en tiempo real</li>
+      <li>Cambios publicados al instante</li>
+    </ul>
+    <div class="br"><a href="#contacto" class="bp">Solicitar demo</a></div>
+  </div>
+  <a href="#cobros" class="arrow">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    Siguiente
+  </a>
+</section>
+
+<!-- ══ S6 COBROS ══ -->
+<!-- Imagen a la izquierda → texto a la derecha -->
+<section class="sf" id="cobros" style="background:#07202f;">
+  <img src="gestaqua-cobros.png" class="bg" style="object-position:left center;" alt="" />
+  <div class="ov ov-r"></div>
+  <div class="sc sc-r">
+    <span class="ey">Panel de cobros</span>
+    <h2 class="h2">Control total<br>de la tesorería</h2>
+    <p class="sub">De un vistazo: qué se ha cobrado, qué está pendiente y qué tiene incidencia. Con filtros y exportación para la asesoría.</p>
+    <ul class="fl">
+      <li>Resumen de cobrado, pendiente e incidencias</li>
+      <li>Listado completo filtrable por socio y periodo</li>
+      <li>Exportación contable para asesoría</li>
+      <li>Trazabilidad completa de cada cobro</li>
+    </ul>
+    <div class="br"><a href="#contacto" class="bp">Solicitar demo</a></div>
+  </div>
+  <a href="#cobro" class="arrow">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    Siguiente
+  </a>
+</section>
+
+<!-- ══ S7 COBRO AUTOMÁTICO ══ -->
+<section class="sf" id="cobro" style="background:#061520;">
+  <img src="gestaqua-lectura.png" class="bg" style="object-position:right center;" alt="" />
+  <div class="ov ov-l"></div>
+  <div class="sc sc-l">
+    <span class="ey">Diferenciador exclusivo</span>
+    <h2 class="h2">Introduces<br>la lectura.<br>El dinero ya<br>está en la cuenta.</h2>
+    <p class="sub">El gestor configura el ciclo una vez. La app cobra, genera el recibo y lo envía al socio — sin intervención.</p>
+    <ul class="fl">
+      <li>El socio autoriza el cobro una sola vez al darse de alta</li>
+      <li>Ciclo configurable: inmediato, semanal o mensual</li>
+      <li>Recibo generado y enviado al instante</li>
+      <li>Optimizado para tablet y móvil en campo</li>
+    </ul>
+    <div class="br"><a href="#contacto" class="bp">Solicitar demo</a></div>
+  </div>
+  <a href="#app-socio" class="arrow">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    Siguiente
+  </a>
+</section>
+
+<!-- ══ S8 APP SOCIO ══ -->
+<!-- Texto arriba, imagen cubre fondo -->
+<section class="sf" id="app-socio" style="background:#0a2030; align-items:flex-start;">
+  <img src="gestaqua-app-home.png" class="bg" style="object-position:center center;" alt="" />
+  <div class="ov ov-t"></div>
+  <div class="sc sc-top">
+    <span class="ey">App del socio</span>
+    <h2 class="h2" style="text-align:center;">Lo que ve tu socio<br>desde el móvil</h2>
+    <p class="sub" style="text-align:center;margin:0 auto 28px;max-width:580px;">Turno de riego, recibos, avisos y documentos. Todo limpio y sencillo. El regante encuentra lo que necesita sin llamar al presidente.</p>
+    <div class="br" style="justify-content:center;">
+      <a href="#contacto" class="bp">Solicitar demo gratuita</a>
+      <a href="#pricing" class="bg-btn">Ver precio</a>
+    </div>
+  </div>
+  <a href="#oportunidad" class="arrow">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    Siguiente
+  </a>
+</section>
+
+<!-- ══ POR QUÉ GESTAQUA ══ -->
+<section class="sec-plain" id="oportunidad">
+  <span class="ey" style="text-align:center;">Por qué GestAqua</span>
+  <h2 class="h2" style="text-align:center;max-width:700px;margin:0 auto 12px;">Gestionar una comunidad<br>merece mejores herramientas</h2>
+  <p style="font-size:17px;color:rgba(255,255,255,0.55);max-width:560px;text-align:center;line-height:1.65;">Quienes llevan una comunidad dedican tiempo y esfuerzo voluntario. GestAqua existe para que ese trabajo se note donde importa.</p>
+  <div class="opor-grid">
+    <div class="oc">
+      <div class="oc-icon">📱</div>
+      <h3>El turno, siempre claro</h3>
+      <p>Cada socio ve su turno desde el móvil. Sin PDFs por WhatsApp, sin llamadas para confirmarlo.</p>
+    </div>
+    <div class="oc">
+      <div class="oc-icon">✅</div>
+      <h3>Cobros automáticos</h3>
+      <p>El gestor configura el ciclo una vez. A partir de ahí el sistema trabaja solo con total trazabilidad.</p>
+    </div>
+    <div class="oc">
+      <div class="oc-icon">📁</div>
+      <h3>Documentación en orden</h3>
+      <p>Actas, ordenanzas y formularios accesibles desde cualquier dispositivo, en cualquier momento.</p>
+    </div>
+    <div class="oc">
+      <div class="oc-icon">📲</div>
+      <h3>El socio, siempre informado</h3>
+      <p>Turnos, recibos y avisos en la app. Sin llamadas al presidente ni mensajes por WhatsApp.</p>
+    </div>
+  </div>
+  <a href="#pricing" class="arrow" style="position:relative;bottom:auto;left:auto;transform:none;margin-top:44px;animation:none;opacity:0.85;">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    Ver precio
+  </a>
+</section>
+
+<!-- ══ PRICING ══ -->
+<section class="sec-plain" id="pricing">
+  <span class="ey" style="text-align:center;">Precio justo</span>
+  <h2 class="h2" style="text-align:center;max-width:640px;margin:0 auto 12px;">Pagas según el tamaño<br>de tu comunidad</h2>
+  <p style="font-size:17px;color:rgba(255,255,255,0.55);max-width:480px;text-align:center;line-height:1.65;">Sin sorpresas. Sin letra pequeña. Cada comunidad paga exactamente lo que le corresponde.</p>
+
+  <div class="pricing-box">
+    <label>¿Cuántos socios tiene tu comunidad?</label>
+    <div class="pi">
+      <button onclick="cambiarSocios(-5)" aria-label="Reducir 5 socios">−</button>
+      <input type="number" id="nsocios" value="80" min="5" max="2000" oninput="calcular()" readonly />
+      <button onclick="cambiarSocios(5)" aria-label="Aumentar 5 socios">+</button>
+    </div>
+    <div class="pr">
+      <p class="pr-label">Precio mensual</p>
+      <p class="pr-price" id="precio-display">40<span>€/mes</span></p>
+      <p class="pr-per" id="precio-detalle">0,50 € × 80 socios</p>
+    </div>
+    <p class="pr-note">30 días de prueba gratuita · Sin permanencia · Cancela cuando quieras<br>Activa tu plan cuando estés listo — sin compromisos.</p>
+    <a href="#contacto" class="pr-btn">Empezar prueba gratuita</a>
+  </div>
+
+  <a href="#paraquien" class="arrow" style="position:relative;bottom:auto;left:auto;transform:none;margin-top:44px;animation:none;opacity:0.85;">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    ¿Para quién es GestAqua?
+  </a>
+</section>
+
+<!-- ══ PARA QUIÉN ══ -->
+<section class="sec-plain" id="paraquien">
+  <span class="ey" style="text-align:center;">¿Para quién es GestAqua?</span>
+  <h2 class="h2" style="text-align:center;max-width:700px;margin:0 auto 0;">Para las comunidades que<br>llevan años sin herramientas</h2>
+  <div class="pq-grid">
+    <div class="pqc">
+      <div class="pqc-icon">🌾</div>
+      <h3>Comunidades pequeñas</h3>
+      <p>De 20 a 200 socios. Las que funcionan por WhatsApp y necesitan dar el salto sin complicarse.</p>
+    </div>
+    <div class="pqc">
+      <div class="pqc-icon">🏘️</div>
+      <h3>Comunidades medianas</h3>
+      <p>De 200 a 800 socios. Las que ya tienen algo pero necesitan una solución moderna e integrada.</p>
+    </div>
+    <div class="pqc">
+      <div class="pqc-icon">📋</div>
+      <h3>Presidentes y secretarios</h3>
+      <p>Que dedican horas a llamadas y hojas de cálculo que pueden automatizarse por completo.</p>
+    </div>
+    <div class="pqc">
+      <div class="pqc-icon">🤝</div>
+      <h3>Asesorías y gestorías</h3>
+      <p>Que gestionan comunidades y necesitan una herramienta profesional para sus clientes.</p>
+    </div>
+  </div>
+  <a href="#contacto" class="arrow" style="position:relative;bottom:auto;left:auto;transform:none;margin-top:44px;animation:none;opacity:0.85;">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    Solicitar demo
+  </a>
+</section>
+
+<!-- ══ CONTACTO ══ -->
+<section id="contacto">
+  <span class="ey" style="display:block;text-align:center;margin-bottom:14px;">Contacto</span>
+  <h2 class="h2" style="text-align:center;max-width:700px;margin:0 auto 14px;">Empieza a gestionar tu comunidad<br>de forma profesional</h2>
+  <p style="font-size:17px;color:rgba(255,255,255,0.55);text-align:center;max-width:500px;margin:0 auto;line-height:1.65;">30 días de prueba gratuita. Te ayudamos a configurarlo todo desde el primer día.</p>
+  <div class="cf">
+    <p class="cf-title">Solicita tu demo gratuita</p>
+    <form action="https://formspree.io/f/XXXXXXXX" method="POST">
+      <div class="fr2">
+        <div class="ff">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+        </div>
+        <div class="ff">
+          <label for="telefono">Teléfono</label>
+          <input type="tel" id="telefono" name="telefono" placeholder="+34 600 000 000" required />
+        </div>
+      </div>
+      <div class="ff">
+        <label for="comunidad">Nombre de la comunidad</label>
+        <input type="text" id="comunidad" name="comunidad" placeholder="Comunidad de Regantes de..." required />
+      </div>
+      <div class="fr2">
+        <div class="ff">
+          <label for="numsocios">Nº de socios</label>
+          <input type="number" id="numsocios" name="socios" placeholder="Ej: 120" min="1" />
+        </div>
+        <div class="ff">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="tu@email.es" required />
+        </div>
+      </div>
+      <input type="hidden" name="_subject" value="Nueva solicitud demo — GestAqua" />
+      <button type="submit" class="fs">Enviar solicitud</button>
+      <p class="fp">Tus datos se usan únicamente para contactarte sobre GestAqua. Sin spam.</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>GestAqua</strong> — Gestión digital para comunidades de regantes · <strong>JB Marketing & Events</strong> · <a href="https://jbmarketing.es">jbmarketing.es</a></p>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/34615613366?text=Hola%2C%20me%20interesa%20GestAqua%20para%20mi%20comunidad%20de%20regantes.%20%C2%BFPodemos%20hablar%3F" class="wa" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <span class="wa-tip">¿Hablamos por WhatsApp?</span>
+  💬
+</a>
+
+<script>
+  function calcular() {
+    const input = document.getElementById('nsocios');
+    const socios = Math.max(5, Math.min(2000, parseInt(input.value) || 5));
+    input.value = socios;
+    const precio = Math.round(socios * 0.50);
+    document.getElementById('precio-display').innerHTML = precio + '<span>€/mes</span>';
+    document.getElementById('precio-detalle').textContent = '0,50 € × ' + socios + ' socios';
+  }
+
+  function cambiarSocios(delta) {
+    const input = document.getElementById('nsocios');
+    const actual = parseInt(input.value) || 80;
+    input.value = Math.max(5, Math.min(2000, actual + delta));
+    calcular();
+  }
+
+  calcular();
+</script>
+</body>
+</html>
