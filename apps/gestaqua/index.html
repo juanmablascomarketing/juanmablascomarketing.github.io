@@ -36,7 +36,8 @@ nav {
 
 /* ══ SECCIONES CON IMAGEN FULL HEIGHT ══ */
 .sf {
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 600px;
   position: relative;
   display: flex;
   align-items: center;
@@ -89,7 +90,7 @@ nav {
 .sc {
   position: relative; z-index: 2;
   width: 100%;
-  padding: calc(var(--nav-h) + 20px) 2.5rem 80px;
+  padding: calc(var(--nav-h) + 8px) 2.5rem 60px;
   display: flex; flex-direction: column;
 }
 
@@ -103,7 +104,7 @@ nav {
 .sc-top {
   align-items: center; text-align: center;
   max-width: 700px; margin: 0 auto;
-  padding-top: calc(var(--nav-h) + 32px);
+  padding-top: calc(var(--nav-h) + 16px);
   padding-bottom: 40px;
   justify-content: flex-start;
 }
@@ -138,23 +139,22 @@ nav {
 .bg-btn { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.22); padding: 13px 26px; border-radius: 10px; font-size: 15px; font-weight: 500; text-decoration: none; transition: background 0.2s; }
 .bg-btn:hover { background: rgba(255,255,255,0.16); }
 
-/* ══ FLECHA SCROLL — grande y muy visible ══ */
+/* ══ FLECHA SCROLL ══ */
 .arrow {
   position: absolute;
-  bottom: 24px; left: 50%;
+  bottom: 20px; left: 50%;
   transform: translateX(-50%);
-  z-index: 50;
+  z-index: 100;
   display: flex; flex-direction: column; align-items: center; gap: 4px;
   text-decoration: none; color: #fff;
   font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
   animation: ab 1.8s ease-in-out infinite;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
 }
 @keyframes ab {
   0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.85; }
-  50% { transform: translateX(-50%) translateY(10px); opacity: 1; }
+  50% { transform: translateX(-50%) translateY(8px); opacity: 1; }
 }
-.arrow svg { display: block; filter: drop-shadow(0 0 10px rgba(29,158,117,1)) drop-shadow(0 2px 6px rgba(0,0,0,0.9)); }
+.arrow svg { display: block; filter: drop-shadow(0 0 8px rgba(29,158,117,0.9)); }
 
 /* ══ CÓMO FUNCIONA ══ */
 .flujo-grid {
@@ -185,12 +185,14 @@ nav {
 
 /* ══ SECCIONES SIN IMAGEN (rectangulares, altura suficiente) ══ */
 .sec-box {
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 600px;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   padding: 60px 2.5rem;
   scroll-margin-top: var(--nav-h);
   position: relative;
   text-align: center;
+  overflow: hidden;
 }
 
 /* Oportunidad */
@@ -257,11 +259,13 @@ nav {
 /* Contacto — rectangular, todo visible */
 #contacto {
   background: linear-gradient(180deg, #071825 0%, #041018 100%);
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 600px;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   padding: 60px 2.5rem;
   scroll-margin-top: var(--nav-h);
   text-align: center;
+  overflow: hidden;
 }
 .cf {
   background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
@@ -457,11 +461,11 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
   </a>
 </section>
 
-<!-- ══ S6 COBROS — imagen izquierda, texto derecha ══ -->
+<!-- ══ S6 COBROS — imagen derecha, texto izquierda ══ -->
 <section class="sf" id="cobros" style="background:#07202f;">
-  <img src="gestaqua-cobros.png" class="bg" style="object-position:left center;" alt="" />
-  <div class="ov-r"></div>
-  <div class="sc sc-r">
+  <img src="gestaqua-cobros.png" class="bg" style="object-position:right center;" alt="" />
+  <div class="ov-l"></div>
+  <div class="sc sc-l">
     <span class="ey">Panel de cobros</span>
     <h2 class="h2">Control total<br>de la tesorería</h2>
     <p class="sub">De un vistazo: qué se ha cobrado, qué está pendiente y qué tiene incidencia. Con filtros y exportación para la asesoría.</p>
