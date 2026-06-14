@@ -45,9 +45,7 @@ nav {
 }
 
 .sf .bg {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover; z-index: 0;
+  display: none; /* no usamos img tag, usamos background-image en cada sección */
 }
 
 /* Overlays — zona del texto sólida, imagen visible en la otra mitad */
@@ -150,7 +148,14 @@ nav {
 }
 .arrow svg { filter: drop-shadow(0 0 6px rgba(29,158,117,0.8)); }
 
-/* ══ CÓMO FUNCIONA ══ */
+/* Backgrounds por sección — respetan el diseño 1920x1080 de cada PNG */
+#hero      { background-image: url('gestaqua-dashboard.png'); background-size: cover; background-position: center center; }
+#dashboard { background-image: url('gestaqua-dashboard.png'); background-size: cover; background-position: center center; }
+#socios    { background-image: url('gestaqua-socios.png');    background-size: cover; background-position: center center; }
+#calendario{ background-image: url('gestaqua-calendario.png');background-size: cover; background-position: center center; }
+#cobros    { background-image: url('gestaqua-cobros.png');    background-size: cover; background-position: center center; }
+#cobro     { background-image: url('gestaqua-lectura.png');   background-size: cover; background-position: center center; }
+#app-socio { background-image: url('gestaqua-app-home.png');  background-size: cover; background-position: center center; }
 .flujo-grid {
   display: grid; grid-template-columns: repeat(4,1fr); gap: 14px;
   margin-top: 28px; width: 100%; max-width: 960px;
@@ -338,7 +343,6 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
 
 <!-- ══ S1 HERO ══ -->
 <section class="sf" id="hero">
-  <img src="gestaqua-dashboard.png" class="bg" style="object-position:right center;" alt="" />
   <div class="ov-l"></div>
   <div class="sc sc-l">
     <span class="ey">Gestión digital para comunidades de regantes</span>
@@ -375,8 +379,7 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
 </section>
 
 <!-- ══ S3 DASHBOARD ══ -->
-<section class="sf" id="dashboard" style="background:#071825;">
-  <img src="gestaqua-dashboard.png" class="bg" style="object-position:right center;" alt="" />
+<section class="sf" id="dashboard">
   <div class="ov-l"></div>
   <div class="sc sc-l">
     <span class="ey">Dashboard principal</span>
@@ -398,8 +401,7 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
 </section>
 
 <!-- ══ S4 SOCIOS ══ -->
-<section class="sf" id="socios" style="background:#07202f;">
-  <img src="gestaqua-socios.png" class="bg" style="object-position:left center;" alt="" />
+<section class="sf" id="socios">
   <div class="ov-r"></div>
   <div class="sc sc-r">
     <span class="ey">Gestión de socios</span>
@@ -420,8 +422,7 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
 </section>
 
 <!-- ══ S5 CALENDARIO ══ -->
-<section class="sf" id="calendario" style="background:#071825;">
-  <img src="gestaqua-calendario.png" class="bg" style="object-position:right center;" alt="" />
+<section class="sf" id="calendario">
   <div class="ov-l"></div>
   <div class="sc sc-l">
     <span class="ey">Calendario de riegos</span>
@@ -441,9 +442,8 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
   </a>
 </section>
 
-<!-- ══ S6 COBROS — texto izquierda, imagen derecha ══ -->
-<section class="sf" id="cobros" style="background:#07202f;">
-  <img src="gestaqua-cobros.png" class="bg" style="object-position:right center;" alt="" />
+<!-- ══ S6 COBROS ══ -->
+<section class="sf" id="cobros">
   <div class="ov-l"></div>
   <div class="sc sc-l">
     <span class="ey">Panel de cobros</span>
@@ -463,9 +463,8 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
   </a>
 </section>
 
-<!-- ══ S7 COBRO AUTO — texto izquierda, imagen derecha ══ -->
-<section class="sf" id="cobro" style="background:#061520;">
-  <img src="gestaqua-lectura.png" class="bg" style="object-position:right center;" alt="" />
+<!-- ══ S7 COBRO AUTO ══ -->
+<section class="sf" id="cobro">
   <div class="ov-l"></div>
   <div class="sc sc-l">
     <span class="ey">Diferenciador exclusivo</span>
@@ -486,8 +485,7 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
 </section>
 
 <!-- ══ S8 APP SOCIO ══ -->
-<section class="sf" id="app-socio" style="background:#0a2030; align-items:flex-start;">
-  <img src="gestaqua-app-home.png" class="bg" style="object-position:center center;" alt="" />
+<section class="sf" id="app-socio" style="align-items:flex-start;">
   <div class="ov-t"></div>
   <div class="sc sc-top">
     <span class="ey">App del socio</span>
