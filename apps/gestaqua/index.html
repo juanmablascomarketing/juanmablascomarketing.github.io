@@ -133,20 +133,39 @@ nav {
 .bg-btn { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.22); padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 500; text-decoration: none; transition: background 0.2s; }
 .bg-btn:hover { background: rgba(255,255,255,0.16); }
 
-/* ══ FLECHA — posición absoluta dentro de la sección ══ */
-.arrow {
-  position: absolute; bottom: 18px; left: 50%;
-  transform: translateX(-50%); z-index: 10;
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
-  text-decoration: none; color: rgba(255,255,255,0.85);
-  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+/* ══ FLECHA GLOBAL FIJA ══ */
+.scroll-arrow-global {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  text-decoration: none;
+  color: rgba(255,255,255,0.9);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   animation: ab 2s ease-in-out infinite;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.scroll-arrow-global.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.scroll-arrow-global svg {
+  filter: drop-shadow(0 0 8px rgba(29,158,117,1));
 }
 @keyframes ab {
   0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(7px); }
+  50% { transform: translateX(-50%) translateY(8px); }
 }
-.arrow svg { filter: drop-shadow(0 0 6px rgba(29,158,117,0.8)); }
 
 /* Backgrounds por sección — respetan el diseño 1920x1080 de cada PNG */
 #hero      { background-image: url('gestaqua-dashboard.png'); background-size: cover; background-position: center center; }
@@ -188,15 +207,8 @@ nav {
   position: relative; text-align: center; overflow: hidden;
 }
 
-/* Flecha inline para sec-box */
-.arrow-box {
-  position: absolute; bottom: 18px; left: 50%;
-  transform: translateX(-50%); z-index: 10;
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
-  text-decoration: none; color: rgba(255,255,255,0.85);
-  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  animation: ab 2s ease-in-out infinite;
-}
+/* Flecha inline legacy — oculta, sustituida por flecha global */
+.arrow, .arrow-box { display: none; }
 
 /* Oportunidad */
 #oportunidad { background: linear-gradient(180deg, #0a2030 0%, #071825 100%); }
@@ -465,8 +477,8 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
 
 <!-- ══ S7 COBRO AUTO ══ -->
 <section class="sf" id="cobro">
-  <div class="ov-l"></div>
-  <div class="sc sc-l">
+  <div class="ov-r"></div>
+  <div class="sc sc-r">
     <span class="ey">Diferenciador exclusivo</span>
     <h2 class="h2">Introduces la lectura.<br>El dinero ya<br>está en la cuenta.</h2>
     <p class="sub">El gestor configura el ciclo una vez. La app cobra, genera el recibo y lo envía al socio — sin intervención.</p>
@@ -593,6 +605,12 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
   <span class="wa-tip">¿Hablamos por WhatsApp?</span>💬
 </a>
 
+<!-- FLECHA GLOBAL FIJA -->
+<a href="#flujo" class="scroll-arrow-global visible" id="global-arrow">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+  Siguiente
+</a>
+
 <script>
 function calcular() {
   const input = document.getElementById('nsocios');
@@ -607,6 +625,43 @@ function cambiarSocios(d) {
   calcular();
 }
 calcular();
+
+// Flecha global — detecta sección visible y actualiza destino
+const sections = [
+  { id: 'hero',        next: '#flujo' },
+  { id: 'flujo',       next: '#dashboard' },
+  { id: 'dashboard',   next: '#socios' },
+  { id: 'socios',      next: '#calendario' },
+  { id: 'calendario',  next: '#cobros' },
+  { id: 'cobros',      next: '#cobro' },
+  { id: 'cobro',       next: '#app-socio' },
+  { id: 'app-socio',   next: '#oportunidad' },
+  { id: 'oportunidad', next: '#pricing' },
+  { id: 'pricing',     next: '#paraquien' },
+  { id: 'paraquien',   next: '#contacto' },
+];
+
+const arrow = document.getElementById('global-arrow');
+
+function updateArrow() {
+  const scrollY = window.scrollY + window.innerHeight * 0.5;
+  let current = sections[0];
+  for (const s of sections) {
+    const el = document.getElementById(s.id);
+    if (el && el.offsetTop <= scrollY) current = s;
+  }
+  // Ocultar en la última sección (contacto)
+  const contactoEl = document.getElementById('contacto');
+  if (contactoEl && window.scrollY + window.innerHeight >= contactoEl.offsetTop + 100) {
+    arrow.classList.remove('visible');
+  } else {
+    arrow.href = current.next;
+    arrow.classList.add('visible');
+  }
+}
+
+window.addEventListener('scroll', updateArrow, { passive: true });
+updateArrow();
 </script>
 </body>
 </html>
