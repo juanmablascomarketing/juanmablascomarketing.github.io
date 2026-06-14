@@ -34,10 +34,9 @@ nav {
 .nav-cta { background: var(--turquesa); color: #fff; padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; white-space: nowrap; flex-shrink: 0; transition: background 0.2s; }
 .nav-cta:hover { background: #178f68; }
 
-/* ══ SECCIONES CON IMAGEN FULL HEIGHT ══ */
+/* ══ SECCIONES CON IMAGEN ══ */
 .sf {
-  height: 100vh;
-  min-height: 600px;
+  min-height: 100vh;
   position: relative;
   display: flex;
   align-items: center;
@@ -45,264 +44,247 @@ nav {
   scroll-margin-top: var(--nav-h);
 }
 
-/* Imagen ocupa todo el fondo — SIN overlay de fundido */
 .sf .bg {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover; z-index: 0;
 }
 
-/* Solo un overlay muy sutil para legibilidad del texto — NO funde la imagen */
+/* Overlays — zona del texto sólida, imagen visible en la otra mitad */
 .ov-l {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background: linear-gradient(90deg,
-    rgba(7,24,37,0.92) 0%,
-    rgba(7,24,37,0.88) 30%,
-    rgba(7,24,37,0.5) 48%,
-    rgba(7,24,37,0.08) 62%,
-    transparent 75%
-  );
+    rgba(7,24,37,0.95) 0%, rgba(7,24,37,0.92) 32%,
+    rgba(7,24,37,0.55) 50%, rgba(7,24,37,0.1) 65%, transparent 78%);
 }
-
 .ov-r {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background: linear-gradient(270deg,
-    rgba(7,24,37,0.92) 0%,
-    rgba(7,24,37,0.88) 30%,
-    rgba(7,24,37,0.5) 48%,
-    rgba(7,24,37,0.08) 62%,
-    transparent 75%
-  );
+    rgba(7,24,37,0.95) 0%, rgba(7,24,37,0.92) 32%,
+    rgba(7,24,37,0.55) 50%, rgba(7,24,37,0.1) 65%, transparent 78%);
 }
-
 .ov-t {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background: linear-gradient(180deg,
-    rgba(7,24,37,0.94) 0%,
-    rgba(7,24,37,0.82) 25%,
-    rgba(7,24,37,0.3) 50%,
-    rgba(7,24,37,0.05) 70%,
-    transparent 85%
-  );
+    rgba(7,24,37,0.96) 0%, rgba(7,24,37,0.85) 22%,
+    rgba(7,24,37,0.3) 48%, rgba(7,24,37,0.05) 68%, transparent 82%);
 }
 
-/* Contenido texto sobre imagen */
+/* ══ CONTENIDO — compacto para que todo quepa en viewport ══ */
 .sc {
-  position: relative; z-index: 2;
-  width: 100%;
-  padding: calc(var(--nav-h) + 8px) 2.5rem 60px;
+  position: relative; z-index: 2; width: 100%;
+  /* Padding vertical mínimo: solo lo necesario para no pegar con nav y flecha */
+  padding-top: calc(var(--nav-h) + 16px);
+  padding-bottom: 72px; /* espacio para la flecha */
+  padding-left: 2.5rem; padding-right: 2.5rem;
   display: flex; flex-direction: column;
 }
 
-/* Texto a la izquierda — máximo 44% del ancho */
-.sc-l { align-items: flex-start; max-width: 44%; padding-left: 5%; }
-/* Texto a la derecha */
-.sc-r { align-items: flex-start; max-width: 44%; margin-left: auto; padding-right: 5%; }
-/* Texto centrado */
-.sc-c { align-items: center; text-align: center; max-width: 860px; margin: 0 auto; }
-/* Texto arriba centrado — App socio */
+.sc-l { align-items: flex-start; max-width: 46%; padding-left: 5%; }
+.sc-r { align-items: flex-start; max-width: 46%; margin-left: auto; padding-right: 5%; }
+.sc-c { align-items: center; text-align: center; max-width: 900px; margin: 0 auto; }
 .sc-top {
   align-items: center; text-align: center;
-  max-width: 700px; margin: 0 auto;
+  max-width: 680px; margin: 0 auto;
   padding-top: calc(var(--nav-h) + 16px);
-  padding-bottom: 40px;
-  justify-content: flex-start;
+  padding-bottom: 72px;
 }
 
-/* ══ TIPOGRAFÍA ══ */
-/* Eyebrow — DOBLE de tamaño, muy legible */
+/* ══ TIPOGRAFÍA COMPACTA ══ */
 .ey {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--turq-light);
-  margin-bottom: 16px;
-  display: block;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--turq-light);
+  margin-bottom: 10px; display: block;
 }
 
-.h1 { font-size: clamp(38px, 5.2vw, 66px); font-weight: 800; line-height: 1.05; letter-spacing: -1.8px; color: #fff; margin-bottom: 20px; }
+/* Títulos más pequeños para que quepan con el resto del contenido */
+.h1 {
+  font-size: clamp(28px, 3.8vw, 48px); font-weight: 800;
+  line-height: 1.08; letter-spacing: -1.2px; color: #fff; margin-bottom: 14px;
+}
 .h1 em { font-style: normal; color: var(--turquesa); }
-.h2 { font-size: clamp(32px, 4.2vw, 54px); font-weight: 800; line-height: 1.07; letter-spacing: -1.2px; color: #fff; margin-bottom: 16px; }
-.h2-lg { font-size: clamp(34px, 4.6vw, 58px); font-weight: 800; line-height: 1.06; letter-spacing: -1.4px; color: #fff; margin-bottom: 16px; }
 
-.sub { font-size: clamp(15px, 1.8vw, 18px); color: rgba(255,255,255,0.65); line-height: 1.65; margin-bottom: 28px; max-width: 500px; }
+.h2 {
+  font-size: clamp(24px, 3.2vw, 42px); font-weight: 800;
+  line-height: 1.1; letter-spacing: -1px; color: #fff; margin-bottom: 12px;
+}
 
-.fl { list-style: none; margin-bottom: 28px; width: 100%; }
-.fl li { font-size: 15px; color: rgba(255,255,255,0.78); padding: 8px 0 8px 26px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.09); }
+.h2-lg {
+  font-size: clamp(26px, 3.5vw, 46px); font-weight: 800;
+  line-height: 1.08; letter-spacing: -1.1px; color: #fff; margin-bottom: 12px;
+}
+
+.sub {
+  font-size: clamp(13px, 1.4vw, 15px); color: rgba(255,255,255,0.65);
+  line-height: 1.6; margin-bottom: 18px; max-width: 460px;
+}
+
+/* Lista compacta */
+.fl { list-style: none; margin-bottom: 20px; width: 100%; }
+.fl li {
+  font-size: 13px; color: rgba(255,255,255,0.78);
+  padding: 5px 0 5px 22px; position: relative;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
 .fl li:last-child { border-bottom: none; }
-.fl li::before { content: '✓'; position: absolute; left: 0; color: var(--turquesa); font-weight: 800; font-size: 13px; top: 9px; }
+.fl li::before { content: '✓'; position: absolute; left: 0; color: var(--turquesa); font-weight: 800; font-size: 12px; top: 6px; }
 
-.br { display: flex; gap: 12px; flex-wrap: wrap; }
-.bp { background: var(--turquesa); color: #fff; padding: 13px 26px; border-radius: 10px; font-size: 15px; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.1s; }
-.bp:hover { background: #178f68; transform: translateY(-1px); }
-.bg-btn { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.22); padding: 13px 26px; border-radius: 10px; font-size: 15px; font-weight: 500; text-decoration: none; transition: background 0.2s; }
+.br { display: flex; gap: 10px; flex-wrap: wrap; }
+.bp { background: var(--turquesa); color: #fff; padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.2s; }
+.bp:hover { background: #178f68; }
+.bg-btn { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.22); padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 500; text-decoration: none; transition: background 0.2s; }
 .bg-btn:hover { background: rgba(255,255,255,0.16); }
 
-/* ══ FLECHA SCROLL ══ */
+/* ══ FLECHA — posición absoluta dentro de la sección ══ */
 .arrow {
-  position: absolute;
-  bottom: 20px; left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
-  display: flex; flex-direction: column; align-items: center; gap: 4px;
-  text-decoration: none; color: #fff;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-  animation: ab 1.8s ease-in-out infinite;
+  position: absolute; bottom: 18px; left: 50%;
+  transform: translateX(-50%); z-index: 10;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  text-decoration: none; color: rgba(255,255,255,0.85);
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  animation: ab 2s ease-in-out infinite;
 }
 @keyframes ab {
-  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.85; }
-  50% { transform: translateX(-50%) translateY(8px); opacity: 1; }
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(7px); }
 }
-.arrow svg { display: block; filter: drop-shadow(0 0 8px rgba(29,158,117,0.9)); }
+.arrow svg { filter: drop-shadow(0 0 6px rgba(29,158,117,0.8)); }
 
 /* ══ CÓMO FUNCIONA ══ */
 .flujo-grid {
-  display: grid; grid-template-columns: repeat(4,1fr); gap: 20px;
-  margin-top: 48px; width: 100%; max-width: 1000px;
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 14px;
+  margin-top: 28px; width: 100%; max-width: 960px;
 }
 .fc {
   background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 20px; padding: 36px 24px; text-align: center;
+  border-radius: 16px; padding: 24px 18px; text-align: center;
   position: relative; animation: fp 4s ease-in-out infinite;
 }
 .fc:not(:last-child)::after {
-  content: '→'; position: absolute; right: -16px; top: 50%; transform: translateY(-50%);
-  color: var(--turquesa); font-size: 22px; font-weight: 800; opacity: 0.8;
-  text-shadow: 0 0 12px rgba(29,158,117,0.6);
+  content: '→'; position: absolute; right: -12px; top: 50%; transform: translateY(-50%);
+  color: var(--turquesa); font-size: 18px; font-weight: 800; opacity: 0.8;
 }
-.fc:nth-child(1) { animation-delay: 0s; }
-.fc:nth-child(2) { animation-delay: 0.8s; }
-.fc:nth-child(3) { animation-delay: 1.6s; }
-.fc:nth-child(4) { animation-delay: 2.4s; }
+.fc:nth-child(1){animation-delay:0s} .fc:nth-child(2){animation-delay:.8s}
+.fc:nth-child(3){animation-delay:1.6s} .fc:nth-child(4){animation-delay:2.4s}
 @keyframes fp {
-  0%,100% { border-color: rgba(255,255,255,0.14); background: rgba(255,255,255,0.06); }
-  50% { border-color: rgba(29,158,117,0.7); background: rgba(29,158,117,0.12); }
+  0%,100%{border-color:rgba(255,255,255,0.14);background:rgba(255,255,255,0.06)}
+  50%{border-color:rgba(29,158,117,0.7);background:rgba(29,158,117,0.12)}
 }
-.fc-icon { font-size: 44px; margin-bottom: 18px; }
-.fc-name { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 10px; }
-.fc-desc { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.55; }
+.fc-icon { font-size: 32px; margin-bottom: 12px; }
+.fc-name { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+.fc-desc { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.5; }
 
-/* ══ SECCIONES SIN IMAGEN (rectangulares, altura suficiente) ══ */
+/* ══ SECCIONES SIN IMAGEN — compactas ══ */
 .sec-box {
-  height: 100vh;
-  min-height: 600px;
+  min-height: 100vh;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 60px 2.5rem;
+  padding: 48px 2.5rem 64px;
   scroll-margin-top: var(--nav-h);
-  position: relative;
-  text-align: center;
-  overflow: hidden;
+  position: relative; text-align: center; overflow: hidden;
+}
+
+/* Flecha inline para sec-box */
+.arrow-box {
+  position: absolute; bottom: 18px; left: 50%;
+  transform: translateX(-50%); z-index: 10;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  text-decoration: none; color: rgba(255,255,255,0.85);
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  animation: ab 2s ease-in-out infinite;
 }
 
 /* Oportunidad */
 #oportunidad { background: linear-gradient(180deg, #0a2030 0%, #071825 100%); }
-
 .opor-grid {
-  display: grid; grid-template-columns: repeat(4,1fr); gap: 16px;
-  margin-top: 44px; width: 100%; max-width: 1100px;
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 12px;
+  margin-top: 28px; width: 100%; max-width: 1100px;
 }
 .oc {
   background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 16px; padding: 28px 22px;
-  display: flex; flex-direction: column; align-items: flex-start; gap: 12px; text-align: left;
+  border-radius: 14px; padding: 20px 18px;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-align: left;
 }
-.oc-icon { width: 44px; height: 44px; background: rgba(29,158,117,0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-.oc h3 { font-size: 15px; font-weight: 700; color: #fff; }
-.oc p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+.oc-icon { width: 38px; height: 38px; background: rgba(29,158,117,0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.oc h3 { font-size: 14px; font-weight: 700; color: #fff; }
+.oc p { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.55; }
 
-/* Pricing — caja rectangular, todo visible */
+/* Pricing */
 #pricing { background: linear-gradient(180deg, #071825 0%, #0B3348 100%); }
-
 .pricing-box {
   background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 16px; padding: 36px 40px;
-  max-width: 500px; width: 100%; margin-top: 36px;
+  border-radius: 16px; padding: 28px 36px;
+  max-width: 460px; width: 100%; margin-top: 24px;
 }
-.pricing-box label { font-size: 16px; font-weight: 500; color: rgba(255,255,255,0.8); display: block; margin-bottom: 22px; }
-.pi { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 24px; }
+.pricing-box label { font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.8); display: block; margin-bottom: 18px; }
+.pi { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 20px; }
 .pi input {
-  width: 110px; text-align: center; font-size: 30px; font-weight: 800;
+  width: 100px; text-align: center; font-size: 28px; font-weight: 800;
   background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 12px; padding: 10px; color: #fff; font-family: 'Inter', sans-serif;
-  outline: none; transition: border-color 0.2s;
-  -moz-appearance: textfield;
+  border-radius: 10px; padding: 8px; color: #fff; font-family: 'Inter', sans-serif;
+  outline: none; transition: border-color 0.2s; -moz-appearance: textfield;
 }
 .pi input::-webkit-inner-spin-button, .pi input::-webkit-outer-spin-button { -webkit-appearance: none; }
 .pi input:focus { border-color: var(--turquesa); }
 .pi button {
-  width: 46px; height: 46px; border-radius: 50%;
+  width: 40px; height: 40px; border-radius: 50%;
   border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.08);
-  font-size: 24px; cursor: pointer; color: #fff; font-weight: 700;
-  font-family: 'Inter', sans-serif;
-  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; cursor: pointer; color: #fff; font-weight: 700;
+  font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center;
   transition: background 0.15s, border-color 0.15s; line-height: 1;
 }
 .pi button:hover { background: var(--turquesa); border-color: var(--turquesa); }
-.pr { background: rgba(29,158,117,0.12); border: 1px solid rgba(29,158,117,0.3); border-radius: 14px; padding: 24px; margin-bottom: 18px; }
-.pr-label { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.4); margin-bottom: 6px; letter-spacing: 0.1em; text-transform: uppercase; }
-.pr-price { font-size: 56px; font-weight: 800; color: #fff; letter-spacing: -2px; line-height: 1; }
-.pr-price span { font-size: 20px; font-weight: 400; opacity: 0.6; letter-spacing: 0; }
-.pr-per { font-size: 14px; color: rgba(255,255,255,0.45); margin-top: 6px; }
-.pr-note { font-size: 13px; color: rgba(255,255,255,0.35); line-height: 1.65; margin-bottom: 16px; }
-.pr-btn { display: inline-block; background: var(--turquesa); color: #fff; padding: 14px 32px; border-radius: 10px; font-size: 15px; font-weight: 600; text-decoration: none; transition: background 0.2s; }
+.pr { background: rgba(29,158,117,0.12); border: 1px solid rgba(29,158,117,0.3); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+.pr-label { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.4); margin-bottom: 5px; letter-spacing: 0.1em; text-transform: uppercase; }
+.pr-price { font-size: 48px; font-weight: 800; color: #fff; letter-spacing: -2px; line-height: 1; }
+.pr-price span { font-size: 18px; font-weight: 400; opacity: 0.6; letter-spacing: 0; }
+.pr-per { font-size: 13px; color: rgba(255,255,255,0.45); margin-top: 5px; }
+.pr-note { font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.65; margin-bottom: 14px; }
+.pr-btn { display: inline-block; background: var(--turquesa); color: #fff; padding: 12px 28px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.2s; }
 .pr-btn:hover { background: #178f68; }
 
 /* Para quién */
 #paraquien { background: #071825; }
-.pq-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-top: 44px; width: 100%; max-width: 1100px; }
-.pqc { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 28px 22px; text-align: center; }
-.pqc-icon { font-size: 36px; margin-bottom: 14px; }
-.pqc h3 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; }
-.pqc p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+.pq-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-top: 28px; width: 100%; max-width: 1100px; }
+.pqc { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 22px 18px; text-align: center; }
+.pqc-icon { font-size: 30px; margin-bottom: 10px; }
+.pqc h3 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.pqc p { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.55; }
 
-/* Contacto — rectangular, todo visible */
+/* Contacto */
 #contacto {
   background: linear-gradient(180deg, #071825 0%, #041018 100%);
-  height: 100vh;
-  min-height: 600px;
+  min-height: 100vh;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 60px 2.5rem;
-  scroll-margin-top: var(--nav-h);
-  text-align: center;
-  overflow: hidden;
+  padding: 48px 2.5rem 40px;
+  scroll-margin-top: var(--nav-h); text-align: center; overflow: hidden;
 }
 .cf {
   background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 16px; padding: 36px 40px;
-  max-width: 560px; width: 100%; margin-top: 36px; text-align: left;
+  border-radius: 16px; padding: 28px 36px;
+  max-width: 520px; width: 100%; margin-top: 24px; text-align: left;
 }
-.cf-title { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 24px; text-align: center; }
-.fr2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
-.ff { margin-bottom: 12px; }
-.ff label { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.4); display: block; margin-bottom: 5px; letter-spacing: 0.07em; text-transform: uppercase; }
-.ff input { width: 100%; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); border-radius: 8px; padding: 11px 13px; font-size: 14px; color: #fff; font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.2s; }
+.cf-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 20px; text-align: center; }
+.fr2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.ff { margin-bottom: 10px; }
+.ff label { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.4); display: block; margin-bottom: 4px; letter-spacing: 0.07em; text-transform: uppercase; }
+.ff input { width: 100%; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); border-radius: 7px; padding: 9px 11px; font-size: 13px; color: #fff; font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.2s; }
 .ff input::placeholder { color: rgba(255,255,255,0.28); }
 .ff input:focus { border-color: var(--turquesa); }
-.fs { width: 100%; background: var(--turquesa); color: #fff; border: none; border-radius: 10px; padding: 15px; font-size: 16px; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer; margin-top: 8px; transition: background 0.2s; }
+.fs { width: 100%; background: var(--turquesa); color: #fff; border: none; border-radius: 9px; padding: 13px; font-size: 15px; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer; margin-top: 6px; transition: background 0.2s; }
 .fs:hover { background: #178f68; }
-.fp { font-size: 11px; color: rgba(255,255,255,0.28); text-align: center; margin-top: 12px; line-height: 1.55; }
+.fp { font-size: 11px; color: rgba(255,255,255,0.28); text-align: center; margin-top: 10px; line-height: 1.55; }
 
 /* Footer */
-footer { background: #020c14; padding: 28px 2.5rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.06); }
+footer { background: #020c14; padding: 24px 2.5rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.06); }
 footer p { font-size: 13px; color: rgba(255,255,255,0.3); }
 footer strong { color: rgba(255,255,255,0.6); }
 footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
 
 /* WhatsApp */
-.wa { position: fixed; bottom: 28px; right: 28px; z-index: 999; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 4px 20px rgba(37,211,102,0.45); transition: transform 0.2s; font-size: 26px; }
+.wa { position: fixed; bottom: 28px; right: 28px; z-index: 999; background: #25D366; color: #fff; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 4px 20px rgba(37,211,102,0.45); transition: transform 0.2s; font-size: 24px; }
 .wa:hover { transform: scale(1.1); }
-.wa-tip { position: absolute; right: 64px; background: rgba(4,16,24,0.97); color: #fff; font-size: 12px; font-weight: 500; font-family: 'Inter', sans-serif; padding: 7px 13px; border-radius: 8px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; border: 1px solid rgba(255,255,255,0.1); }
+.wa-tip { position: absolute; right: 60px; background: rgba(4,16,24,0.97); color: #fff; font-size: 12px; font-weight: 500; font-family: 'Inter', sans-serif; padding: 6px 12px; border-radius: 8px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; border: 1px solid rgba(255,255,255,0.1); }
 .wa:hover .wa-tip { opacity: 1; }
-
-/* ══ FLECHA INLINE (para secciones sin position:absolute) ══ */
-.arrow-inline {
-  display: flex; flex-direction: column; align-items: center; gap: 4px;
-  text-decoration: none; color: #fff;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-  margin-top: 40px;
-  animation: ab 1.8s ease-in-out infinite;
-}
 
 /* ══ RESPONSIVE ══ */
 @media (max-width: 1024px) {
@@ -314,26 +296,24 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
   .sc-l, .sc-r { max-width: 90%; padding-left: 1.5rem; padding-right: 1.5rem; margin: 0 auto; align-items: center; text-align: center; }
   .fl li { text-align: left; }
   .br { justify-content: center; }
-  .ov-l { background: linear-gradient(180deg, rgba(7,24,37,0.92) 0%, rgba(7,24,37,0.7) 40%, rgba(7,24,37,0.5) 70%, rgba(7,24,37,0.85) 100%); }
-  .ov-r { background: linear-gradient(180deg, rgba(7,24,37,0.92) 0%, rgba(7,24,37,0.7) 40%, rgba(7,24,37,0.5) 70%, rgba(7,24,37,0.85) 100%); }
+  .ov-l, .ov-r { background: rgba(7,24,37,0.75); }
 }
 @media (max-width: 768px) {
   .nav-links { display: none; }
   nav { padding: 0 1.25rem; }
   .fr2 { grid-template-columns: 1fr; }
-  .pricing-box, .cf { padding: 28px 20px; }
-  .sec-box, #contacto { padding: 50px 1.5rem; }
+  .pricing-box, .cf { padding: 22px 16px; }
+  .sec-box, #contacto { padding: 40px 1.5rem 60px; }
 }
 @media (max-width: 600px) {
   :root { --nav-h: 56px; }
-  .sc { padding: calc(var(--nav-h) + 20px) 1.25rem 70px; }
-  .sc-top { padding-top: calc(var(--nav-h) + 24px); }
-  .h1 { font-size: clamp(30px, 9vw, 42px); }
-  .h2 { font-size: clamp(26px, 8vw, 36px); }
-  .flujo-grid { grid-template-columns: 1fr; gap: 14px; }
+  .sc { padding-top: calc(var(--nav-h) + 12px); padding-bottom: 64px; padding-left: 1.25rem; padding-right: 1.25rem; }
+  .h1 { font-size: clamp(26px, 8vw, 36px); }
+  .h2 { font-size: clamp(22px, 7vw, 32px); }
+  .flujo-grid { grid-template-columns: 1fr; gap: 10px; }
   .opor-grid, .pq-grid { grid-template-columns: 1fr; }
-  .pr-price { font-size: 48px; }
-  .wa { bottom: 20px; right: 20px; width: 50px; height: 50px; font-size: 22px; }
+  .pr-price { font-size: 40px; }
+  .wa { bottom: 16px; right: 16px; width: 48px; height: 48px; font-size: 22px; }
 }
 </style>
 </head>
@@ -370,7 +350,7 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
     </div>
   </div>
   <a href="#flujo" class="arrow">
-    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
     Descubre más
   </a>
 </section>
@@ -380,16 +360,16 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
   <div class="sc sc-c">
     <span class="ey">Cómo funciona</span>
     <h2 class="h2-lg">El cobro automático,<br>paso a paso</h2>
-    <p class="sub" style="margin:0 auto 0;max-width:620px;">Introduces la lectura del contador — GestAqua calcula, cobra y envía el recibo al socio. Sin intervención manual. Sin perseguir pagos.</p>
+    <p class="sub" style="margin:0 auto 0;max-width:580px;">Introduces la lectura del contador — GestAqua calcula, cobra y envía el recibo al socio. Sin intervención manual.</p>
     <div class="flujo-grid">
-      <div class="fc"><div class="fc-icon">📋</div><div class="fc-name">Lectura</div><div class="fc-desc">Introduces los m³ consumidos desde tablet o móvil, en el campo</div></div>
+      <div class="fc"><div class="fc-icon">📋</div><div class="fc-name">Lectura</div><div class="fc-desc">Introduces los m³ consumidos desde tablet o móvil en el campo</div></div>
       <div class="fc"><div class="fc-icon">🧮</div><div class="fc-name">Cálculo</div><div class="fc-desc">El importe se calcula al instante según la tarifa configurada</div></div>
       <div class="fc"><div class="fc-icon">💳</div><div class="fc-name">Cobro</div><div class="fc-desc">Cargo automático en la cuenta del socio sin intervención manual</div></div>
       <div class="fc"><div class="fc-icon">🧾</div><div class="fc-name">Recibo</div><div class="fc-desc">PDF generado y enviado al socio al instante en su app</div></div>
     </div>
   </div>
   <a href="#dashboard" class="arrow">
-    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
     Siguiente
   </a>
 </section>
@@ -412,7 +392,7 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
     <div class="br"><a href="#contacto" class="bp">Solicitar demo</a></div>
   </div>
   <a href="#socios" class="arrow">
-    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
     Siguiente
   </a>
 </section>
@@ -434,7 +414,7 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
     <div class="br"><a href="#contacto" class="bp">Solicitar demo</a></div>
   </div>
   <a href="#calendario" class="arrow">
-    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
     Siguiente
   </a>
 </section>
@@ -456,12 +436,12 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
     <div class="br"><a href="#contacto" class="bp">Solicitar demo</a></div>
   </div>
   <a href="#cobros" class="arrow">
-    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
     Siguiente
   </a>
 </section>
 
-<!-- ══ S6 COBROS — imagen derecha, texto izquierda ══ -->
+<!-- ══ S6 COBROS — texto izquierda, imagen derecha ══ -->
 <section class="sf" id="cobros" style="background:#07202f;">
   <img src="gestaqua-cobros.png" class="bg" style="object-position:right center;" alt="" />
   <div class="ov-l"></div>
@@ -478,18 +458,18 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
     <div class="br"><a href="#contacto" class="bp">Solicitar demo</a></div>
   </div>
   <a href="#cobro" class="arrow">
-    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
     Siguiente
   </a>
 </section>
 
-<!-- ══ S7 COBRO AUTO — imagen derecha, texto izquierda ══ -->
+<!-- ══ S7 COBRO AUTO — texto izquierda, imagen derecha ══ -->
 <section class="sf" id="cobro" style="background:#061520;">
   <img src="gestaqua-lectura.png" class="bg" style="object-position:right center;" alt="" />
   <div class="ov-l"></div>
   <div class="sc sc-l">
     <span class="ey">Diferenciador exclusivo</span>
-    <h2 class="h2">Introduces<br>la lectura.<br>El dinero ya<br>está en la cuenta.</h2>
+    <h2 class="h2">Introduces la lectura.<br>El dinero ya<br>está en la cuenta.</h2>
     <p class="sub">El gestor configura el ciclo una vez. La app cobra, genera el recibo y lo envía al socio — sin intervención.</p>
     <ul class="fl">
       <li>El socio autoriza el cobro una sola vez al darse de alta</li>
@@ -500,26 +480,26 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
     <div class="br"><a href="#contacto" class="bp">Solicitar demo</a></div>
   </div>
   <a href="#app-socio" class="arrow">
-    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
     Siguiente
   </a>
 </section>
 
-<!-- ══ S8 APP SOCIO — texto arriba, imagen cubre fondo ══ -->
+<!-- ══ S8 APP SOCIO ══ -->
 <section class="sf" id="app-socio" style="background:#0a2030; align-items:flex-start;">
   <img src="gestaqua-app-home.png" class="bg" style="object-position:center center;" alt="" />
   <div class="ov-t"></div>
   <div class="sc sc-top">
     <span class="ey">App del socio</span>
     <h2 class="h2" style="text-align:center;">Lo que ve tu socio<br>desde el móvil</h2>
-    <p class="sub" style="text-align:center;margin:0 auto 28px;max-width:580px;">Turno de riego, recibos, avisos y documentos. Todo limpio y sencillo. El regante encuentra lo que necesita sin llamar al presidente.</p>
+    <p class="sub" style="text-align:center;margin:0 auto 20px;max-width:520px;">Turno de riego, recibos, avisos y documentos. El regante encuentra lo que necesita sin llamar al presidente.</p>
     <div class="br" style="justify-content:center;">
       <a href="#contacto" class="bp">Solicitar demo gratuita</a>
       <a href="#pricing" class="bg-btn">Ver precio</a>
     </div>
   </div>
   <a href="#oportunidad" class="arrow">
-    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
     Siguiente
   </a>
 </section>
@@ -527,16 +507,16 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
 <!-- ══ POR QUÉ GESTAQUA ══ -->
 <section class="sec-box" id="oportunidad">
   <span class="ey">Por qué GestAqua</span>
-  <h2 class="h2" style="max-width:700px;margin:0 auto 12px;">Gestionar una comunidad<br>merece mejores herramientas</h2>
-  <p style="font-size:17px;color:rgba(255,255,255,0.55);max-width:560px;line-height:1.65;">Quienes llevan una comunidad dedican tiempo y esfuerzo voluntario. GestAqua existe para que ese trabajo se note donde importa.</p>
+  <h2 class="h2" style="max-width:680px;margin:0 auto 10px;">Gestionar una comunidad<br>merece mejores herramientas</h2>
+  <p style="font-size:15px;color:rgba(255,255,255,0.55);max-width:520px;line-height:1.6;">Quienes llevan una comunidad dedican tiempo y esfuerzo voluntario. GestAqua existe para que ese trabajo se note donde importa.</p>
   <div class="opor-grid">
-    <div class="oc"><div class="oc-icon">📱</div><h3>El turno, siempre claro</h3><p>Cada socio ve su turno desde el móvil. Sin PDFs por WhatsApp, sin llamadas para confirmarlo.</p></div>
-    <div class="oc"><div class="oc-icon">✅</div><h3>Cobros automáticos</h3><p>El gestor configura el ciclo una vez. A partir de ahí el sistema trabaja solo con total trazabilidad.</p></div>
-    <div class="oc"><div class="oc-icon">📁</div><h3>Documentación en orden</h3><p>Actas, ordenanzas y formularios accesibles desde cualquier dispositivo, en cualquier momento.</p></div>
-    <div class="oc"><div class="oc-icon">📲</div><h3>El socio, siempre informado</h3><p>Turnos, recibos y avisos en la app. Sin llamadas al presidente ni mensajes por WhatsApp.</p></div>
+    <div class="oc"><div class="oc-icon">📱</div><h3>El turno, siempre claro</h3><p>Cada socio ve su turno desde el móvil. Sin PDFs por WhatsApp, sin llamadas.</p></div>
+    <div class="oc"><div class="oc-icon">✅</div><h3>Cobros automáticos</h3><p>El gestor configura el ciclo una vez. A partir de ahí el sistema trabaja solo.</p></div>
+    <div class="oc"><div class="oc-icon">📁</div><h3>Documentación en orden</h3><p>Actas, ordenanzas y formularios accesibles desde cualquier dispositivo.</p></div>
+    <div class="oc"><div class="oc-icon">📲</div><h3>El socio, siempre informado</h3><p>Turnos, recibos y avisos en la app. Sin llamadas al presidente.</p></div>
   </div>
-  <a href="#pricing" class="arrow-inline">
-    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 10px rgba(29,158,117,1));"><polyline points="6 9 12 15 18 9"/></svg>
+  <a href="#pricing" class="arrow-box">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 6px rgba(29,158,117,0.8));"><polyline points="6 9 12 15 18 9"/></svg>
     Ver precio
   </a>
 </section>
@@ -544,25 +524,25 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
 <!-- ══ PRICING ══ -->
 <section class="sec-box" id="pricing">
   <span class="ey">Precio justo</span>
-  <h2 class="h2" style="max-width:640px;margin:0 auto 12px;">Pagas según el tamaño<br>de tu comunidad</h2>
-  <p style="font-size:17px;color:rgba(255,255,255,0.55);max-width:480px;line-height:1.65;">Sin sorpresas. Sin letra pequeña. Cada comunidad paga exactamente lo que le corresponde.</p>
+  <h2 class="h2" style="max-width:600px;margin:0 auto 10px;">Pagas según el tamaño<br>de tu comunidad</h2>
+  <p style="font-size:15px;color:rgba(255,255,255,0.55);max-width:440px;line-height:1.6;">Sin sorpresas. Sin letra pequeña. Cada comunidad paga exactamente lo que le corresponde.</p>
   <div class="pricing-box">
     <label>¿Cuántos socios tiene tu comunidad?</label>
     <div class="pi">
-      <button onclick="cambiarSocios(-5)" aria-label="Reducir 5 socios">−</button>
+      <button onclick="cambiarSocios(-5)">−</button>
       <input type="number" id="nsocios" value="80" min="5" max="2000" readonly />
-      <button onclick="cambiarSocios(5)" aria-label="Aumentar 5 socios">+</button>
+      <button onclick="cambiarSocios(5)">+</button>
     </div>
     <div class="pr">
       <p class="pr-label">Precio mensual</p>
       <p class="pr-price" id="precio-display">40<span>€/mes</span></p>
       <p class="pr-per" id="precio-detalle">0,50 € × 80 socios</p>
     </div>
-    <p class="pr-note">30 días de prueba gratuita · Sin permanencia · Cancela cuando quieras<br>Activa tu plan cuando estés listo — sin compromisos.</p>
+    <p class="pr-note">30 días de prueba gratuita · Sin permanencia · Cancela cuando quieras · Activa tu plan cuando estés listo.</p>
     <a href="#contacto" class="pr-btn">Empezar prueba gratuita</a>
   </div>
-  <a href="#paraquien" class="arrow-inline">
-    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 10px rgba(29,158,117,1));"><polyline points="6 9 12 15 18 9"/></svg>
+  <a href="#paraquien" class="arrow-box">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 6px rgba(29,158,117,0.8));"><polyline points="6 9 12 15 18 9"/></svg>
     ¿Para quién es GestAqua?
   </a>
 </section>
@@ -570,35 +550,35 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
 <!-- ══ PARA QUIÉN ══ -->
 <section class="sec-box" id="paraquien">
   <span class="ey">¿Para quién es GestAqua?</span>
-  <h2 class="h2" style="max-width:700px;margin:0 auto 0;">Para las comunidades que<br>llevan años sin herramientas</h2>
+  <h2 class="h2" style="max-width:680px;margin:0 auto 0;">Para las comunidades que<br>llevan años sin herramientas</h2>
   <div class="pq-grid">
     <div class="pqc"><div class="pqc-icon">🌾</div><h3>Comunidades pequeñas</h3><p>De 20 a 200 socios. Las que funcionan por WhatsApp y necesitan dar el salto sin complicarse.</p></div>
-    <div class="pqc"><div class="pqc-icon">🏘️</div><h3>Comunidades medianas</h3><p>De 200 a 800 socios. Las que ya tienen algo pero necesitan una solución moderna e integrada.</p></div>
-    <div class="pqc"><div class="pqc-icon">📋</div><h3>Presidentes y secretarios</h3><p>Que dedican horas a llamadas y hojas de cálculo que pueden automatizarse por completo.</p></div>
+    <div class="pqc"><div class="pqc-icon">🏘️</div><h3>Comunidades medianas</h3><p>De 200 a 800 socios. Las que ya tienen algo pero necesitan una solución moderna.</p></div>
+    <div class="pqc"><div class="pqc-icon">📋</div><h3>Presidentes y secretarios</h3><p>Que dedican horas a llamadas y hojas de cálculo que pueden automatizarse.</p></div>
     <div class="pqc"><div class="pqc-icon">🤝</div><h3>Asesorías y gestorías</h3><p>Que gestionan comunidades y necesitan una herramienta profesional para sus clientes.</p></div>
   </div>
-  <a href="#contacto" class="arrow-inline">
-    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 10px rgba(29,158,117,1));"><polyline points="6 9 12 15 18 9"/></svg>
+  <a href="#contacto" class="arrow-box">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 6px rgba(29,158,117,0.8));"><polyline points="6 9 12 15 18 9"/></svg>
     Solicitar demo
   </a>
 </section>
 
 <!-- ══ CONTACTO ══ -->
 <section id="contacto">
-  <span class="ey" style="display:block;margin-bottom:14px;">Contacto</span>
-  <h2 class="h2" style="max-width:700px;margin:0 auto 14px;">Empieza a gestionar tu comunidad<br>de forma profesional</h2>
-  <p style="font-size:17px;color:rgba(255,255,255,0.55);max-width:500px;margin:0 auto;line-height:1.65;">30 días de prueba gratuita. Te ayudamos a configurarlo todo desde el primer día.</p>
+  <span class="ey" style="display:block;margin-bottom:10px;">Contacto</span>
+  <h2 class="h2" style="max-width:640px;margin:0 auto 10px;">Empieza a gestionar tu comunidad<br>de forma profesional</h2>
+  <p style="font-size:15px;color:rgba(255,255,255,0.55);max-width:460px;margin:0 auto;line-height:1.6;">30 días de prueba gratuita. Te ayudamos a configurarlo todo desde el primer día.</p>
   <div class="cf">
     <p class="cf-title">Solicita tu demo gratuita</p>
     <form action="https://formspree.io/f/XXXXXXXX" method="POST">
       <div class="fr2">
-        <div class="ff"><label for="nombre">Nombre</label><input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required /></div>
-        <div class="ff"><label for="telefono">Teléfono</label><input type="tel" id="telefono" name="telefono" placeholder="+34 600 000 000" required /></div>
+        <div class="ff"><label>Nombre</label><input type="text" name="nombre" placeholder="Tu nombre" required /></div>
+        <div class="ff"><label>Teléfono</label><input type="tel" name="telefono" placeholder="+34 600 000 000" required /></div>
       </div>
-      <div class="ff"><label for="comunidad">Nombre de la comunidad</label><input type="text" id="comunidad" name="comunidad" placeholder="Comunidad de Regantes de..." required /></div>
+      <div class="ff"><label>Nombre de la comunidad</label><input type="text" name="comunidad" placeholder="Comunidad de Regantes de..." required /></div>
       <div class="fr2">
-        <div class="ff"><label for="numsocios">Nº de socios</label><input type="number" id="numsocios" name="socios" placeholder="Ej: 120" min="1" /></div>
-        <div class="ff"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="tu@email.es" required /></div>
+        <div class="ff"><label>Nº de socios</label><input type="number" name="socios" placeholder="Ej: 120" min="1" /></div>
+        <div class="ff"><label>Email</label><input type="email" name="email" placeholder="tu@email.es" required /></div>
       </div>
       <input type="hidden" name="_subject" value="Nueva solicitud demo — GestAqua" />
       <button type="submit" class="fs">Enviar solicitud</button>
@@ -607,13 +587,11 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <p><strong>GestAqua</strong> — Gestión digital para comunidades de regantes · <strong>JB Marketing & Events</strong> · <a href="https://jbmarketing.es">jbmarketing.es</a></p>
 </footer>
 
-<!-- WHATSAPP -->
-<a href="https://wa.me/34615613366?text=Hola%2C%20me%20interesa%20GestAqua%20para%20mi%20comunidad%20de%20regantes.%20%C2%BFPodemos%20hablar%3F" class="wa" target="_blank" rel="noopener" aria-label="WhatsApp">
+<a href="https://wa.me/34615613366?text=Hola%2C%20me%20interesa%20GestAqua%20para%20mi%20comunidad%20de%20regantes.%20%C2%BFPodemos%20hablar%3F" class="wa" target="_blank" rel="noopener">
   <span class="wa-tip">¿Hablamos por WhatsApp?</span>💬
 </a>
 
@@ -622,13 +600,12 @@ function calcular() {
   const input = document.getElementById('nsocios');
   const socios = Math.max(5, Math.min(2000, parseInt(input.value) || 5));
   input.value = socios;
-  const precio = Math.round(socios * 0.50);
-  document.getElementById('precio-display').innerHTML = precio + '<span>€/mes</span>';
+  document.getElementById('precio-display').innerHTML = Math.round(socios * 0.5) + '<span>€/mes</span>';
   document.getElementById('precio-detalle').textContent = '0,50 € × ' + socios + ' socios';
 }
-function cambiarSocios(delta) {
+function cambiarSocios(d) {
   const input = document.getElementById('nsocios');
-  input.value = Math.max(5, Math.min(2000, (parseInt(input.value) || 80) + delta));
+  input.value = Math.max(5, Math.min(2000, (parseInt(input.value)||80) + d));
   calcular();
 }
 calcular();
