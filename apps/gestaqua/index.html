@@ -34,6 +34,22 @@ nav {
 .nav-cta { background: var(--turquesa); color: #fff; padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; white-space: nowrap; flex-shrink: 0; transition: background 0.2s; }
 .nav-cta:hover { background: #178f68; }
 
+/* ══ HAMBURGUESA ══ */
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: all 0.3s; }
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ══ MENÚ MÓVIL ══ */
+.mobile-menu { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 999; background: rgba(4,16,24,0.99); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,255,255,0.08); padding: 1.25rem 1.5rem; flex-direction: column; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-size: 1rem; font-weight: 500; color: rgba(255,255,255,0.65); text-decoration: none; padding: 0.85rem 0; border-bottom: 1px solid rgba(255,255,255,0.07); transition: color 0.2s; }
+.mobile-menu a:last-child { border-bottom: none; }
+.mobile-menu a:hover { color: #fff; }
+.mobile-menu a.m-cta { background: var(--turquesa); color: #fff; text-align: center; border-radius: 8px; padding: 0.85rem; margin-top: 0.75rem; font-weight: 600; border-bottom: none; }
+.mobile-menu a.m-back { color: rgba(255,255,255,0.3); }
+
 /* ══ SECCIONES CON IMAGEN ══ */
 .sf {
   min-height: 100vh;
@@ -317,7 +333,9 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
 }
 @media (max-width: 768px) {
   .nav-links { display: none; }
-  nav { padding: 0 1.25rem; }
+  .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+}
   .fr2 { grid-template-columns: 1fr; }
   .pricing-box, .cf { padding: 22px 16px; }
   .sec-box, #contacto { padding: 40px 1.5rem 60px; }
@@ -349,10 +367,26 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
     <a href="#app-socio">App socio</a>
     <a href="#pricing">Precio</a>
     <a href="#contacto">Contacto</a>
-    <a href="https://jbmarketing.es">← JB Marketing</a>
   </div>
   <a href="#contacto" class="nav-cta">Solicitar demo</a>
+  <button class="nav-hamburger" id="ga-hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-menu" id="ga-mobile-menu">
+  <a href="#flujo" onclick="gaCloseMenu()">Cómo funciona</a>
+  <a href="#dashboard" onclick="gaCloseMenu()">Dashboard</a>
+  <a href="#socios" onclick="gaCloseMenu()">Socios</a>
+  <a href="#calendario" onclick="gaCloseMenu()">Calendario</a>
+  <a href="#cobros" onclick="gaCloseMenu()">Cobros</a>
+  <a href="#cobro" onclick="gaCloseMenu()">Cobro auto</a>
+  <a href="#app-socio" onclick="gaCloseMenu()">App socio</a>
+  <a href="#pricing" onclick="gaCloseMenu()">Precio</a>
+  <a href="#contacto" onclick="gaCloseMenu()">Contacto</a>
+  <a href="https://jbmarketing.es" class="m-back">← JB Marketing</a>
+  <a href="#contacto" class="m-cta" onclick="gaCloseMenu()">Solicitar demo</a>
+</div>
 
 <!-- ══ S1 HERO ══ -->
 <section class="sf" id="hero">
@@ -613,6 +647,16 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
 </a>
 
 <script>
+const gaHamburger = document.getElementById('ga-hamburger');
+const gaMobileMenu = document.getElementById('ga-mobile-menu');
+gaHamburger.addEventListener('click', () => {
+  gaHamburger.classList.toggle('open');
+  gaMobileMenu.classList.toggle('open');
+});
+function gaCloseMenu() {
+  gaHamburger.classList.remove('open');
+  gaMobileMenu.classList.remove('open');
+}
 function calcular() {
   const input = document.getElementById('nsocios');
   const socios = Math.max(5, Math.min(2000, parseInt(input.value) || 5));
@@ -666,4 +710,3 @@ updateArrow();
 </script>
 </body>
 </html>
- 
