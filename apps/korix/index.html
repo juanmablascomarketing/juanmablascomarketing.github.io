@@ -4,953 +4,719 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KORIX — Power & Focus · App de gestión para centros de entrenamiento</title>
-<meta name="description" content="KORIX es la app de gestión para microgimnasios y centros de entrenamiento personal. Miembros, cobros, bonos, QR de entrada y tu web incluida. Desde 29€/mes.">
+<meta name="description" content="KORIX es la app de gestión para microgimnasios y centros de entrenamiento personal. Miembros, cobros, bonos, QR de entrada y tu web incluida.">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --negro:    #080808;
-  --negro2:   #111111;
-  --negro3:   #1A1A1A;
   --amarillo: #F5C400;
-  --amarillo2:#E6B800;
-  --blanco:   #FFFFFF;
-  --gris1:    rgba(255,255,255,0.75);
-  --gris2:    rgba(255,255,255,0.45);
-  --gris3:    rgba(255,255,255,0.1);
-  --borde:    rgba(255,255,255,0.08);
-  --verde:    #22C55E;
-  --rojo:     #EF4444;
+  --amarillo2: #E6B800;
+  --negro: #080808;
+  --nav-h: 60px;
 }
 
 html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; color: #fff; background: var(--negro); overflow-x: hidden; }
 
-body {
-  font-family: 'Inter', sans-serif;
-  background: var(--negro);
-  color: var(--blanco);
-  overflow-x: hidden;
-}
-
-/* ── UTILIDADES ── */
-.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-.tag {
-  display: inline-block;
-  font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--amarillo);
-  border: 1px solid rgba(245,196,0,0.3);
-  background: rgba(245,196,0,0.07);
-  padding: 4px 12px; border-radius: 4px;
-  margin-bottom: 16px;
-}
-.btn-yellow {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--amarillo); color: var(--negro);
-  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700;
-  padding: 13px 24px; border-radius: 8px; border: none; cursor: pointer;
-  text-decoration: none; text-transform: uppercase; letter-spacing: 0.05em;
-  transition: background 0.15s, transform 0.1s;
-  white-space: nowrap;
-}
-.btn-yellow:hover { background: var(--amarillo2); transform: translateY(-1px); }
-.btn-outline {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: transparent; color: var(--blanco);
-  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700;
-  padding: 13px 24px; border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.2); cursor: pointer;
-  text-decoration: none; text-transform: uppercase; letter-spacing: 0.05em;
-  transition: border-color 0.15s, transform 0.1s;
-  white-space: nowrap;
-}
-.btn-outline:hover { border-color: rgba(255,255,255,0.5); transform: translateY(-1px); }
-
-/* ── NAVBAR ── */
-.navbar {
+/* ══ NAV ══ */
+nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  background: rgba(8,8,8,0.92);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--borde);
-  height: 60px;
+  background: rgba(8,8,8,0.97); backdrop-filter: blur(14px);
+  height: var(--nav-h); padding: 0 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid rgba(245,196,0,0.12);
 }
-.navbar-inner {
-  max-width: 1100px; margin: 0 auto; padding: 0 24px;
-  height: 60px; display: flex; align-items: center; justify-content: space-between;
-}
-.navbar-logo {
+.nav-logo {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 24px; font-weight: 900; color: var(--blanco);
-  text-transform: uppercase; letter-spacing: 1px; text-decoration: none;
+  font-size: 22px; font-weight: 900; color: #fff;
+  letter-spacing: 1px; text-transform: uppercase;
+  flex-shrink: 0; text-decoration: none;
 }
-.navbar-logo span { color: var(--amarillo); }
-.navbar-links {
-  display: flex; align-items: center; gap: 28px;
-  list-style: none;
+.nav-logo span { color: var(--amarillo); }
+.nav-links { display: flex; align-items: center; gap: 1px; margin: 0 auto; padding: 0 1rem; overflow-x: auto; }
+.nav-links a {
+  color: rgba(255,255,255,0.5); font-size: 11px; font-weight: 600;
+  padding: 5px 10px; border-radius: 6px;
+  text-decoration: none; white-space: nowrap;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  transition: color 0.15s, background 0.15s;
 }
-.navbar-links a {
-  font-size: 12px; font-weight: 600; color: var(--gris2);
-  text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase;
-  transition: color 0.15s;
+.nav-links a:hover { color: #fff; background: rgba(255,255,255,0.07); }
+.nav-cta {
+  background: var(--amarillo); color: var(--negro);
+  padding: 8px 18px; border-radius: 7px;
+  font-size: 12px; font-weight: 700; text-decoration: none;
+  white-space: nowrap; flex-shrink: 0;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  transition: background 0.2s;
 }
-.navbar-links a:hover { color: var(--blanco); }
-.navbar-links .nav-jb {
-  font-size: 11px; color: var(--gris2); border: 1px solid var(--borde);
-  padding: 5px 12px; border-radius: 6px; transition: all 0.15s;
-}
-.navbar-links .nav-jb:hover { border-color: var(--amarillo); color: var(--amarillo); }
-.navbar-cta { display: flex; align-items: center; gap: 10px; }
-.navbar-cta .btn-yellow { padding: 8px 16px; font-size: 11px; }
+.nav-cta:hover { background: var(--amarillo2); }
 
-/* HAMBURGER */
-.hamburger {
-  display: none; flex-direction: column; gap: 5px; cursor: pointer;
-  background: none; border: none; padding: 4px;
-}
-.hamburger span {
-  display: block; width: 22px; height: 2px;
-  background: var(--blanco); border-radius: 2px;
-  transition: all 0.25s;
-}
-.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity: 0; }
-.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+/* ══ HAMBURGUESA ══ */
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: all 0.3s; }
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+/* ══ MENÚ MÓVIL ══ */
 .mobile-menu {
-  display: none; position: fixed; top: 60px; left: 0; right: 0; bottom: 0;
-  background: rgba(8,8,8,0.98); z-index: 999;
-  flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+  display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 999;
+  background: rgba(8,8,8,0.99); backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(245,196,0,0.1);
+  padding: 1.25rem 1.5rem; flex-direction: column;
 }
 .mobile-menu.open { display: flex; }
 .mobile-menu a {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 32px; font-weight: 900; color: var(--blanco);
-  text-decoration: none; text-transform: uppercase; letter-spacing: 1px;
-  transition: color 0.15s;
+  font-size: 1rem; font-weight: 600; color: rgba(255,255,255,0.6);
+  text-decoration: none; padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  transition: color 0.2s;
 }
+.mobile-menu a:last-child { border-bottom: none; }
 .mobile-menu a:hover { color: var(--amarillo); }
-.mobile-menu .mobile-jb {
-  font-family: 'Inter', sans-serif;
-  font-size: 13px; font-weight: 600; color: var(--gris2);
-  border: 1px solid var(--borde); padding: 10px 20px; border-radius: 8px;
+.mobile-menu a.m-cta {
+  background: var(--amarillo); color: var(--negro);
+  text-align: center; border-radius: 8px; padding: 0.85rem;
+  margin-top: 0.75rem; font-weight: 700; border-bottom: none;
 }
-.mobile-menu-btns { display: flex; flex-direction: column; gap: 12px; width: 280px; margin-top: 16px; }
-.mobile-menu-btns .btn-yellow,
-.mobile-menu-btns .btn-outline { justify-content: center; font-size: 14px; padding: 14px 24px; }
+.mobile-menu a.m-back { color: rgba(255,255,255,0.25); }
 
-/* ── HERO ── */
-.hero {
-  padding: 130px 0 80px;
-  position: relative; overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute; top: -200px; right: -300px;
-  width: 700px; height: 700px;
-  background: radial-gradient(circle, rgba(245,196,0,0.08) 0%, transparent 70%);
-  pointer-events: none;
-}
-.hero-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 60px; align-items: center;
-}
-.hero-eyebrow {
-  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--amarillo);
-  margin-bottom: 20px;
-}
-.hero-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(52px, 6vw, 80px);
-  font-weight: 900; line-height: 0.92;
-  text-transform: uppercase; letter-spacing: 1px;
-  margin-bottom: 24px;
-}
-.hero-title span { color: var(--amarillo); }
-.hero-subtitle {
-  font-size: 16px; line-height: 1.65;
-  color: var(--gris1); margin-bottom: 36px; max-width: 440px;
-}
-.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
-.hero-stats {
-  display: flex; gap: 32px;
-  padding-top: 24px;
-  border-top: 1px solid var(--borde);
-}
-.hero-stat-value {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 28px; font-weight: 900; color: var(--blanco);
-  line-height: 1;
-}
-.hero-stat-label { font-size: 11px; color: var(--gris2); margin-top: 3px; }
-.hero-img {
+/* ══ SECCIONES CON IMAGEN ══ */
+.sf {
+  min-height: 100vh;
   position: relative;
-}
-.hero-img img {
-  width: 100%; max-width: 540px;
-  filter: drop-shadow(0 40px 80px rgba(245,196,0,0.15));
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  scroll-margin-top: var(--nav-h);
 }
 
-/* ── PARA QUIÉN ── */
-.para-quien {
-  padding: 80px 0;
-  border-top: 1px solid var(--borde);
+/* Overlays */
+.ov-l {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg,
+    rgba(8,8,8,0.97) 0%, rgba(8,8,8,0.93) 30%,
+    rgba(8,8,8,0.6) 50%, rgba(8,8,8,0.15) 65%, transparent 80%);
 }
-.section-header { text-align: center; margin-bottom: 52px; }
-.section-title {
+.ov-r {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(270deg,
+    rgba(8,8,8,0.97) 0%, rgba(8,8,8,0.93) 30%,
+    rgba(8,8,8,0.6) 50%, rgba(8,8,8,0.15) 65%, transparent 80%);
+}
+.ov-t {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg,
+    rgba(8,8,8,0.97) 0%, rgba(8,8,8,0.85) 22%,
+    rgba(8,8,8,0.35) 50%, rgba(8,8,8,0.08) 70%, transparent 85%);
+}
+.ov-full {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: rgba(8,8,8,0.72);
+}
+
+/* ══ CONTENIDO ══ */
+.sc {
+  position: relative; z-index: 2; width: 100%;
+  padding-top: calc(var(--nav-h) + 16px);
+  padding-bottom: 72px;
+  padding-left: 2.5rem; padding-right: 2.5rem;
+  display: flex; flex-direction: column;
+}
+.sc-l { align-items: flex-start; max-width: 46%; padding-left: 5%; }
+.sc-r { align-items: flex-start; max-width: 46%; margin-left: auto; padding-right: 5%; }
+.sc-c { align-items: center; text-align: center; max-width: 900px; margin: 0 auto; }
+.sc-top {
+  align-items: center; text-align: center;
+  max-width: 680px; margin: 0 auto;
+  padding-top: calc(var(--nav-h) + 16px);
+  padding-bottom: 72px;
+}
+
+/* ══ TIPOGRAFÍA ══ */
+.ey {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--amarillo);
+  margin-bottom: 10px; display: block;
+}
+.h1 {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(36px, 4vw, 52px);
-  font-weight: 900; text-transform: uppercase;
-  letter-spacing: 0.5px; line-height: 1;
-  margin-bottom: 12px;
+  font-size: clamp(42px, 5.5vw, 72px); font-weight: 900;
+  line-height: 0.95; letter-spacing: 0.5px;
+  text-transform: uppercase; color: #fff; margin-bottom: 16px;
 }
-.section-title span { color: var(--amarillo); }
-.section-sub { font-size: 15px; color: var(--gris2); max-width: 520px; margin: 0 auto; line-height: 1.6; }
+.h1 em { font-style: normal; color: var(--amarillo); }
+.h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(34px, 4.5vw, 58px); font-weight: 900;
+  line-height: 0.97; letter-spacing: 0.5px;
+  text-transform: uppercase; color: #fff; margin-bottom: 12px;
+}
+.h2 em { font-style: normal; color: var(--amarillo); }
+.sub {
+  font-size: clamp(13px, 1.4vw, 15px); color: rgba(255,255,255,0.65);
+  line-height: 1.65; margin-bottom: 18px; max-width: 460px;
+}
+.fl { list-style: none; margin-bottom: 20px; width: 100%; }
+.fl li {
+  font-size: 13px; color: rgba(255,255,255,0.78);
+  padding: 6px 0 6px 22px; position: relative;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.fl li:last-child { border-bottom: none; }
+.fl li::before { content: '✓'; position: absolute; left: 0; color: var(--amarillo); font-weight: 800; font-size: 12px; top: 7px; }
+.br { display: flex; gap: 10px; flex-wrap: wrap; }
+.bp {
+  background: var(--amarillo); color: var(--negro);
+  padding: 11px 24px; border-radius: 7px;
+  font-size: 13px; font-weight: 700; text-decoration: none;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  transition: background 0.2s;
+}
+.bp:hover { background: var(--amarillo2); }
+.bg-btn {
+  background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 11px 24px; border-radius: 7px;
+  font-size: 13px; font-weight: 600; text-decoration: none;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  transition: background 0.2s;
+}
+.bg-btn:hover { background: rgba(255,255,255,0.14); }
 
-.perfiles-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+/* ══ FLECHA GLOBAL ══ */
+.scroll-arrow-global {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  text-decoration: none; color: rgba(255,255,255,0.9);
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  animation: ab 2s ease-in-out infinite;
+  pointer-events: none; opacity: 0; transition: opacity 0.3s;
 }
-.perfil-card {
-  background: var(--negro3);
-  border: 1px solid var(--borde);
-  border-radius: 14px; padding: 28px 24px;
+.scroll-arrow-global.visible { opacity: 1; pointer-events: auto; }
+.scroll-arrow-global svg { filter: drop-shadow(0 0 8px rgba(245,196,0,0.9)); }
+@keyframes ab {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ══ BACKGROUNDS ══ */
+#hero       { background-image: url('korix-dashboard.png'); background-size: cover; background-position: center center; }
+#miembros   { background-image: url('korix-miembros.png'); background-size: cover; background-position: center center; }
+#socio      { background-image: url('korix-socio.png'); background-size: cover; background-position: center center; }
+#cobros     { background-image: url('korix-cobros-bonos.png'); background-size: cover; background-position: center center; }
+#app-home   { background-image: url('korix-app-home.png'); background-size: cover; background-position: center center; }
+#bono-qr    { background-image: url('app-mibono-qr.png'); background-size: cover; background-position: center center; }
+#multidispositivo { background-image: url('korix-dashboard-socio.png'); background-size: cover; background-position: center center; }
+
+/* ══ SECCIONES SIN IMAGEN ══ */
+.sec-box {
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 48px 2.5rem 72px;
+  scroll-margin-top: var(--nav-h);
+  position: relative; text-align: center; overflow: hidden;
+}
+.arrow-box { display: none; }
+
+/* Para quién */
+#para-quien { background: linear-gradient(180deg, #0D0D00 0%, var(--negro) 100%); }
+.pq-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 14px;
+  margin-top: 28px; width: 100%; max-width: 900px;
+}
+.pqc {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 14px; padding: 24px 20px; text-align: center;
   transition: border-color 0.2s;
 }
-.perfil-card:hover { border-color: rgba(245,196,0,0.3); }
-.perfil-icon { font-size: 32px; margin-bottom: 14px; }
-.perfil-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 22px; font-weight: 800; text-transform: uppercase;
-  letter-spacing: 0.5px; margin-bottom: 8px;
-}
-.perfil-desc { font-size: 13px; color: var(--gris2); line-height: 1.6; }
+.pqc:hover { border-color: rgba(245,196,0,0.3); }
+.pqc-icon { font-size: 30px; margin-bottom: 10px; }
+.pqc h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 800; text-transform: uppercase; color: #fff; margin-bottom: 7px; letter-spacing: 0.3px; }
+.pqc p { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.6; }
 
-/* ── FUNCIONALIDADES ── */
-.features { padding: 80px 0; border-top: 1px solid var(--borde); }
-
-.feature-block {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 60px; align-items: center;
-  margin-bottom: 80px;
-}
-.feature-block:last-child { margin-bottom: 0; }
-.feature-block.reverse { direction: rtl; }
-.feature-block.reverse > * { direction: ltr; }
-
-.feature-tag {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--amarillo); margin-bottom: 12px;
-}
-.feature-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(32px, 3.5vw, 44px);
-  font-weight: 900; text-transform: uppercase;
-  letter-spacing: 0.5px; line-height: 1.0;
-  margin-bottom: 16px;
-}
-.feature-title span { color: var(--amarillo); }
-.feature-desc { font-size: 14px; color: var(--gris1); line-height: 1.7; margin-bottom: 20px; }
-.feature-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-.feature-list li {
-  font-size: 13px; color: var(--gris1);
-  display: flex; align-items: flex-start; gap: 10px; line-height: 1.5;
-}
-.feature-list li::before {
-  content: '✓';
-  color: var(--amarillo); font-weight: 800; font-size: 12px;
-  flex-shrink: 0; margin-top: 1px;
-}
-.feature-img img {
-  width: 100%;
-  filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6));
-  border-radius: 12px;
-}
-
-/* ── PRECIOS ── */
-.precios {
-  padding: 80px 0; border-top: 1px solid var(--borde);
-  background: linear-gradient(180deg, var(--negro) 0%, #0D0D00 50%, var(--negro) 100%);
-}
+/* Precios */
+#precios { background: linear-gradient(180deg, var(--negro) 0%, #0D0D00 50%, var(--negro) 100%); }
 .precios-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 16px; margin-top: 52px;
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 14px;
+  margin-top: 28px; width: 100%; max-width: 980px;
 }
-.precio-card {
-  background: var(--negro3); border: 1px solid var(--borde);
-  border-radius: 16px; padding: 32px 28px;
-  position: relative; transition: border-color 0.2s;
+.pc {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 14px; padding: 28px 22px; text-align: left;
+  position: relative;
 }
-.precio-card:hover { border-color: var(--borde); }
-.precio-card.featured {
-  border-color: var(--amarillo);
-  background: linear-gradient(135deg, #1A1600 0%, #111100 100%);
-}
-.precio-badge {
+.pc.featured { border-color: var(--amarillo); background: rgba(245,196,0,0.05); }
+.pc-badge {
   position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
   background: var(--amarillo); color: var(--negro);
-  font-size: 10px; font-weight: 800; letter-spacing: 0.08em;
+  font-size: 9px; font-weight: 800; letter-spacing: 0.1em;
   text-transform: uppercase; padding: 3px 14px; border-radius: 20px;
   white-space: nowrap;
 }
-.precio-tier {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--gris2); margin-bottom: 12px;
-}
-.precio-valor {
+.pc-tier { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 10px; }
+.pc-valor {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 52px; font-weight: 900; color: var(--blanco); line-height: 1;
-  margin-bottom: 4px;
+  font-size: 48px; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 4px;
 }
-.precio-valor span { font-size: 22px; font-weight: 600; color: var(--gris2); }
-.precio-desc { font-size: 12px; color: var(--gris2); margin-bottom: 24px; }
-.precio-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
-.precio-features li {
-  font-size: 13px; color: var(--gris1);
-  display: flex; align-items: flex-start; gap: 9px; line-height: 1.45;
+.pc-valor span { font-size: 20px; font-weight: 500; color: rgba(255,255,255,0.4); }
+.pc-desc { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+.pc-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+.pc-list li { font-size: 12px; color: rgba(255,255,255,0.75); display: flex; align-items: flex-start; gap: 8px; line-height: 1.45; }
+.pc-list li .ck { color: #4ADE80; font-weight: 800; font-size: 11px; flex-shrink: 0; margin-top: 1px; }
+.pc-list li .cx { color: rgba(255,255,255,0.25); font-size: 11px; flex-shrink: 0; margin-top: 1px; }
+.pc-btn {
+  display: block; text-align: center; width: 100%;
+  padding: 11px 0; border-radius: 7px;
+  font-size: 12px; font-weight: 700; text-decoration: none;
+  text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.2s;
 }
-.precio-features li .check { color: var(--verde); font-weight: 800; font-size: 12px; flex-shrink: 0; margin-top: 1px; }
-.precio-features li .cross { color: var(--gris2); font-size: 12px; flex-shrink: 0; margin-top: 1px; }
-.precio-cta { width: 100%; }
-.precio-cta.featured-cta { background: var(--amarillo); color: var(--negro); }
-.precio-cta.outline-cta {
-  background: transparent; border: 1px solid var(--borde); color: var(--gris1);
-  width: 100%; display: block; text-align: center;
-  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700;
-  padding: 12px 0; border-radius: 8px; cursor: pointer;
-  text-transform: uppercase; letter-spacing: 0.05em;
-  text-decoration: none; transition: border-color 0.15s;
-}
-.precio-cta.outline-cta:hover { border-color: var(--gris2); }
+.pc-btn.y { background: var(--amarillo); color: var(--negro); }
+.pc-btn.y:hover { background: var(--amarillo2); }
+.pc-btn.o { background: transparent; border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.65); }
+.pc-btn.o:hover { border-color: rgba(255,255,255,0.35); color: #fff; }
 
-/* ── FAQs ── */
-.faqs { padding: 80px 0; border-top: 1px solid var(--borde); }
-.faqs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 60px; margin-top: 52px; }
-.faq-item {
-  border-bottom: 1px solid var(--borde); padding: 20px 0; cursor: pointer;
+/* FAQs */
+#faqs { background: var(--negro); }
+.faqs-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0 60px;
+  margin-top: 36px; width: 100%; max-width: 980px; text-align: left;
 }
-.faq-question {
-  display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
-}
-.faq-q-text {
-  font-size: 14px; font-weight: 600; color: var(--blanco); line-height: 1.5;
-}
-.faq-icon {
-  font-size: 18px; color: var(--amarillo); flex-shrink: 0;
-  transition: transform 0.2s; margin-top: 1px;
-}
+.faq-item { border-bottom: 1px solid rgba(255,255,255,0.07); padding: 18px 0; cursor: pointer; }
+.faq-q { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.faq-q-text { font-size: 13px; font-weight: 600; color: #fff; line-height: 1.5; }
+.faq-icon { font-size: 18px; color: var(--amarillo); flex-shrink: 0; transition: transform 0.2s; margin-top: 1px; }
 .faq-item.open .faq-icon { transform: rotate(45deg); }
-.faq-answer {
-  font-size: 13px; color: var(--gris2); line-height: 1.7;
+.faq-a {
+  font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.7;
   max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s;
 }
-.faq-item.open .faq-answer { max-height: 200px; padding-top: 10px; }
+.faq-item.open .faq-a { max-height: 200px; padding-top: 10px; }
 
-/* ── CONTACTO ── */
-.contacto {
-  padding: 80px 0; border-top: 1px solid var(--borde);
+/* Contacto */
+#contacto {
+  background: linear-gradient(180deg, var(--negro) 0%, #0A0A00 100%);
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 48px 2.5rem 40px;
+  scroll-margin-top: var(--nav-h); text-align: center; overflow: hidden;
 }
-.contacto-inner {
-  max-width: 640px; margin: 0 auto; text-align: center;
+.cf {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 16px; padding: 28px 36px;
+  max-width: 520px; width: 100%; margin-top: 24px; text-align: left;
 }
-.contacto-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(40px, 5vw, 60px);
-  font-weight: 900; text-transform: uppercase; line-height: 0.95;
-  margin-bottom: 16px;
+.cf-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 20px; text-align: center; text-transform: uppercase; letter-spacing: 0.06em; }
+.fr2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.ff { margin-bottom: 10px; }
+.ff label { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.35); display: block; margin-bottom: 4px; letter-spacing: 0.09em; text-transform: uppercase; }
+.ff input, .ff select, .ff textarea {
+  width: 100%; background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12); border-radius: 7px;
+  padding: 9px 11px; font-size: 13px; color: #fff;
+  font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.2s; resize: none;
 }
-.contacto-title span { color: var(--amarillo); }
-.contacto-sub { font-size: 15px; color: var(--gris2); line-height: 1.6; margin-bottom: 36px; }
-.contacto-btns { display: flex; gap: 12px; justify-content: center; margin-bottom: 48px; flex-wrap: wrap; }
+.ff input::placeholder, .ff textarea::placeholder { color: rgba(255,255,255,0.25); }
+.ff input:focus, .ff select:focus, .ff textarea:focus { border-color: var(--amarillo); }
+.ff select option { background: #1A1A1A; }
+.ff textarea { min-height: 80px; }
+.fs {
+  width: 100%; background: var(--amarillo); color: var(--negro);
+  border: none; border-radius: 8px; padding: 13px;
+  font-size: 14px; font-weight: 700; font-family: 'Inter', sans-serif;
+  cursor: pointer; margin-top: 6px; transition: background 0.2s;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.fs:hover { background: var(--amarillo2); }
+.fp { font-size: 11px; color: rgba(255,255,255,0.25); text-align: center; margin-top: 10px; line-height: 1.55; }
+.wa-contacto {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.3);
+  color: #fff; padding: 12px 24px; border-radius: 8px;
+  text-decoration: none; font-size: 14px; font-weight: 600;
+  margin-bottom: 24px; transition: background 0.2s;
+}
+.wa-contacto:hover { background: rgba(37,211,102,0.18); }
 
-.form-wrap {
-  background: var(--negro3); border: 1px solid var(--borde);
-  border-radius: 16px; padding: 32px; text-align: left;
-}
-.form-title {
-  font-size: 14px; font-weight: 700; color: var(--blanco);
-  margin-bottom: 20px; text-align: center;
-  text-transform: uppercase; letter-spacing: 0.06em;
-}
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
-.form-group { margin-bottom: 12px; }
-.form-label {
-  display: block; font-size: 10px; font-weight: 700;
-  color: var(--gris2); text-transform: uppercase;
-  letter-spacing: 0.08em; margin-bottom: 5px;
-}
-.form-input {
-  width: 100%; background: rgba(255,255,255,0.05);
-  border: 1px solid var(--borde); border-radius: 8px;
-  padding: 11px 14px; font-size: 13px; color: var(--blanco);
-  font-family: 'Inter', sans-serif;
-  transition: border-color 0.15s;
-}
-.form-input:focus { outline: none; border-color: var(--amarillo); }
-.form-input::placeholder { color: var(--gris2); }
-select.form-input option { background: #1A1A1A; }
-textarea.form-input { min-height: 90px; resize: none; }
-.form-submit {
-  width: 100%; justify-content: center; margin-top: 4px;
-  font-size: 14px; padding: 14px;
-}
-
-/* ── FOOTER ── */
+/* Footer */
 footer {
-  background: var(--negro2); border-top: 1px solid var(--borde);
-  padding: 40px 0 28px;
+  background: #030303; padding: 24px 2.5rem;
+  text-align: center; border-top: 1px solid rgba(245,196,0,0.08);
 }
-.footer-inner {
-  max-width: 1100px; margin: 0 auto; padding: 0 24px;
-}
-.footer-top {
-  display: flex; align-items: flex-start; justify-content: space-between;
-  gap: 40px; margin-bottom: 32px; flex-wrap: wrap;
-}
-.footer-brand {}
-.footer-logo {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 28px; font-weight: 900; color: var(--blanco);
-  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
-}
-.footer-logo span { color: var(--amarillo); }
-.footer-tagline { font-size: 12px; color: var(--gris2); margin-bottom: 14px; }
-.footer-by {
-  font-size: 11px; color: var(--gris2);
-}
-.footer-by a { color: var(--amarillo); text-decoration: none; font-weight: 600; }
-.footer-by a:hover { text-decoration: underline; }
-.footer-nav { display: flex; gap: 60px; flex-wrap: wrap; }
-.footer-nav-col {}
-.footer-nav-title {
-  font-size: 10px; font-weight: 700; color: var(--gris2);
-  text-transform: uppercase; letter-spacing: 0.1em;
-  margin-bottom: 12px;
-}
-.footer-nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.footer-nav-links a {
-  font-size: 13px; color: rgba(255,255,255,0.5);
-  text-decoration: none; transition: color 0.15s;
-}
-.footer-nav-links a:hover { color: var(--blanco); }
-.footer-bottom {
-  border-top: 1px solid var(--borde); padding-top: 20px;
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 12px;
-}
-.footer-legal { font-size: 11px; color: var(--gris2); }
-.footer-legal a { color: var(--gris2); text-decoration: none; }
-.footer-legal a:hover { color: var(--blanco); }
+footer p { font-size: 12px; color: rgba(255,255,255,0.25); }
+footer strong { color: rgba(255,255,255,0.5); }
+footer a { color: rgba(255,255,255,0.25); text-decoration: none; }
+footer a:hover { color: var(--amarillo); }
 
-/* ── RESPONSIVE ── */
+/* WhatsApp flotante */
+.wa {
+  position: fixed; bottom: 28px; right: 28px; z-index: 999;
+  background: #25D366; color: #fff; width: 52px; height: 52px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  text-decoration: none; box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+  transition: transform 0.2s; font-size: 24px;
+}
+.wa:hover { transform: scale(1.1); }
+.wa-tip {
+  position: absolute; right: 60px;
+  background: rgba(8,8,8,0.97); color: #fff;
+  font-size: 12px; font-weight: 500; font-family: 'Inter', sans-serif;
+  padding: 6px 12px; border-radius: 8px; white-space: nowrap;
+  opacity: 0; pointer-events: none; transition: opacity 0.2s;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.wa:hover .wa-tip { opacity: 1; }
+
+/* ══ RESPONSIVE ══ */
 @media (max-width: 900px) {
-  .navbar-links, .navbar-cta { display: none; }
-  .hamburger { display: flex; }
-
-  .hero { padding: 100px 0 60px; }
-  .hero-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
-  .hero-subtitle { margin: 0 auto 36px; }
-  .hero-btns { justify-content: center; }
-  .hero-stats { justify-content: center; }
-  .hero-img { order: -1; }
-  .hero-img img { max-width: 380px; margin: 0 auto; display: block; }
-
-  .perfiles-grid { grid-template-columns: 1fr; gap: 12px; }
-
-  .feature-block,
-  .feature-block.reverse { grid-template-columns: 1fr; direction: ltr; gap: 32px; }
-  .feature-block.reverse .feature-img { order: -1; }
-
-  .precios-grid { grid-template-columns: 1fr; max-width: 380px; margin: 52px auto 0; }
-
+  .sc-l, .sc-r { max-width: 90%; padding-left: 1.5rem; padding-right: 1.5rem; margin: 0 auto; align-items: center; text-align: center; }
+  .fl li { text-align: left; }
+  .br { justify-content: center; }
+  .ov-l, .ov-r { background: rgba(8,8,8,0.78); }
+  .pq-grid { grid-template-columns: 1fr; max-width: 400px; }
+  .precios-grid { grid-template-columns: 1fr; max-width: 380px; }
   .faqs-grid { grid-template-columns: 1fr; gap: 0; }
-
-  .form-row { grid-template-columns: 1fr; }
-
-  .footer-top { flex-direction: column; gap: 28px; }
-  .footer-nav { gap: 32px; }
-  .footer-bottom { flex-direction: column; text-align: center; }
+  .fr2 { grid-template-columns: 1fr; }
+  .cf { padding: 22px 16px; }
 }
-
-@media (max-width: 480px) {
-  .hero-title { font-size: 48px; }
-  .hero-btns { flex-direction: column; align-items: stretch; }
-  .hero-btns a { text-align: center; justify-content: center; }
-  .contacto-btns { flex-direction: column; align-items: stretch; }
-  .contacto-btns a { text-align: center; justify-content: center; }
+@media (max-width: 768px) {
+  .nav-links, .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+  .sec-box, #contacto { padding: 40px 1.5rem 64px; }
+}
+@media (max-width: 600px) {
+  :root { --nav-h: 56px; }
+  .sc { padding-top: calc(var(--nav-h) + 12px); padding-bottom: 64px; padding-left: 1.25rem; padding-right: 1.25rem; }
+  .h1 { font-size: clamp(38px, 10vw, 52px); }
+  .h2 { font-size: clamp(30px, 9vw, 44px); }
+  .wa { bottom: 16px; right: 16px; width: 48px; height: 48px; font-size: 22px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ══ NAVBAR ══ -->
-<header class="navbar">
-  <div class="navbar-inner">
-    <a href="#" class="navbar-logo">KORI<span>X</span></a>
-    <ul class="navbar-links">
-      <li><a href="#funcionalidades">Funcionalidades</a></li>
-      <li><a href="#precios">Precios</a></li>
-      <li><a href="#faqs">FAQ</a></li>
-      <li><a href="#contacto">Contacto</a></li>
-      <li><a href="https://jbmarketing.es" target="_blank" class="nav-jb">↗ JB Marketing</a></li>
-    </ul>
-    <div class="navbar-cta">
-      <a href="#contacto" class="btn-yellow">Solicitar demo</a>
-      <button class="hamburger" id="hamburger" aria-label="Menú">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">KORI<span>X</span></a>
+  <div class="nav-links">
+    <a href="#miembros">Miembros</a>
+    <a href="#cobros">Cobros</a>
+    <a href="#app-home">App</a>
+    <a href="#bono-qr">Bonos QR</a>
+    <a href="#precios">Precio</a>
+    <a href="#faqs">FAQ</a>
+    <a href="#contacto">Contacto</a>
+    <a href="https://jbmarketing.es" style="color:rgba(255,255,255,0.3);">← JB Marketing</a>
   </div>
-</header>
+  <a href="#contacto" class="nav-cta">Solicitar demo</a>
+  <button class="nav-hamburger" id="kx-hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
 
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#funcionalidades" class="mobile-link">Funcionalidades</a>
-  <a href="#precios" class="mobile-link">Precios</a>
-  <a href="#faqs" class="mobile-link">FAQ</a>
-  <a href="#contacto" class="mobile-link">Contacto</a>
-  <a href="https://jbmarketing.es" target="_blank" class="mobile-jb">↗ JB Marketing</a>
-  <div class="mobile-menu-btns">
-    <a href="https://wa.me/34600000000?text=Hola,%20quiero%20información%20sobre%20KORIX" target="_blank" class="btn-outline">💬 WhatsApp</a>
-    <a href="#contacto" class="btn-yellow">Solicitar demo</a>
-  </div>
+<div class="mobile-menu" id="kx-mobile-menu">
+  <a href="#miembros" onclick="kxCloseMenu()">Miembros</a>
+  <a href="#cobros" onclick="kxCloseMenu()">Cobros</a>
+  <a href="#app-home" onclick="kxCloseMenu()">App socio</a>
+  <a href="#bono-qr" onclick="kxCloseMenu()">Bonos QR</a>
+  <a href="#precios" onclick="kxCloseMenu()">Precio</a>
+  <a href="#faqs" onclick="kxCloseMenu()">FAQ</a>
+  <a href="#contacto" onclick="kxCloseMenu()">Contacto</a>
+  <a href="https://jbmarketing.es" class="m-back">← JB Marketing</a>
+  <a href="#contacto" class="m-cta" onclick="kxCloseMenu()">Solicitar demo</a>
 </div>
 
-<!-- ══ HERO ══ -->
-<section class="hero" id="inicio">
-  <div class="container">
-    <div class="hero-grid">
-      <div>
-        <p class="hero-eyebrow">App de gestión · Centros de entrenamiento</p>
-        <h1 class="hero-title">Tu centro.<br>Bajo <span>control.</span><br>Sin papeles.</h1>
-        <p class="hero-subtitle">KORIX es la app que necesita tu microgimnasio o centro de entrenamiento personal. Gestiona miembros, cobros, bonos y acceso QR desde el móvil o el ordenador. Con tu web incluida.</p>
-        <div class="hero-btns">
-          <a href="#contacto" class="btn-yellow">🚀 Solicitar demo gratuita</a>
-          <a href="https://wa.me/34600000000?text=Hola,%20quiero%20información%20sobre%20KORIX" target="_blank" class="btn-outline">💬 Contactar por WhatsApp</a>
-        </div>
-        <div class="hero-stats">
-          <div>
-            <div class="hero-stat-value">100%</div>
-            <div class="hero-stat-label">Digital y sin papeles</div>
-          </div>
-          <div>
-            <div class="hero-stat-value">3</div>
-            <div class="hero-stat-label">Métodos de cobro</div>
-          </div>
-          <div>
-            <div class="hero-stat-value">150</div>
-            <div class="hero-stat-label">Miembros por centro</div>
-          </div>
-        </div>
-      </div>
-      <div class="hero-img">
-        <img src="https://juanmablascomarketing.github.io/apps/korix/korix-dashboard.png" alt="KORIX Dashboard" />
-      </div>
+<!-- ══ S1 HERO — dashboard.png ══ -->
+<section class="sf" id="hero">
+  <div class="ov-l"></div>
+  <div class="sc sc-l">
+    <span class="ey">App de gestión · Centros de entrenamiento</span>
+    <h1 class="h1">Tu centro.<br>Bajo <em>control.</em><br>Sin papeles.</h1>
+    <p class="sub">KORIX es la app que necesita tu microgimnasio o centro de entrenamiento personal. Gestiona miembros, cobros, bonos y acceso QR desde el móvil o el ordenador. Con tu web incluida.</p>
+    <div class="br">
+      <a href="#contacto" class="bp">Solicitar demo gratuita</a>
+      <a href="#miembros" class="bg-btn">Ver cómo funciona</a>
     </div>
+  </div>
+</section>
+
+<!-- ══ S2 MIEMBROS — miembros.png ══ -->
+<section class="sf" id="miembros">
+  <div class="ov-l"></div>
+  <div class="sc sc-l">
+    <span class="ey">Gestión de miembros</span>
+    <h2 class="h2">Alta en segundos.<br><em>Con o sin papel.</em></h2>
+    <p class="sub">El nuevo miembro escanea el QR de la entrada y se da de alta solo. O tú lo registras desde tu móvil en el momento. Ficha completa, plan activo y método de cobro guardado.</p>
+    <ul class="fl">
+      <li>Alta vía QR en la entrada sin intervención del admin</li>
+      <li>Alta manual desde móvil o escritorio en menos de 1 minuto</li>
+      <li>Ficha completa: datos, plan, bonos e historial de cobros</li>
+      <li>Roles diferenciados: superadmin y admins secundarios</li>
+      <li>Exportación del listado de miembros</li>
+    </ul>
+    <div class="br"><a href="#contacto" class="bp">Solicitar demo</a></div>
+  </div>
+</section>
+
+<!-- ══ S3 FICHA SOCIO — socio.png ══ -->
+<section class="sf" id="socio">
+  <div class="ov-r"></div>
+  <div class="sc sc-r">
+    <span class="ey">Ficha de miembro</span>
+    <h2 class="h2">Cada miembro,<br><em>bajo control total.</em></h2>
+    <p class="sub">Plan activo, método de cobro preferido, historial completo de pagos y bonos. Todo en una ficha accesible desde móvil, tablet u ordenador.</p>
+    <ul class="fl">
+      <li>Plan activo con fecha de próximo cargo</li>
+      <li>Selector de método de cobro: Stripe, TPV, enlace o Bizum</li>
+      <li>Historial completo de cobros con estado</li>
+      <li>Cambio o pausa del plan desde la propia ficha</li>
+      <li>QR personal del miembro accesible desde admin</li>
+    </ul>
+    <div class="br"><a href="#contacto" class="bp">Solicitar demo</a></div>
+  </div>
+</section>
+
+<!-- ══ S4 COBROS — cobros-bonos.png ══ -->
+<section class="sf" id="cobros">
+  <div class="ov-l"></div>
+  <div class="sc sc-l">
+    <span class="ey">Cobros · Bonos · Tesorería</span>
+    <h2 class="h2">Cobra como<br><em>quieras. Siempre.</em></h2>
+    <p class="sub">Mensualidad automática por Stripe, enlace de pago por WhatsApp, TPV virtual en el centro o confirmación manual de Bizum. El miembro elige, tú siempre tienes el control.</p>
+    <ul class="fl">
+      <li>Stripe automático para mensualidades recurrentes</li>
+      <li>Enlace de pago enviado por WhatsApp o email en un clic</li>
+      <li>TPV virtual: el miembro paga con tarjeta en el centro</li>
+      <li>Bizum con confirmación manual y ticket automático</li>
+      <li>Informes completos listos para tu asesoría</li>
+    </ul>
+    <div class="br"><a href="#contacto" class="bp">Solicitar demo</a></div>
+  </div>
+</section>
+
+<!-- ══ S5 APP HOME — app-home.png ══ -->
+<section class="sf" id="app-home">
+  <div class="ov-t"></div>
+  <div class="sc sc-top">
+    <span class="ey">App del miembro · Smartphone</span>
+    <h2 class="h2">Tu miembro tiene<br><em>su propia app</em></h2>
+    <p class="sub" style="text-align:center;margin:0 auto 20px;max-width:520px;">Plan activo, próxima clase, avisos del centro e historial de cobros. Todo en el bolsillo de tu miembro, en iOS y Android.</p>
+    <div class="br" style="justify-content:center;">
+      <a href="#contacto" class="bp">Solicitar demo gratuita</a>
+      <a href="#bono-qr" class="bg-btn">Ver bonos QR</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ S6 BONO QR — app-mibono-qr.png ══ -->
+<section class="sf" id="bono-qr">
+  <div class="ov-r"></div>
+  <div class="sc sc-r">
+    <span class="ey">Bonos · Acceso QR</span>
+    <h2 class="h2">Muestra el QR.<br><em>Entra. Listo.</em></h2>
+    <p class="sub">El miembro muestra su QR personal en la entrada. El sistema descuenta una sesión del bono automáticamente. Sin tarjetas, sin papeles, sin perder tiempo.</p>
+    <ul class="fl">
+      <li>QR personal único por miembro, siempre en la app</li>
+      <li>Descuento automático de sesión al escanear</li>
+      <li>Alerta al miembro cuando le queda 1 sesión</li>
+      <li>Renovación del bono con un toque y pago inmediato</li>
+      <li>Bonos sin caducidad o con fecha límite configurable</li>
+    </ul>
+    <div class="br"><a href="#contacto" class="bp">Solicitar demo</a></div>
+  </div>
+</section>
+
+<!-- ══ S7 MULTI-DISPOSITIVO — dashboard-socio.png ══ -->
+<section class="sf" id="multidispositivo">
+  <div class="ov-l"></div>
+  <div class="sc sc-l">
+    <span class="ey">Multi-dispositivo · Tu web incluida</span>
+    <h2 class="h2">En tu móvil,<br>tu tablet, <em>tu web.</em></h2>
+    <p class="sub">Gestiona desde donde estés. Y tu centro tendrá su propia web automáticamente — con información, servicios y formulario de alta para nuevos miembros.</p>
+    <ul class="fl">
+      <li>Escritorio, tablet y móvil: misma experiencia, adaptada</li>
+      <li>Web corporativa generada automáticamente para tu centro</li>
+      <li>Los nuevos miembros pueden darse de alta desde la web</li>
+      <li>Sin necesidad de conocimientos técnicos</li>
+    </ul>
+    <div class="br"><a href="#contacto" class="bp">Solicitar demo</a></div>
   </div>
 </section>
 
 <!-- ══ PARA QUIÉN ══ -->
-<section class="para-quien" id="para-quien">
-  <div class="container">
-    <div class="section-header">
-      <span class="tag">Para quién es KORIX</span>
-      <h2 class="section-title">Hecho para quien<br>empieza <span>en serio</span></h2>
-      <p class="section-sub">No para grandes cadenas. Para el emprendedor que ha apostado por su propio centro y necesita una herramienta profesional sin pagar por lo que no usa.</p>
-    </div>
-    <div class="perfiles-grid">
-      <div class="perfil-card">
-        <div class="perfil-icon">🏋️</div>
-        <div class="perfil-title">Microgimnasio</div>
-        <p class="perfil-desc">Un bajo comercial, equipamiento de calidad y hasta 150 miembros. Quieres cobrar sin WhatsApp, controlar quién entra y tener todo el papeleo para tu gestor.</p>
-      </div>
-      <div class="perfil-card">
-        <div class="perfil-icon">💪</div>
-        <div class="perfil-title">Entrenador personal</div>
-        <p class="perfil-desc">Trabajas con grupos reducidos y sesiones individuales. Necesitas gestionar bonos, confirmar asistencia y enviar recordatorios sin volverte loco con el móvil.</p>
-      </div>
-      <div class="perfil-card">
-        <div class="perfil-icon">🥊</div>
-        <div class="perfil-title">Box / Centro de clases</div>
-        <p class="perfil-desc">Crossfit, boxeo, pilates, yoga. Tienes clases con aforo limitado, varios tipos de membresía y colaboradores que necesitan acceso parcial al sistema.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ FUNCIONALIDADES ══ -->
-<section class="features" id="funcionalidades">
-  <div class="container">
-    <div class="section-header">
-      <span class="tag">Funcionalidades</span>
-      <h2 class="section-title">Todo lo que<br>necesitas. <span>Nada más.</span></h2>
-    </div>
-
-    <!-- F1: Dashboard -->
-    <div class="feature-block">
-      <div class="feature-text">
-        <p class="feature-tag">Control total · Dashboard</p>
-        <h3 class="feature-title">Lo que pasa en tu centro,<br><span>en tiempo real</span></h3>
-        <p class="feature-desc">Métricas clave, alertas de cobros fallidos, bonos a punto de agotarse y últimos movimientos. Todo en una pantalla, sin tener que buscar.</p>
-        <ul class="feature-list">
-          <li>Miembros activos, cobrado del mes y pendiente de un vistazo</li>
-          <li>Alertas automáticas de cobro fallido y bono por agotar</li>
-          <li>Historial de movimientos con estado en tiempo real</li>
-          <li>Acceso desde móvil, tablet u ordenador</li>
-        </ul>
-      </div>
-      <div class="feature-img">
-        <img src="https://juanmablascomarketing.github.io/apps/korix/korix-dashboard.png" alt="KORIX Dashboard" />
-      </div>
-    </div>
-
-    <!-- F2: Miembros -->
-    <div class="feature-block reverse">
-      <div class="feature-text">
-        <p class="feature-tag">Gestión de miembros</p>
-        <h3 class="feature-title">Alta en segundos.<br><span>Con o sin papel.</span></h3>
-        <p class="feature-desc">El nuevo miembro escanea el QR de la entrada y se da de alta solo. O tú lo registras en el momento desde tu móvil. Ficha completa, plan activo y método de cobro guardado.</p>
-        <ul class="feature-list">
-          <li>Alta vía QR en la entrada sin intervención del admin</li>
-          <li>Alta manual desde móvil o escritorio en menos de 1 minuto</li>
-          <li>Ficha completa: datos, plan, bonos e historial de cobros</li>
-          <li>Roles diferenciados: superadmin y admins secundarios</li>
-        </ul>
-      </div>
-      <div class="feature-img">
-        <img src="https://juanmablascomarketing.github.io/apps/korix/korix-miembros.png" alt="KORIX Gestión de miembros" />
-      </div>
-    </div>
-
-    <!-- F3: Cobros -->
-    <div class="feature-block">
-      <div class="feature-text">
-        <p class="feature-tag">Cobros · Bonos · Tesorería</p>
-        <h3 class="feature-title">Cobra como<br><span>quieras. Siempre.</span></h3>
-        <p class="feature-desc">Mensualidad automática por Stripe, enlace de pago por WhatsApp, TPV virtual en el centro o confirmación manual de Bizum. El miembro elige, tú siempre tienes el control.</p>
-        <ul class="feature-list">
-          <li>Stripe automático para mensualidades recurrentes</li>
-          <li>Enlace de pago enviado por WhatsApp o email en un clic</li>
-          <li>TPV virtual: el miembro paga con tarjeta en el centro</li>
-          <li>Bizum con confirmación manual y ticket automático</li>
-          <li>Informes completos para tu asesoría</li>
-        </ul>
-      </div>
-      <div class="feature-img">
-        <img src="https://juanmablascomarketing.github.io/apps/korix/korix-cobros-bonos.png" alt="KORIX Cobros y bonos" />
-      </div>
-    </div>
-
-    <!-- F4: App socio -->
-    <div class="feature-block reverse">
-      <div class="feature-text">
-        <p class="feature-tag">App del miembro · Smartphone</p>
-        <h3 class="feature-title">Tu miembro tiene<br><span>su propia app</span></h3>
-        <p class="feature-desc">Cada miembro accede a su espacio personal: plan activo, próxima clase, avisos del centro y su QR de entrada. Disponible en iOS y Android.</p>
-        <ul class="feature-list">
-          <li>Home personalizado con plan y próxima clase</li>
-          <li>Avisos del centro en tiempo real</li>
-          <li>Historial de cobros y recibos descargables</li>
-          <li>Cambio de plan desde la propia app</li>
-        </ul>
-      </div>
-      <div class="feature-img">
-        <img src="https://juanmablascomarketing.github.io/apps/korix/korix-app-home.png" alt="KORIX App miembro home" />
-      </div>
-    </div>
-
-    <!-- F5: QR Bono -->
-    <div class="feature-block">
-      <div class="feature-text">
-        <p class="feature-tag">Bonos · Acceso QR</p>
-        <h3 class="feature-title">Muestra el QR.<br><span>Entra. Listo.</span></h3>
-        <p class="feature-desc">El miembro muestra su QR personal en la entrada. El sistema descuenta una sesión del bono automáticamente. Sin tarjetas, sin papeles, sin perder tiempo.</p>
-        <ul class="feature-list">
-          <li>QR personal único por miembro, siempre en la app</li>
-          <li>Descuento automático de sesión al escanear</li>
-          <li>Alerta al miembro cuando le queda 1 sesión</li>
-          <li>Renovación del bono con un toque desde la app</li>
-        </ul>
-      </div>
-      <div class="feature-img">
-        <img src="https://juanmablascomarketing.github.io/apps/korix/app-mibono-qr.png" alt="KORIX Mi bono QR" />
-      </div>
-    </div>
-
-    <!-- F6: Multidispositivo -->
-    <div class="feature-block reverse">
-      <div class="feature-text">
-        <p class="feature-tag">Multi-dispositivo · Tu web incluida</p>
-        <h3 class="feature-title">En tu móvil,<br>tu tablet, <span>tu web.</span></h3>
-        <p class="feature-desc">Gestiona desde donde estés. Y además, cada centro contratado recibe automáticamente su propia web con información del local, servicios y formulario de alta. Sin coste adicional.</p>
-        <ul class="feature-list">
-          <li>Escritorio, tablet y móvil: misma experiencia, adaptada</li>
-          <li>Web corporativa generada automáticamente para tu centro</li>
-          <li>URL propia: tucentro.korix.es</li>
-          <li>Los nuevos miembros pueden darse de alta desde la web</li>
-        </ul>
-      </div>
-      <div class="feature-img">
-        <img src="https://juanmablascomarketing.github.io/apps/korix/korix-dashboard-socio.png" alt="KORIX Multi-dispositivo" />
-      </div>
-    </div>
-
+<section class="sec-box" id="para-quien">
+  <span class="ey">Para quién es KORIX</span>
+  <h2 class="h2" style="max-width:700px;margin:0 auto 10px;">Hecho para quien<br>empieza <em>en serio</em></h2>
+  <p style="font-size:15px;color:rgba(255,255,255,0.5);max-width:520px;line-height:1.6;margin:0 auto;">No para grandes cadenas. Para el emprendedor que ha apostado por su propio centro y necesita una herramienta profesional sin pagar por lo que no usa.</p>
+  <div class="pq-grid">
+    <div class="pqc"><div class="pqc-icon">🏋️</div><h3>Microgimnasio</h3><p>Un bajo comercial, equipamiento de calidad y hasta 150 miembros. Quieres cobrar sin WhatsApp y tener todo el papeleo para tu gestor.</p></div>
+    <div class="pqc"><div class="pqc-icon">💪</div><h3>Entrenador personal</h3><p>Sesiones individuales y grupos reducidos. Necesitas gestionar bonos, confirmar asistencia y enviar recordatorios sin volverte loco.</p></div>
+    <div class="pqc"><div class="pqc-icon">🥊</div><h3>Box / Centro de clases</h3><p>Crossfit, boxeo, pilates, yoga. Clases con aforo limitado, varios tipos de membresía y colaboradores con acceso parcial.</p></div>
   </div>
 </section>
 
 <!-- ══ PRECIOS ══ -->
-<section class="precios" id="precios">
-  <div class="container">
-    <div class="section-header">
-      <span class="tag">Planes y precios</span>
-      <h2 class="section-title">Empieza pequeño.<br><span>Crece</span> sin límites.</h2>
-      <p class="section-sub">Sin permanencia. Sin sorpresas. Activa solo lo que necesitas y amplía cuando quieras.</p>
+<section class="sec-box" id="precios">
+  <span class="ey">Planes y precios</span>
+  <h2 class="h2" style="max-width:680px;margin:0 auto 10px;">Empieza pequeño.<br><em>Crece</em> sin límites.</h2>
+  <p style="font-size:15px;color:rgba(255,255,255,0.5);max-width:480px;line-height:1.6;margin:0 auto;">Sin permanencia. Sin sorpresas. Activa solo lo que necesitas.</p>
+  <div class="precios-grid">
+    <div class="pc">
+      <p class="pc-tier">Base</p>
+      <div class="pc-valor">29<span>€/mes</span></div>
+      <p class="pc-desc">Para centros que arrancan.</p>
+      <ul class="pc-list">
+        <li><span class="ck">✓</span> Hasta 50 miembros</li>
+        <li><span class="ck">✓</span> Dashboard y gestión de miembros</li>
+        <li><span class="ck">✓</span> Tesorería, facturas e informes</li>
+        <li><span class="ck">✓</span> Alta vía QR</li>
+        <li><span class="ck">✓</span> Web corporativa incluida</li>
+        <li><span class="cx">—</span> Stripe automático</li>
+        <li><span class="cx">—</span> Bonos con QR de entrada</li>
+      </ul>
+      <a href="#contacto" class="pc-btn o">Empezar con Base</a>
     </div>
-    <div class="precios-grid">
-
-      <div class="precio-card">
-        <p class="precio-tier">Base</p>
-        <div class="precio-valor">29<span>€/mes</span></div>
-        <p class="precio-desc">Para centros que arrancan. Todo lo esencial.</p>
-        <ul class="precio-features">
-          <li><span class="check">✓</span> Hasta 50 miembros</li>
-          <li><span class="check">✓</span> Dashboard y gestión de miembros</li>
-          <li><span class="check">✓</span> Tesorería, facturas e informes</li>
-          <li><span class="check">✓</span> Alta vía QR</li>
-          <li><span class="check">✓</span> Cobro manual confirmado (Bizum, TPV)</li>
-          <li><span class="check">✓</span> Web corporativa incluida</li>
-          <li><span class="cross">—</span> Stripe automático</li>
-          <li><span class="cross">—</span> Bonos con QR de entrada</li>
-          <li><span class="cross">—</span> Admins secundarios</li>
-        </ul>
-        <a href="#contacto" class="precio-cta outline-cta">Empezar con Base</a>
-      </div>
-
-      <div class="precio-card featured">
-        <div class="precio-badge">Más popular</div>
-        <p class="precio-tier">Pro</p>
-        <div class="precio-valor">59<span>€/mes</span></div>
-        <p class="precio-desc">Para centros en crecimiento. Cobro automático y bonos.</p>
-        <ul class="precio-features">
-          <li><span class="check">✓</span> Hasta 150 miembros</li>
-          <li><span class="check">✓</span> Todo lo del plan Base</li>
-          <li><span class="check">✓</span> Stripe automático para mensualidades</li>
-          <li><span class="check">✓</span> Enlace de pago por WhatsApp/email</li>
-          <li><span class="check">✓</span> Bonos de sesiones con QR de entrada</li>
-          <li><span class="check">✓</span> App del miembro completa</li>
-          <li><span class="check">✓</span> Comunicados y avisos</li>
-          <li><span class="cross">—</span> Admins secundarios</li>
-          <li><span class="cross">—</span> Módulos de entrenamiento y nutrición</li>
-        </ul>
-        <a href="#contacto" class="btn-yellow precio-cta featured-cta" style="display:block;text-align:center;text-decoration:none;padding:12px 0;border-radius:8px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Empezar con Pro</a>
-      </div>
-
-      <div class="precio-card">
-        <p class="precio-tier">Premium</p>
-        <div class="precio-valor">99<span>€/mes</span></div>
-        <p class="precio-desc">Para centros consolidados. Todas las funcionalidades.</p>
-        <ul class="precio-features">
-          <li><span class="check">✓</span> Miembros ilimitados</li>
-          <li><span class="check">✓</span> Todo lo del plan Pro</li>
-          <li><span class="check">✓</span> Admins secundarios ilimitados</li>
-          <li><span class="check">✓</span> Módulo de rutinas de entrenamiento</li>
-          <li><span class="check">✓</span> Seguimiento nutricional de apoyo</li>
-          <li><span class="check">✓</span> Contenido premium para miembros</li>
-          <li><span class="check">✓</span> Informes avanzados de tesorería</li>
-          <li><span class="check">✓</span> Soporte prioritario</li>
-        </ul>
-        <a href="#contacto" class="precio-cta outline-cta">Empezar con Premium</a>
-      </div>
-
+    <div class="pc featured">
+      <div class="pc-badge">Más popular</div>
+      <p class="pc-tier">Pro</p>
+      <div class="pc-valor">59<span>€/mes</span></div>
+      <p class="pc-desc">Para centros en crecimiento.</p>
+      <ul class="pc-list">
+        <li><span class="ck">✓</span> Hasta 150 miembros</li>
+        <li><span class="ck">✓</span> Todo lo del plan Base</li>
+        <li><span class="ck">✓</span> Stripe automático</li>
+        <li><span class="ck">✓</span> Enlace de pago por WhatsApp</li>
+        <li><span class="ck">✓</span> Bonos de sesiones con QR</li>
+        <li><span class="ck">✓</span> App del miembro completa</li>
+        <li><span class="cx">—</span> Módulos entrenamiento y nutrición</li>
+      </ul>
+      <a href="#contacto" class="pc-btn y">Empezar con Pro</a>
+    </div>
+    <div class="pc">
+      <p class="pc-tier">Premium</p>
+      <div class="pc-valor">99<span>€/mes</span></div>
+      <p class="pc-desc">Para centros consolidados.</p>
+      <ul class="pc-list">
+        <li><span class="ck">✓</span> Miembros ilimitados</li>
+        <li><span class="ck">✓</span> Todo lo del plan Pro</li>
+        <li><span class="ck">✓</span> Admins secundarios ilimitados</li>
+        <li><span class="ck">✓</span> Rutinas de entrenamiento</li>
+        <li><span class="ck">✓</span> Seguimiento nutricional</li>
+        <li><span class="ck">✓</span> Informes avanzados de tesorería</li>
+        <li><span class="ck">✓</span> Soporte prioritario</li>
+      </ul>
+      <a href="#contacto" class="pc-btn o">Empezar con Premium</a>
     </div>
   </div>
 </section>
 
 <!-- ══ FAQs ══ -->
-<section class="faqs" id="faqs">
-  <div class="container">
-    <div class="section-header">
-      <span class="tag">Preguntas frecuentes</span>
-      <h2 class="section-title">Lo que nos<br>suelen <span>preguntar</span></h2>
+<section class="sec-box" id="faqs">
+  <span class="ey">Preguntas frecuentes</span>
+  <h2 class="h2" style="max-width:680px;margin:0 auto 10px;">Lo que nos<br>suelen <em>preguntar</em></h2>
+  <div class="faqs-grid">
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><span class="faq-q-text">¿Necesito conocimientos técnicos para usar KORIX?</span><span class="faq-icon">+</span></div>
+      <div class="faq-a">No. KORIX está diseñado para emprendedores que no son informáticos. El onboarding es guiado y puedes estar operativo en menos de un día.</div>
     </div>
-    <div class="faqs-grid">
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-question">
-          <span class="faq-q-text">¿Necesito conocimientos técnicos para usar KORIX?</span>
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">No. KORIX está diseñado para emprendedores que no son informáticos. El onboarding es guiado, el soporte es cercano y puedes estar operativo en menos de un día.</div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-question">
-          <span class="faq-q-text">¿Qué pasa si tengo más de 150 miembros?</span>
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">El plan Premium no tiene límite de miembros. Si estás creciendo más de lo esperado, lo celebramos contigo y buscamos la solución que mejor encaje con tu situación.</div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-question">
-          <span class="faq-q-text">¿Puedo probar KORIX antes de pagar?</span>
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">Sí. Ofrecemos un período de prueba gratuito para que puedas testear la app con tus miembros reales sin compromiso. Solicita la demo y lo organizamos.</div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-question">
-          <span class="faq-q-text">¿Cómo funciona el cobro automático con Stripe?</span>
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">El miembro introduce su tarjeta una sola vez al darse de alta. A partir de ahí, la mensualidad se cobra automáticamente cada mes. Si hay un fallo, el sistema te avisa y reintenta el cobro.</div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-question">
-          <span class="faq-q-text">¿El miembro necesita descargar una app específica?</span>
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">La app del miembro es una Progressive Web App (PWA): se accede desde el navegador del móvil y se puede añadir a la pantalla de inicio como cualquier app, sin pasar por la App Store ni Google Play.</div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-question">
-          <span class="faq-q-text">¿Puedo tener varios entrenadores como admins?</span>
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">Sí, desde el plan Premium. El superadmin (el propietario) puede dar de alta admins secundarios con permisos configurables: acceso a clases, miembros, pero sin tocar cobros ni configuración del centro.</div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-question">
-          <span class="faq-q-text">¿KORIX genera facturas para la asesoría?</span>
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">Sí. Todos los cobros generan tickets automáticamente. Desde el módulo de tesorería puedes exportar informes completos en PDF listos para tu gestor o asesoría fiscal.</div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-question">
-          <span class="faq-q-text">¿Hay permanencia o puedo cancelar cuando quiera?</span>
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">Sin permanencia. Pagas mes a mes y puedes cancelar en cualquier momento. Tus datos son siempre tuyos y puedes exportarlos antes de salir.</div>
-      </div>
-
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><span class="faq-q-text">¿Puedo probar KORIX antes de pagar?</span><span class="faq-icon">+</span></div>
+      <div class="faq-a">Sí. Ofrecemos un período de prueba gratuito para que puedas testear la app con tus miembros reales sin compromiso. Solicita la demo y lo organizamos.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><span class="faq-q-text">¿Cómo funciona el cobro automático con Stripe?</span><span class="faq-icon">+</span></div>
+      <div class="faq-a">El miembro introduce su tarjeta una sola vez al darse de alta. A partir de ahí, la mensualidad se cobra automáticamente cada mes. Si hay un fallo, el sistema te avisa.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><span class="faq-q-text">¿El miembro necesita descargar una app de la tienda?</span><span class="faq-icon">+</span></div>
+      <div class="faq-a">No. La app del miembro es una PWA: se accede desde el navegador del móvil y se puede añadir a la pantalla de inicio como cualquier app, sin pasar por App Store ni Google Play.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><span class="faq-q-text">¿KORIX genera facturas para la asesoría?</span><span class="faq-icon">+</span></div>
+      <div class="faq-a">Sí. Todos los cobros generan tickets automáticamente. Desde el módulo de tesorería puedes exportar informes completos en PDF listos para tu gestor o asesoría fiscal.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><span class="faq-q-text">¿Puedo tener varios entrenadores como admins?</span><span class="faq-icon">+</span></div>
+      <div class="faq-a">Sí, desde el plan Premium. El superadmin puede dar de alta admins secundarios con permisos configurables: acceso a clases y miembros, sin tocar cobros ni configuración.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><span class="faq-q-text">¿Hay permanencia o puedo cancelar cuando quiera?</span><span class="faq-icon">+</span></div>
+      <div class="faq-a">Sin permanencia. Pagas mes a mes y puedes cancelar en cualquier momento. Tus datos son siempre tuyos y puedes exportarlos antes de salir.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><span class="faq-q-text">¿La web del centro está incluida en todos los planes?</span><span class="faq-icon">+</span></div>
+      <div class="faq-a">Sí. Todos los planes incluyen una web corporativa generada automáticamente para tu centro, con información, servicios y formulario de alta para nuevos miembros.</div>
     </div>
   </div>
 </section>
 
 <!-- ══ CONTACTO ══ -->
-<section class="contacto" id="contacto">
-  <div class="container">
-    <div class="contacto-inner">
-      <span class="tag">Contacto</span>
-      <h2 class="contacto-title">¿Listo para<br><span>arrancar?</span></h2>
-      <p class="contacto-sub">Cuéntanos cómo es tu centro y te hacemos una demo personalizada sin compromiso. O escríbenos directamente por WhatsApp.</p>
-      <div class="contacto-btns">
-        <a href="https://wa.me/34600000000?text=Hola,%20quiero%20información%20sobre%20KORIX" target="_blank" class="btn-outline">💬 WhatsApp directo</a>
+<section id="contacto">
+  <span class="ey" style="display:block;margin-bottom:10px;">Contacto</span>
+  <h2 class="h2" style="max-width:640px;margin:0 auto 10px;">¿Listo para<br><em>arrancar?</em></h2>
+  <p style="font-size:15px;color:rgba(255,255,255,0.5);max-width:460px;margin:0 auto;line-height:1.6;">Cuéntanos cómo es tu centro y te hacemos una demo personalizada sin compromiso.</p>
+  <a href="https://wa.me/34615613366?text=Hola,%20quiero%20información%20sobre%20KORIX" target="_blank" class="wa-contacto" style="margin-top:20px;">
+    💬 Contactar por WhatsApp
+  </a>
+  <div class="cf">
+    <p class="cf-title">Solicitar demo gratuita</p>
+    <form action="https://formspree.io/f/mwvjzqyn" method="POST">
+      <div class="fr2">
+        <div class="ff"><label>Nombre</label><input type="text" name="nombre" placeholder="Tu nombre" required /></div>
+        <div class="ff"><label>Teléfono</label><input type="tel" name="telefono" placeholder="+34 600 000 000" /></div>
       </div>
-
-      <div class="form-wrap">
-        <p class="form-title">Solicitar demo gratuita</p>
-        <form action="https://formspree.io/f/mwvjzqyn" method="POST">
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">Nombre</label>
-              <input type="text" name="nombre" class="form-input" placeholder="Tu nombre" required />
-            </div>
-            <div class="form-group">
-              <label class="form-label">Teléfono</label>
-              <input type="tel" name="telefono" class="form-input" placeholder="+34 600 000 000" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Email</label>
-            <input type="email" name="email" class="form-input" placeholder="tu@email.com" required />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Tipo de centro</label>
-            <select name="tipo_centro" class="form-input">
-              <option value="">Selecciona...</option>
-              <option>Microgimnasio</option>
-              <option>Entrenamiento personal</option>
-              <option>Box / Crossfit</option>
-              <option>Pilates / Yoga</option>
-              <option>Centro de artes marciales</option>
-              <option>Otro</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Cuéntanos tu situación (opcional)</label>
-            <textarea name="mensaje" class="form-input" placeholder="¿Cuántos miembros tienes? ¿Qué es lo que más te complica ahora mismo?"></textarea>
-          </div>
-          <button type="submit" class="btn-yellow form-submit">Enviar solicitud de demo →</button>
-        </form>
+      <div class="ff"><label>Email</label><input type="email" name="email" placeholder="tu@email.com" required /></div>
+      <div class="ff">
+        <label>Tipo de centro</label>
+        <select name="tipo_centro">
+          <option value="">Selecciona...</option>
+          <option>Microgimnasio</option>
+          <option>Entrenamiento personal</option>
+          <option>Box / Crossfit</option>
+          <option>Pilates / Yoga</option>
+          <option>Artes marciales</option>
+          <option>Otro</option>
+        </select>
       </div>
-    </div>
+      <div class="ff"><label>Cuéntanos tu situación (opcional)</label><textarea name="mensaje" placeholder="¿Cuántos miembros tienes? ¿Qué es lo que más te complica ahora mismo?"></textarea></div>
+      <input type="hidden" name="_subject" value="Nueva solicitud demo — KORIX" />
+      <button type="submit" class="fs">Enviar solicitud de demo →</button>
+      <p class="fp">Tus datos se usan únicamente para contactarte sobre KORIX. Sin spam.</p>
+    </form>
   </div>
 </section>
 
-<!-- ══ FOOTER ══ -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <div class="footer-logo">KORI<span>X</span></div>
-        <p class="footer-tagline">Power & Focus · App para centros de entrenamiento</p>
-        <p class="footer-by">Un producto de <a href="https://jbmarketing.es" target="_blank">JB Marketing & Events</a></p>
-      </div>
-      <div class="footer-nav">
-        <div class="footer-nav-col">
-          <p class="footer-nav-title">Producto</p>
-          <ul class="footer-nav-links">
-            <li><a href="#funcionalidades">Funcionalidades</a></li>
-            <li><a href="#precios">Precios</a></li>
-            <li><a href="#faqs">Preguntas frecuentes</a></li>
-          </ul>
-        </div>
-        <div class="footer-nav-col">
-          <p class="footer-nav-title">Contacto</p>
-          <ul class="footer-nav-links">
-            <li><a href="#contacto">Solicitar demo</a></li>
-            <li><a href="https://wa.me/34600000000" target="_blank">WhatsApp</a></li>
-            <li><a href="https://jbmarketing.es" target="_blank">JB Marketing</a></li>
-          </ul>
-        </div>
-        <div class="footer-nav-col">
-          <p class="footer-nav-title">Más apps</p>
-          <ul class="footer-nav-links">
-            <li><a href="https://jbmarketing.es/apps/partapp" target="_blank">PartApp</a></li>
-            <li><a href="https://jbmarketing.es/apps/gestaqua" target="_blank">GestAqua</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p class="footer-legal">© 2026 KORIX · JB Marketing & Events · Todos los derechos reservados</p>
-      <p class="footer-legal"><a href="#">Política de privacidad</a> · <a href="#">Aviso legal</a></p>
-    </div>
-  </div>
+  <p><strong>KORIX</strong> — Power & Focus · App para centros de entrenamiento · <strong>JB Marketing & Events</strong> · <a href="https://jbmarketing.es">jbmarketing.es</a> · <a href="https://jbmarketing.es/apps/partapp/">PartApp</a> · <a href="https://jbmarketing.es/apps/gestaqua/">GestAqua</a></p>
 </footer>
 
+<a href="https://wa.me/34615613366?text=Hola,%20quiero%20información%20sobre%20KORIX" class="wa" target="_blank" rel="noopener">
+  <span class="wa-tip">¿Hablamos por WhatsApp?</span>💬
+</a>
+
+<!-- FLECHA GLOBAL -->
+<a href="#miembros" class="scroll-arrow-global visible" id="global-arrow">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+  Siguiente
+</a>
+
 <script>
-// Hamburger menu
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
-hamburger.addEventListener('click', () => {
-  hamburger.classList.toggle('open');
-  mobileMenu.classList.toggle('open');
-  document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+// Hamburger
+const kxHamburger = document.getElementById('kx-hamburger');
+const kxMobileMenu = document.getElementById('kx-mobile-menu');
+kxHamburger.addEventListener('click', () => {
+  kxHamburger.classList.toggle('open');
+  kxMobileMenu.classList.toggle('open');
 });
-document.querySelectorAll('.mobile-link, .mobile-jb').forEach(link => {
-  link.addEventListener('click', () => {
-    hamburger.classList.remove('open');
-    mobileMenu.classList.remove('open');
-    document.body.style.overflow = '';
-  });
-});
+function kxCloseMenu() {
+  kxHamburger.classList.remove('open');
+  kxMobileMenu.classList.remove('open');
+}
 
 // FAQ accordion
 function toggleFaq(el) {
@@ -958,6 +724,38 @@ function toggleFaq(el) {
   document.querySelectorAll('.faq-item.open').forEach(f => f.classList.remove('open'));
   if (!isOpen) el.classList.add('open');
 }
+
+// Flecha global
+const sections = [
+  { id: 'hero',             next: '#miembros' },
+  { id: 'miembros',         next: '#socio' },
+  { id: 'socio',            next: '#cobros' },
+  { id: 'cobros',           next: '#app-home' },
+  { id: 'app-home',         next: '#bono-qr' },
+  { id: 'bono-qr',          next: '#multidispositivo' },
+  { id: 'multidispositivo', next: '#para-quien' },
+  { id: 'para-quien',       next: '#precios' },
+  { id: 'precios',          next: '#faqs' },
+  { id: 'faqs',             next: '#contacto' },
+];
+const arrow = document.getElementById('global-arrow');
+function updateArrow() {
+  const scrollY = window.scrollY + window.innerHeight * 0.5;
+  let current = sections[0];
+  for (const s of sections) {
+    const el = document.getElementById(s.id);
+    if (el && el.offsetTop <= scrollY) current = s;
+  }
+  const contactoEl = document.getElementById('contacto');
+  if (contactoEl && window.scrollY + window.innerHeight >= contactoEl.offsetTop + 100) {
+    arrow.classList.remove('visible');
+  } else {
+    arrow.href = current.next;
+    arrow.classList.add('visible');
+  }
+}
+window.addEventListener('scroll', updateArrow, { passive: true });
+updateArrow();
 </script>
 </body>
 </html>
