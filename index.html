@@ -16,31 +16,23 @@
   }
   html { scroll-behavior: smooth; }
   body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.6; overflow-x: hidden; }
-
-  /* NAV */
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 4vw; background: rgba(10,10,10,0.92); backdrop-filter: blur(8px); border-bottom: 0.5px solid rgba(200,169,110,0.2); }
   .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.08em; color: var(--white); text-decoration: none; }
   .nav-logo span { color: var(--accent); }
   nav ul { display: flex; gap: 2rem; list-style: none; }
   nav ul a { color: rgba(245,243,238,0.6); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
   nav ul a:hover { color: var(--accent); }
-
-  /* HAMBURGUESA */
   .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
   .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
   .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .nav-hamburger.open span:nth-child(2) { opacity: 0; }
   .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-  /* MENÚ MÓVIL */
   .mobile-menu { display: none; position: fixed; top: 65px; left: 0; right: 0; z-index: 99; background: rgba(10,10,10,0.98); backdrop-filter: blur(12px); border-bottom: 0.5px solid rgba(200,169,110,0.2); padding: 1.5rem 4vw; flex-direction: column; }
   .mobile-menu.open { display: flex; }
   .mobile-menu a { font-size: 1rem; font-weight: 500; color: rgba(245,243,238,0.6); text-decoration: none; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.9rem 0; border-bottom: 0.5px solid rgba(200,169,110,0.12); transition: color 0.2s; }
   .mobile-menu a:last-child { border-bottom: none; }
   .mobile-menu a:hover { color: var(--accent); }
   .mobile-menu a.app-link { color: var(--accent); font-weight: 600; }
-
-  /* HERO */
   .hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 4vw 4rem; position: relative; overflow: hidden; }
   .hero::before { content: 'JB'; position: absolute; right: -2vw; top: 50%; transform: translateY(-50%); font-family: 'Bebas Neue', sans-serif; font-size: clamp(12rem, 30vw, 28rem); color: rgba(200,169,110,0.04); line-height: 1; pointer-events: none; user-select: none; }
   .hero-content { max-width: 780px; position: relative; }
@@ -54,14 +46,11 @@
   .btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); }
   .btn-outline { border: 0.5px solid rgba(245,243,238,0.4); color: var(--white); padding: 0.9rem 2rem; text-decoration: none; font-size: 0.9rem; letter-spacing: 0.05em; transition: border-color 0.2s, color 0.2s; }
   .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-
   .divider { width: 100%; height: 0.5px; background: rgba(200,169,110,0.2); }
-
   section { padding: 6rem 4vw; }
   .section-label { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
   .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1; margin-bottom: 1.5rem; }
   .section-intro { font-size: 1.05rem; color: rgba(245,243,238,0.6); max-width: 600px; line-height: 1.75; margin-bottom: 3.5rem; }
-
   #servicios { background: var(--black); }
   .servicios-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: rgba(200,169,110,0.15); border: 0.5px solid rgba(200,169,110,0.15); }
   .servicio { background: var(--black); padding: 2.5rem 2rem; transition: background 0.3s; position: relative; overflow: hidden; }
@@ -71,7 +60,6 @@
   .servicio-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(200,169,110,0.15); line-height: 1; margin-bottom: 1rem; }
   .servicio h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; margin-bottom: 0.75rem; color: var(--white); }
   .servicio p { font-size: 0.9rem; color: rgba(245,243,238,0.55); line-height: 1.7; }
-
   #sobre-mi { background: #0e0e0e; display: grid; grid-template-columns: 1fr 1fr; gap: 5vw; align-items: center; }
   .sobre-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
   .stat { border-left: 1px solid var(--accent); padding-left: 1rem; }
@@ -79,15 +67,12 @@
   .stat-label { font-size: 0.78rem; color: rgba(245,243,238,0.5); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.2rem; }
   .sobre-texto p { color: rgba(245,243,238,0.65); font-size: 1rem; line-height: 1.8; margin-bottom: 1.2rem; }
   .sobre-texto strong { color: var(--white); font-weight: 500; }
-
   #contacto { background: var(--black); text-align: center; }
   .contacto-inner { max-width: 700px; margin: 0 auto; }
-
   .contacto-opcion { display: flex; align-items: center; gap: 1rem; padding: 1.1rem 1.5rem; border: 0.5px solid rgba(200,169,110,0.25); text-decoration: none; color: var(--white); font-size: 0.95rem; transition: border-color 0.2s, background 0.2s; }
   .contacto-opcion:hover { border-color: var(--accent); background: rgba(200,169,110,0.05); color: var(--accent); }
   .contacto-opcion svg { flex-shrink: 0; opacity: 0.7; }
   .contacto-opcion:hover svg { opacity: 1; }
-
   .contacto-form { max-width: 520px; margin: 2rem auto 0; text-align: left; }
   .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem; }
   .cf-field { margin-bottom: 0.75rem; }
@@ -99,11 +84,11 @@
   .cf-submit { width: 100%; background: var(--accent); color: var(--black); border: none; padding: 0.9rem; font-size: 0.9rem; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; letter-spacing: 0.05em; transition: background 0.2s; margin-top: 0.25rem; }
   .cf-submit:hover { background: var(--accent-dark); }
   .cf-privacy { font-size: 0.65rem; color: rgba(245,243,238,0.2); text-align: center; margin-top: 0.75rem; }
-
   footer { padding: 2rem 4vw; border-top: 0.5px solid rgba(200,169,110,0.15); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
   footer p { font-size: 0.78rem; color: rgba(245,243,238,0.3); }
+  footer a { color: rgba(245,243,238,0.35); text-decoration: none; transition: color 0.2s; }
+  footer a:hover { color: var(--accent); }
   footer .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: rgba(245,243,238,0.3); letter-spacing: 0.1em; }
-
   @media (max-width: 768px) {
     nav ul { display: none; }
     .nav-hamburger { display: flex; }
@@ -113,7 +98,6 @@
     footer { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
     .cf-row { grid-template-columns: 1fr; }
   }
-
   @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
   .hero-tag { animation: fadeUp 0.6s ease both; }
   .hero h1 { animation: fadeUp 0.6s 0.1s ease both; }
@@ -203,35 +187,21 @@
     <p class="section-label">Hablemos</p>
     <h2 class="section-title">¿Tienes un proyecto<br>o un problema que resolver?</h2>
     <p class="section-intro" style="margin: 1rem auto 0;">Cuéntame qué necesitas. Sin compromiso, sin tecnicismos. Solo una conversación directa para ver si puedo ayudarte.</p>
-
     <a href="https://wa.me/34615613366" class="contacto-opcion" style="max-width:420px;margin:2rem auto 0;display:flex;">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
       WhatsApp · 615 613 366
     </a>
-
     <div class="contacto-form">
       <form action="https://formspree.io/f/xqeowykr" method="POST">
         <div class="cf-row">
-          <div class="cf-field">
-            <label>Nombre</label>
-            <input type="text" name="nombre" placeholder="Tu nombre" required />
-          </div>
-          <div class="cf-field">
-            <label>Teléfono</label>
-            <input type="tel" name="telefono" placeholder="+34 600 000 000" />
-          </div>
+          <div class="cf-field"><label>Nombre</label><input type="text" name="nombre" placeholder="Tu nombre" required /></div>
+          <div class="cf-field"><label>Teléfono</label><input type="tel" name="telefono" placeholder="+34 600 000 000" /></div>
         </div>
-        <div class="cf-field">
-          <label>Email</label>
-          <input type="email" name="email" placeholder="tu@email.es" required />
-        </div>
-        <div class="cf-field">
-          <label>¿En qué puedo ayudarte?</label>
-          <textarea name="mensaje" placeholder="Cuéntame tu proyecto o necesidad..." required></textarea>
-        </div>
+        <div class="cf-field"><label>Email</label><input type="email" name="email" placeholder="tu@email.es" required /></div>
+        <div class="cf-field"><label>¿En qué puedo ayudarte?</label><textarea name="mensaje" placeholder="Cuéntame tu proyecto o necesidad..." required></textarea></div>
         <input type="hidden" name="_subject" value="Nuevo contacto — JB Marketing" />
         <button type="submit" class="cf-submit">Enviar mensaje</button>
-        <p class="cf-privacy">Tus datos se usan únicamente para contactarte. Sin spam.</p>
+        <p class="cf-privacy">Tus datos se usan únicamente para contactarte. Sin spam. · <a href="/legal/privacidad/" style="color:rgba(245,243,238,0.35);">Política de privacidad</a></p>
       </form>
     </div>
   </div>
@@ -240,7 +210,10 @@
 <footer>
   <span class="footer-logo">JB Marketing & Events · Juanma Blasco</span>
   <p>Marketing & Events · Soluciones Digitales · IA Aplicada</p>
-  <p>© 2026 · JB Marketing & Events</p>
+  <p>© 2026 · JB Marketing & Events · 
+    <a href="/legal/terminos/">Términos y Condiciones</a> · 
+    <a href="/legal/privacidad/">Política de Privacidad</a>
+  </p>
 </footer>
 
 <script>
