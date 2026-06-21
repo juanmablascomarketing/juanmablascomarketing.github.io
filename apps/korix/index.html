@@ -94,7 +94,6 @@ nav {
   scroll-margin-top: var(--nav-h);
 }
 
-/* Overlays */
 .ov-l {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background: linear-gradient(90deg,
@@ -107,16 +106,6 @@ nav {
     rgba(8,8,8,0.97) 0%, rgba(8,8,8,0.93) 30%,
     rgba(8,8,8,0.6) 50%, rgba(8,8,8,0.15) 65%, transparent 80%);
 }
-.ov-t {
-  position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(180deg,
-    rgba(8,8,8,0.97) 0%, rgba(8,8,8,0.85) 22%,
-    rgba(8,8,8,0.35) 50%, rgba(8,8,8,0.08) 70%, transparent 85%);
-}
-.ov-full {
-  position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: rgba(8,8,8,0.72);
-}
 
 /* ══ CONTENIDO ══ */
 .sc {
@@ -128,13 +117,6 @@ nav {
 }
 .sc-l { align-items: flex-start; max-width: 46%; padding-left: 5%; }
 .sc-r { align-items: flex-start; max-width: 46%; margin-left: auto; padding-right: 5%; }
-.sc-c { align-items: center; text-align: center; max-width: 900px; margin: 0 auto; }
-.sc-top {
-  align-items: center; text-align: center;
-  max-width: 680px; margin: 0 auto;
-  padding-top: calc(var(--nav-h) + 16px);
-  padding-bottom: 72px;
-}
 
 /* ══ TIPOGRAFÍA ══ */
 .ey {
@@ -206,12 +188,12 @@ nav {
 }
 
 /* ══ BACKGROUNDS ══ */
-#hero       { background-image: url('korix-dashboard.png'); background-size: cover; background-position: center center; }
-#miembros   { background-image: url('korix-miembros.png'); background-size: cover; background-position: center center; }
-#socio      { background-image: url('korix-socio.png'); background-size: cover; background-position: center center; }
-#cobros     { background-image: url('korix-cobros-bonos.png'); background-size: cover; background-position: center center; }
-#app-home   { background-image: url('korix-app-home.png'); background-size: cover; background-position: center center; }
-#bono-qr    { background-image: url('app-mibono-qr.png'); background-size: cover; background-position: center center; }
+#hero             { background-image: url('korix-dashboard.png'); background-size: cover; background-position: center center; }
+#miembros         { background-image: url('korix-miembros.png'); background-size: cover; background-position: center center; }
+#socio            { background-image: url('korix-socio.png'); background-size: cover; background-position: center center; }
+#cobros           { background-image: url('korix-cobros-bonos.png'); background-size: cover; background-position: center center; }
+#app-home         { background-image: url('korix-app-home.png'); background-size: cover; background-position: center center; }
+#bono-qr          { background-image: url('app-mibono-qr.png'); background-size: cover; background-position: center center; }
 #multidispositivo { background-image: url('korix-dashboard-socio.png'); background-size: cover; background-position: center center; }
 
 /* ══ SECCIONES SIN IMAGEN ══ */
@@ -222,7 +204,60 @@ nav {
   scroll-margin-top: var(--nav-h);
   position: relative; text-align: center; overflow: hidden;
 }
-.arrow-box { display: none; }
+
+/* ══ DIFERENCIADORES ══ */
+#diferenciadores {
+  background: linear-gradient(180deg, #0a0800 0%, #080808 50%, #0a0800 100%);
+  padding: 80px 2.5rem;
+  scroll-margin-top: var(--nav-h);
+}
+.dif-inner { max-width: 1040px; margin: 0 auto; }
+.dif-header { text-align: center; margin-bottom: 52px; }
+.dif-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(245,196,0,0.1);
+  border: 1px solid rgba(245,196,0,0.1);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.dif-item {
+  background: #080808;
+  padding: 28px 22px;
+  position: relative;
+  transition: background 0.25s;
+}
+.dif-item:hover { background: #0f0e00; }
+.dif-item::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0;
+  width: 0; height: 2px;
+  background: var(--amarillo);
+  transition: width 0.35s ease;
+}
+.dif-item:hover::after { width: 100%; }
+.dif-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 42px; font-weight: 900;
+  color: rgba(245,196,0,0.1);
+  line-height: 1; margin-bottom: 10px;
+}
+.dif-icon { font-size: 26px; margin-bottom: 10px; display: block; }
+.dif-titulo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.3px;
+  color: #fff; margin-bottom: 8px; line-height: 1.1;
+}
+.dif-desc { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.65; }
+.dif-badge {
+  display: inline-block; margin-top: 10px;
+  background: rgba(245,196,0,0.12); border: 1px solid rgba(245,196,0,0.25);
+  color: var(--amarillo); font-size: 10px; font-weight: 700;
+  padding: 3px 10px; border-radius: 20px;
+  text-transform: uppercase; letter-spacing: 0.07em;
+}
 
 /* Para quién */
 #para-quien { background: linear-gradient(180deg, #0D0D00 0%, var(--negro) 100%); }
@@ -265,6 +300,12 @@ nav {
   font-size: 48px; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 4px;
 }
 .pc-valor span { font-size: 20px; font-weight: 500; color: rgba(255,255,255,0.4); }
+.pc-gratis {
+  display: inline-block; margin-bottom: 8px;
+  background: rgba(74,222,128,0.12); border: 1px solid rgba(74,222,128,0.25);
+  color: #4ADE80; font-size: 10px; font-weight: 700;
+  padding: 3px 10px; border-radius: 20px; letter-spacing: 0.06em;
+}
 .pc-desc { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
 .pc-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
 .pc-list li { font-size: 12px; color: rgba(255,255,255,0.75); display: flex; align-items: flex-start; gap: 8px; line-height: 1.45; }
@@ -343,6 +384,17 @@ nav {
 }
 .wa-contacto:hover { background: rgba(37,211,102,0.18); }
 
+/* CTA ACCESO DIRECTO */
+.cta-acceso {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(245,196,0,0.08); border: 1px solid rgba(245,196,0,0.25);
+  color: var(--amarillo); padding: 12px 24px; border-radius: 8px;
+  text-decoration: none; font-size: 14px; font-weight: 700;
+  margin-bottom: 16px; transition: background 0.2s;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.cta-acceso:hover { background: rgba(245,196,0,0.15); }
+
 /* Footer */
 footer {
   background: #030303; padding: 24px 2.5rem;
@@ -373,6 +425,9 @@ footer a:hover { color: var(--amarillo); }
 .wa:hover .wa-tip { opacity: 1; }
 
 /* ══ RESPONSIVE ══ */
+@media (max-width: 1100px) {
+  .dif-grid { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 900px) {
   .sc-l, .sc-r { max-width: 90%; padding-left: 1.5rem; padding-right: 1.5rem; margin: 0 auto; align-items: center; text-align: center; }
   .fl li { text-align: left; }
@@ -383,11 +438,12 @@ footer a:hover { color: var(--amarillo); }
   .faqs-grid { grid-template-columns: 1fr; gap: 0; }
   .fr2 { grid-template-columns: 1fr; }
   .cf { padding: 22px 16px; }
+  .dif-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
   .nav-links, .nav-cta { display: none; }
   .nav-hamburger { display: flex; }
-  .sec-box, #contacto { padding: 40px 1.5rem 64px; }
+  .sec-box, #contacto, #diferenciadores { padding: 40px 1.5rem 64px; }
 }
 @media (max-width: 600px) {
   :root { --nav-h: 56px; }
@@ -407,13 +463,13 @@ footer a:hover { color: var(--amarillo); }
     <a href="#miembros">Miembros</a>
     <a href="#cobros">Cobros</a>
     <a href="#app-home">App</a>
-    <a href="#bono-qr">Bonos QR</a>
+    <a href="#diferenciadores">Por qué KORIX</a>
     <a href="#precios">Precio</a>
     <a href="#faqs">FAQ</a>
     <a href="#contacto">Contacto</a>
     <a href="https://jbmarketing.es" style="color:rgba(255,255,255,0.3);">← JB Marketing</a>
   </div>
-  <a href="#contacto" class="nav-cta">Solicitar demo</a>
+  <a href="#contacto" class="nav-cta">Empieza gratis 30 días</a>
   <button class="nav-hamburger" id="kx-hamburger" aria-label="Menú">
     <span></span><span></span><span></span>
   </button>
@@ -423,15 +479,15 @@ footer a:hover { color: var(--amarillo); }
   <a href="#miembros" onclick="kxCloseMenu()">Miembros</a>
   <a href="#cobros" onclick="kxCloseMenu()">Cobros</a>
   <a href="#app-home" onclick="kxCloseMenu()">App socio</a>
-  <a href="#bono-qr" onclick="kxCloseMenu()">Bonos QR</a>
+  <a href="#diferenciadores" onclick="kxCloseMenu()">Por qué KORIX</a>
   <a href="#precios" onclick="kxCloseMenu()">Precio</a>
   <a href="#faqs" onclick="kxCloseMenu()">FAQ</a>
   <a href="#contacto" onclick="kxCloseMenu()">Contacto</a>
   <a href="https://jbmarketing.es" class="m-back">← JB Marketing</a>
-  <a href="#contacto" class="m-cta" onclick="kxCloseMenu()">Solicitar demo</a>
+  <a href="#contacto" class="m-cta" onclick="kxCloseMenu()">Empieza gratis 30 días</a>
 </div>
 
-<!-- ══ S1 HERO — dashboard.png ══ -->
+<!-- ══ S1 HERO ══ -->
 <section class="sf" id="hero">
   <div class="ov-r"></div>
   <div class="sc sc-r">
@@ -439,13 +495,13 @@ footer a:hover { color: var(--amarillo); }
     <h1 class="h1">Tu centro.<br>Bajo <em>control.</em><br>Sin papeles.</h1>
     <p class="sub">KORIX es la app que necesita tu microgimnasio o centro de entrenamiento personal. Gestiona miembros, cobros, bonos y acceso QR desde el móvil o el ordenador. Con tu web incluida.</p>
     <div class="br">
-      <a href="#contacto" class="bp">Solicitar demo gratuita</a>
+      <a href="#contacto" class="bp">Empieza gratis — 30 días sin cargo</a>
       <a href="#miembros" class="bg-btn">Ver cómo funciona</a>
     </div>
   </div>
 </section>
 
-<!-- ══ S2 MIEMBROS — miembros.png ══ -->
+<!-- ══ S2 MIEMBROS ══ -->
 <section class="sf" id="miembros">
   <div class="ov-l"></div>
   <div class="sc sc-l">
@@ -463,7 +519,7 @@ footer a:hover { color: var(--amarillo); }
   </div>
 </section>
 
-<!-- ══ S3 FICHA SOCIO — socio.png ══ -->
+<!-- ══ S3 FICHA SOCIO ══ -->
 <section class="sf" id="socio">
   <div class="ov-l"></div>
   <div class="sc sc-l">
@@ -481,7 +537,7 @@ footer a:hover { color: var(--amarillo); }
   </div>
 </section>
 
-<!-- ══ S4 COBROS — cobros-bonos.png ══ -->
+<!-- ══ S4 COBROS ══ -->
 <section class="sf" id="cobros">
   <div class="ov-r"></div>
   <div class="sc sc-r">
@@ -499,13 +555,13 @@ footer a:hover { color: var(--amarillo); }
   </div>
 </section>
 
-<!-- ══ S5 APP HOME — app-home.png ══ -->
+<!-- ══ S5 APP HOME ══ -->
 <section class="sf" id="app-home">
   <div class="ov-l"></div>
   <div class="sc sc-l">
     <span class="ey">App del miembro · Smartphone</span>
     <h2 class="h2">Tu miembro tiene<br><em>su propia app</em></h2>
-    <p class="sub">Plan activo, próxima clase, avisos del centro e historial de cobros. Todo en el bolsillo de tu miembro, en iOS y Android.</p>
+    <p class="sub">Plan activo, próxima clase, avisos del centro e historial de cobros. Todo en el bolsillo de tu miembro, en iOS y Android. Sin descargar nada.</p>
     <div class="br">
       <a href="#contacto" class="bp">Solicitar demo gratuita</a>
       <a href="#bono-qr" class="bg-btn">Ver bonos QR</a>
@@ -513,25 +569,25 @@ footer a:hover { color: var(--amarillo); }
   </div>
 </section>
 
-<!-- ══ S6 BONO QR — app-mibono-qr.png ══ -->
+<!-- ══ S6 BONO QR ══ -->
 <section class="sf" id="bono-qr">
   <div class="ov-l"></div>
   <div class="sc sc-l">
     <span class="ey">Bonos · Acceso QR</span>
     <h2 class="h2">Muestra el QR.<br><em>Entra. Listo.</em></h2>
-    <p class="sub">El miembro muestra su QR personal en la entrada. El sistema descuenta una sesión del bono automáticamente. Sin tarjetas, sin papeles, sin perder tiempo.</p>
+    <p class="sub">El miembro muestra su QR personal en la entrada. El sistema detecta automáticamente si descuenta una sesión del bono o registra acceso libre. Sin tarjetas, sin papeles, sin perder tiempo.</p>
     <ul class="fl">
       <li>QR personal único por miembro, siempre en la app</li>
-      <li>Descuento automático de sesión al escanear</li>
+      <li>Detección automática: bono o acceso libre según el plan</li>
       <li>Alerta al miembro cuando le queda 1 sesión</li>
       <li>Renovación del bono con un toque y pago inmediato</li>
-      <li>Bonos sin caducidad o con fecha límite configurable</li>
+      <li>Alta de nuevo miembro desde el mismo QR de entrada</li>
     </ul>
     <div class="br"><a href="#contacto" class="bp">Solicitar demo</a></div>
   </div>
 </section>
 
-<!-- ══ S7 MULTI-DISPOSITIVO — dashboard-socio.png ══ -->
+<!-- ══ S7 MULTI-DISPOSITIVO ══ -->
 <section class="sf" id="multidispositivo">
   <div class="ov-l"></div>
   <div class="sc sc-l">
@@ -545,6 +601,75 @@ footer a:hover { color: var(--amarillo); }
       <li>Sin necesidad de conocimientos técnicos</li>
     </ul>
     <div class="br"><a href="#contacto" class="bp">Solicitar demo</a></div>
+  </div>
+</section>
+
+<!-- ══ DIFERENCIADORES ══ -->
+<section id="diferenciadores">
+  <div class="dif-inner">
+    <div class="dif-header">
+      <span class="ey" style="display:block;margin-bottom:10px;">Por qué KORIX</span>
+      <h2 class="h2" style="margin-bottom:12px;">Lo que ningún otro<br><em>hace igual</em></h2>
+      <p style="font-size:15px;color:rgba(255,255,255,0.5);max-width:520px;margin:0 auto;line-height:1.65;">No somos una hoja de Excel disfrazada de app. KORIX está construido desde cero para centros deportivos reales, con los problemas reales que tiene un emprendedor del sector.</p>
+    </div>
+    <div class="dif-grid">
+      <div class="dif-item">
+        <div class="dif-num">01</div>
+        <span class="dif-icon">⚡</span>
+        <div class="dif-titulo">Operativo en 5 minutos</div>
+        <div class="dif-desc">Onboarding guiado paso a paso. Configura tu centro, tus servicios, tus tarifas y tus métodos de pago antes de terminar el café.</div>
+        <span class="dif-badge">Sin técnicos</span>
+      </div>
+      <div class="dif-item">
+        <div class="dif-num">02</div>
+        <span class="dif-icon">📱</span>
+        <div class="dif-titulo">Sin app que instalar</div>
+        <div class="dif-desc">El socio escanea el QR y accede desde su navegador. Cero fricciones, cero descargas, cero soporte técnico a tus miembros.</div>
+        <span class="dif-badge">PWA nativa</span>
+      </div>
+      <div class="dif-item">
+        <div class="dif-num">03</div>
+        <span class="dif-icon">🧾</span>
+        <div class="dif-titulo">Factura simplificada automática</div>
+        <div class="dif-desc">Cada cobro genera su factura simplificada al instante. El socio la descarga desde su app. Tú exportas el PDF mensual para tu asesoría.</div>
+        <span class="dif-badge">100% legal</span>
+      </div>
+      <div class="dif-item">
+        <div class="dif-num">04</div>
+        <span class="dif-icon">🏷️</span>
+        <div class="dif-titulo">Tu marca, no la nuestra</div>
+        <div class="dif-desc">Logo, nombre y colores de tu centro en toda la app. Tus socios ven tu marca, no KORIX. White label real desde el primer día.</div>
+        <span class="dif-badge">White label</span>
+      </div>
+      <div class="dif-item">
+        <div class="dif-num">05</div>
+        <span class="dif-icon">📊</span>
+        <div class="dif-titulo">Estadísticas de asistencia</div>
+        <div class="dif-desc">Sabe qué días vienen más socios, quién lleva semanas sin aparecer y cuándo renovar antes de que cancelen. Datos que generan ingresos.</div>
+        <span class="dif-badge">Retención activa</span>
+      </div>
+      <div class="dif-item">
+        <div class="dif-num">06</div>
+        <span class="dif-icon">🚨</span>
+        <div class="dif-titulo">Alerta de abandono</div>
+        <div class="dif-desc">Si un socio no aparece en X días, recibes un aviso automático. Una llamada a tiempo vale más que un descuento en la renovación.</div>
+        <span class="dif-badge">Exclusivo KORIX</span>
+      </div>
+      <div class="dif-item">
+        <div class="dif-num">07</div>
+        <span class="dif-icon">💬</span>
+        <div class="dif-titulo">Comunicación directa</div>
+        <div class="dif-desc">Envía avisos a todos los socios, a un grupo o a uno solo directamente desde el panel. Sin salir de KORIX, sin herramientas externas.</div>
+        <span class="dif-badge">Integrado</span>
+      </div>
+      <div class="dif-item">
+        <div class="dif-num">08</div>
+        <span class="dif-icon">📐</span>
+        <div class="dif-titulo">Pagas por lo que usas</div>
+        <div class="dif-desc">Activa solo los servicios que ofrece tu centro. Empieza con 5, añade más cuando crezcas. El precio sube cuando tú decides crecer, no antes.</div>
+        <span class="dif-badge">Sin sorpresas</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -564,53 +689,56 @@ footer a:hover { color: var(--amarillo); }
 <section class="sec-box" id="precios">
   <span class="ey">Planes y precios</span>
   <h2 class="h2" style="max-width:680px;margin:0 auto 10px;">Empieza pequeño.<br><em>Crece</em> sin límites.</h2>
-  <p style="font-size:15px;color:rgba(255,255,255,0.5);max-width:480px;line-height:1.6;margin:0 auto;">Sin permanencia. Sin sorpresas. Activa solo lo que necesitas.</p>
+  <p style="font-size:15px;color:rgba(255,255,255,0.5);max-width:480px;line-height:1.6;margin:0 auto;">Sin permanencia. Sin sorpresas. 30 días gratis para todos. Activa solo lo que necesitas.</p>
   <div class="precios-grid">
     <div class="pc">
-      <p class="pc-tier">Base</p>
+      <p class="pc-tier">Starter</p>
       <div class="pc-valor">29<span>€/mes</span></div>
+      <div class="pc-gratis">30 días gratis</div>
       <p class="pc-desc">Para centros que arrancan.</p>
       <ul class="pc-list">
         <li><span class="ck">✓</span> Hasta 50 miembros</li>
+        <li><span class="ck">✓</span> Hasta 5 servicios activos</li>
         <li><span class="ck">✓</span> Dashboard y gestión de miembros</li>
-        <li><span class="ck">✓</span> Tesorería, facturas e informes</li>
-        <li><span class="ck">✓</span> Alta vía QR</li>
-        <li><span class="ck">✓</span> Web corporativa incluida</li>
+        <li><span class="ck">✓</span> Tesorería y facturas simplificadas</li>
+        <li><span class="ck">✓</span> Alta vía QR y app del miembro</li>
         <li><span class="cx">—</span> Stripe automático</li>
-        <li><span class="cx">—</span> Bonos con QR de entrada</li>
+        <li><span class="cx">—</span> Alertas de abandono</li>
       </ul>
-      <a href="#contacto" class="pc-btn o">Empezar con Base</a>
+      <a href="#contacto" class="pc-btn o">Empezar gratis</a>
     </div>
     <div class="pc featured">
       <div class="pc-badge">Más popular</div>
       <p class="pc-tier">Pro</p>
       <div class="pc-valor">59<span>€/mes</span></div>
+      <div class="pc-gratis">30 días gratis</div>
       <p class="pc-desc">Para centros en crecimiento.</p>
       <ul class="pc-list">
         <li><span class="ck">✓</span> Hasta 150 miembros</li>
-        <li><span class="ck">✓</span> Todo lo del plan Base</li>
+        <li><span class="ck">✓</span> Hasta 15 servicios activos</li>
+        <li><span class="ck">✓</span> Todo lo del plan Starter</li>
         <li><span class="ck">✓</span> Stripe automático</li>
-        <li><span class="ck">✓</span> Enlace de pago por WhatsApp</li>
-        <li><span class="ck">✓</span> Bonos de sesiones con QR</li>
-        <li><span class="ck">✓</span> App del miembro completa</li>
+        <li><span class="ck">✓</span> Alertas de abandono automáticas</li>
+        <li><span class="ck">✓</span> Estadísticas de asistencia</li>
         <li><span class="cx">—</span> Módulos entrenamiento y nutrición</li>
       </ul>
-      <a href="#contacto" class="pc-btn y">Empezar con Pro</a>
+      <a href="#contacto" class="pc-btn y">Empezar gratis</a>
     </div>
     <div class="pc">
-      <p class="pc-tier">Premium</p>
+      <p class="pc-tier">Unlimited</p>
       <div class="pc-valor">99<span>€/mes</span></div>
+      <div class="pc-gratis">30 días gratis</div>
       <p class="pc-desc">Para centros consolidados.</p>
       <ul class="pc-list">
         <li><span class="ck">✓</span> Miembros ilimitados</li>
+        <li><span class="ck">✓</span> Servicios ilimitados</li>
         <li><span class="ck">✓</span> Todo lo del plan Pro</li>
         <li><span class="ck">✓</span> Admins secundarios ilimitados</li>
         <li><span class="ck">✓</span> Rutinas de entrenamiento</li>
         <li><span class="ck">✓</span> Seguimiento nutricional</li>
-        <li><span class="ck">✓</span> Informes avanzados de tesorería</li>
         <li><span class="ck">✓</span> Soporte prioritario</li>
       </ul>
-      <a href="#contacto" class="pc-btn o">Empezar con Premium</a>
+      <a href="#contacto" class="pc-btn o">Empezar gratis</a>
     </div>
   </div>
 </section>
@@ -626,7 +754,7 @@ footer a:hover { color: var(--amarillo); }
     </div>
     <div class="faq-item" onclick="toggleFaq(this)">
       <div class="faq-q"><span class="faq-q-text">¿Puedo probar KORIX antes de pagar?</span><span class="faq-icon">+</span></div>
-      <div class="faq-a">Sí. Ofrecemos un período de prueba gratuito para que puedas testear la app con tus miembros reales sin compromiso. Solicita la demo y lo organizamos.</div>
+      <div class="faq-a">Sí. Todos los planes incluyen 30 días gratuitos sin cargo. Puedes testear la app con tus miembros reales sin ningún compromiso.</div>
     </div>
     <div class="faq-item" onclick="toggleFaq(this)">
       <div class="faq-q"><span class="faq-q-text">¿Cómo funciona el cobro automático con Stripe?</span><span class="faq-icon">+</span></div>
@@ -638,11 +766,11 @@ footer a:hover { color: var(--amarillo); }
     </div>
     <div class="faq-item" onclick="toggleFaq(this)">
       <div class="faq-q"><span class="faq-q-text">¿KORIX genera facturas para la asesoría?</span><span class="faq-icon">+</span></div>
-      <div class="faq-a">Sí. Todos los cobros generan tickets automáticamente. Desde el módulo de tesorería puedes exportar informes completos en PDF listos para tu gestor o asesoría fiscal.</div>
+      <div class="faq-a">Sí. Todos los cobros generan facturas simplificadas automáticamente. Desde el módulo de tesorería puedes exportar informes completos en PDF listos para tu gestor o asesoría fiscal.</div>
     </div>
     <div class="faq-item" onclick="toggleFaq(this)">
       <div class="faq-q"><span class="faq-q-text">¿Puedo tener varios entrenadores como admins?</span><span class="faq-icon">+</span></div>
-      <div class="faq-a">Sí, desde el plan Premium. El superadmin puede dar de alta admins secundarios con permisos configurables: acceso a clases y miembros, sin tocar cobros ni configuración.</div>
+      <div class="faq-a">Sí, desde el plan Unlimited. El superadmin puede dar de alta admins secundarios con permisos configurables: acceso a clases y miembros, sin tocar cobros ni configuración.</div>
     </div>
     <div class="faq-item" onclick="toggleFaq(this)">
       <div class="faq-q"><span class="faq-q-text">¿Hay permanencia o puedo cancelar cuando quiera?</span><span class="faq-icon">+</span></div>
@@ -657,12 +785,19 @@ footer a:hover { color: var(--amarillo); }
 
 <!-- ══ CONTACTO ══ -->
 <section id="contacto">
-  <span class="ey" style="display:block;margin-bottom:10px;">Contacto</span>
-  <h2 class="h2" style="max-width:640px;margin:0 auto 10px;">¿Listo para<br><em>arrancar?</em></h2>
-  <p style="font-size:15px;color:rgba(255,255,255,0.5);max-width:460px;margin:0 auto;line-height:1.6;">Cuéntanos cómo es tu centro y te hacemos una demo personalizada sin compromiso.</p>
-  <a href="https://wa.me/34615613366?text=Hola,%20quiero%20información%20sobre%20KORIX" target="_blank" class="wa-contacto" style="margin-top:20px;">
-    💬 Contactar por WhatsApp
-  </a>
+  <span class="ey" style="display:block;margin-bottom:10px;">Empieza hoy</span>
+  <h2 class="h2" style="max-width:640px;margin:0 auto 10px;">30 días gratis.<br><em>Sin compromiso.</em></h2>
+  <p style="font-size:15px;color:rgba(255,255,255,0.5);max-width:460px;margin:0 auto;line-height:1.6;">Cuéntanos cómo es tu centro y te hacemos una demo personalizada. O empieza directamente — sin tarjeta hasta que decidas quedarte.</p>
+
+  <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:24px;margin-bottom:8px;">
+    <a href="https://korix-app.vercel.app" target="_blank" class="bp" style="font-size:14px;padding:13px 28px;">
+      🚀 Acceder a KORIX
+    </a>
+    <a href="https://wa.me/34615613366?text=Hola,%20quiero%20información%20sobre%20KORIX" target="_blank" class="wa-contacto" style="margin:0;">
+      💬 WhatsApp directo
+    </a>
+  </div>
+
   <div class="cf">
     <p class="cf-title">Solicitar demo gratuita</p>
     <form action="https://formspree.io/f/mwvjzqyn" method="POST">
@@ -699,14 +834,12 @@ footer a:hover { color: var(--amarillo); }
   <span class="wa-tip">¿Hablamos por WhatsApp?</span>💬
 </a>
 
-<!-- FLECHA GLOBAL -->
 <a href="#miembros" class="scroll-arrow-global visible" id="global-arrow">
   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
   Siguiente
 </a>
 
 <script>
-// Hamburger
 const kxHamburger = document.getElementById('kx-hamburger');
 const kxMobileMenu = document.getElementById('kx-mobile-menu');
 kxHamburger.addEventListener('click', () => {
@@ -718,14 +851,12 @@ function kxCloseMenu() {
   kxMobileMenu.classList.remove('open');
 }
 
-// FAQ accordion
 function toggleFaq(el) {
   const isOpen = el.classList.contains('open');
   document.querySelectorAll('.faq-item.open').forEach(f => f.classList.remove('open'));
   if (!isOpen) el.classList.add('open');
 }
 
-// Flecha global
 const sections = [
   { id: 'hero',             next: '#miembros' },
   { id: 'miembros',         next: '#socio' },
@@ -733,7 +864,8 @@ const sections = [
   { id: 'cobros',           next: '#app-home' },
   { id: 'app-home',         next: '#bono-qr' },
   { id: 'bono-qr',          next: '#multidispositivo' },
-  { id: 'multidispositivo', next: '#para-quien' },
+  { id: 'multidispositivo', next: '#diferenciadores' },
+  { id: 'diferenciadores',  next: '#para-quien' },
   { id: 'para-quien',       next: '#precios' },
   { id: 'precios',          next: '#faqs' },
   { id: 'faqs',             next: '#contacto' },
