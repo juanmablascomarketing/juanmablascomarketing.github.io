@@ -257,17 +257,17 @@ body { font-family: 'Inter', sans-serif; background: var(--negro); color: var(--
 #contacto {
   min-height: 100vh;
   background-image: url('img/CONTACTO.png');
-  background-size: cover; background-position: center;
+  background-size: cover; background-position: center top;
   position: relative;
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 100px 5%;
+  display: flex; flex-direction: column; justify-content: flex-start;
+  padding: 64px 5% 60px;
 }
 #contacto::before {
   content: ''; position: absolute; inset: 0;
-  background: rgba(5,5,5,0.78);
+  background: linear-gradient(to bottom, rgba(5,5,5,0.92) 0%, rgba(5,5,5,0.72) 50%, rgba(5,5,5,0.88) 100%);
 }
-.contacto-inner { position: relative; z-index: 1; width: 100%; }
-.contacto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+.contacto-inner { position: relative; z-index: 1; width: 100%; padding-top: 120px; }
+.contacto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
 
 .whatsapp-btn {
   display: inline-flex; align-items: center; gap: 10px;
@@ -342,8 +342,8 @@ body { font-family: 'Inter', sans-serif; background: var(--negro); color: var(--
   <ul class="nav-links">
     <li><a href="#home">Inicio</a></li>
     <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#porque">Por qué JK</a></li>
     <li><a href="#compromiso">Nuestro compromiso</a></li>
+    <li><a href="#porque">Por qué JK</a></li>
     <li><a href="#horarios">Horarios</a></li>
     <li><a href="#contacto">Contacto</a></li>
     <li><a href="https://korix-app.vercel.app/entrada?centro=11ed3b62-b033-427a-b101-e40f92554123" class="nav-cta">Hazte socio</a></li>
@@ -512,8 +512,6 @@ body { font-family: 'Inter', sans-serif; background: var(--negro); color: var(--
 <!-- CONTACTO -->
 <section id="contacto">
   <div class="contacto-inner">
-    <div class="seccion-eyebrow">Estamos aquí</div>
-    <h2 class="seccion-titulo">Contacto</h2>
     <div class="contacto-grid">
       <div>
         <a href="https://wa.me/34611948310?text=Hola%2C%20me%20interesa%20información%20sobre%20el%20centro%20JK%20Nules" target="_blank" class="whatsapp-btn">
@@ -527,10 +525,6 @@ body { font-family: 'Inter', sans-serif; background: var(--negro); color: var(--
         <div class="contacto-dato">
           <div class="dato-icono">📱</div>
           <div><div class="dato-label">Teléfono / WhatsApp</div><div class="dato-valor">611 948 310</div></div>
-        </div>
-        <div class="contacto-dato">
-          <div class="dato-icono">🕐</div>
-          <div><div class="dato-label">Horario</div><div class="dato-valor">Lunes a viernes · 07:00 – 21:30h</div></div>
         </div>
         <div class="contacto-dato">
           <div class="dato-icono">🗺</div>
