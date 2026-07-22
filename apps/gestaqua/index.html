@@ -87,9 +87,8 @@ nav {
 /* ══ CONTENIDO — compacto para que todo quepa en viewport ══ */
 .sc {
   position: relative; z-index: 2; width: 100%;
-  /* Padding vertical mínimo: solo lo necesario para no pegar con nav y flecha */
   padding-top: calc(var(--nav-h) + 16px);
-  padding-bottom: 72px; /* espacio para la flecha */
+  padding-bottom: 72px;
   padding-left: 2.5rem; padding-right: 2.5rem;
   display: flex; flex-direction: column;
 }
@@ -111,7 +110,6 @@ nav {
   margin-bottom: 10px; display: block;
 }
 
-/* Títulos más pequeños para que quepan con el resto del contenido */
 .h1 {
   font-size: clamp(28px, 3.8vw, 48px); font-weight: 800;
   line-height: 1.08; letter-spacing: -1.2px; color: #fff; margin-bottom: 14px;
@@ -133,7 +131,6 @@ nav {
   line-height: 1.6; margin-bottom: 18px; max-width: 460px;
 }
 
-/* Lista compacta */
 .fl { list-style: none; margin-bottom: 20px; width: 100%; }
 .fl li {
   font-size: 13px; color: rgba(255,255,255,0.78);
@@ -183,7 +180,6 @@ nav {
   50% { transform: translateX(-50%) translateY(8px); }
 }
 
-/* Backgrounds por sección — respetan el diseño 1920x1080 de cada PNG */
 #hero      { background-image: url('gestaqua-dashboard.png'); background-size: cover; background-position: center center; }
 #dashboard { background-image: url('gestaqua-dashboard.png'); background-size: cover; background-position: center center; }
 #socios    { background-image: url('gestaqua-socios.png');    background-size: cover; background-position: center center; }
@@ -214,7 +210,6 @@ nav {
 .fc-name { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 8px; }
 .fc-desc { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.5; }
 
-/* ══ SECCIONES SIN IMAGEN — compactas ══ */
 .sec-box {
   min-height: 100vh;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -223,10 +218,8 @@ nav {
   position: relative; text-align: center; overflow: hidden;
 }
 
-/* Flecha inline legacy — oculta, sustituida por flecha global */
 .arrow, .arrow-box { display: none; }
 
-/* Oportunidad */
 #oportunidad { background: linear-gradient(180deg, #0a2030 0%, #071825 100%); }
 .opor-grid {
   display: grid; grid-template-columns: repeat(4,1fr); gap: 12px;
@@ -243,10 +236,34 @@ nav {
 
 /* Pricing */
 #pricing { background: linear-gradient(180deg, #071825 0%, #0B3348 100%); }
+
+.plan-toggle {
+  display: flex; gap: 6px; background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+  padding: 5px; margin-top: 24px;
+}
+.plan-btn {
+  flex: 1; padding: 10px 18px; border-radius: 8px; border: none;
+  background: transparent; color: rgba(255,255,255,0.55);
+  font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: background 0.2s, color 0.2s;
+}
+.plan-btn.active { background: var(--turquesa); color: #fff; }
+.plan-sub { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 8px; }
+
 .pricing-box {
   background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
   border-radius: 16px; padding: 28px 36px;
-  max-width: 460px; width: 100%; margin-top: 24px;
+  max-width: 460px; width: 100%; margin-top: 12px;
+}
+.plan-features { list-style: none; margin-bottom: 16px; text-align: left; }
+.plan-features li {
+  font-size: 12.5px; color: rgba(255,255,255,0.7);
+  padding: 5px 0 5px 20px; position: relative;
+}
+.plan-features li::before {
+  content: '✓'; position: absolute; left: 0; color: var(--turquesa);
+  font-weight: 800; font-size: 11px; top: 6px;
 }
 .pricing-box label { font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.8); display: block; margin-bottom: 18px; }
 .pi { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 20px; }
@@ -275,7 +292,6 @@ nav {
 .pr-btn { display: inline-block; background: var(--turquesa); color: #fff; padding: 12px 28px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.2s; }
 .pr-btn:hover { background: #178f68; }
 
-/* Para quién */
 #paraquien { background: #071825; }
 .pq-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-top: 28px; width: 100%; max-width: 1100px; }
 .pqc { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 22px 18px; text-align: center; }
@@ -283,7 +299,6 @@ nav {
 .pqc h3 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 6px; }
 .pqc p { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.55; }
 
-/* Contacto */
 #contacto {
   background: linear-gradient(180deg, #071825 0%, #041018 100%);
   min-height: 100vh;
@@ -307,19 +322,16 @@ nav {
 .fs:hover { background: #178f68; }
 .fp { font-size: 11px; color: rgba(255,255,255,0.28); text-align: center; margin-top: 10px; line-height: 1.55; }
 
-/* Footer */
 footer { background: #020c14; padding: 24px 2.5rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.06); }
 footer p { font-size: 13px; color: rgba(255,255,255,0.3); }
 footer strong { color: rgba(255,255,255,0.6); }
 footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
 
-/* WhatsApp */
 .wa { position: fixed; bottom: 28px; right: 28px; z-index: 999; background: #25D366; color: #fff; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 4px 20px rgba(37,211,102,0.45); transition: transform 0.2s; font-size: 24px; }
 .wa:hover { transform: scale(1.1); }
 .wa-tip { position: absolute; right: 60px; background: rgba(4,16,24,0.97); color: #fff; font-size: 12px; font-weight: 500; font-family: 'Inter', sans-serif; padding: 6px 12px; border-radius: 8px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; border: 1px solid rgba(255,255,255,0.1); }
 .wa:hover .wa-tip { opacity: 1; }
 
-/* ══ RESPONSIVE ══ */
 @media (max-width: 1024px) {
   .flujo-grid { grid-template-columns: repeat(2,1fr); }
   .fc:not(:last-child)::after { display: none; }
@@ -571,7 +583,13 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
 <section class="sec-box" id="pricing">
   <span class="ey">Precio justo</span>
   <h2 class="h2" style="max-width:600px;margin:0 auto 10px;">Pagas según el tamaño<br>de tu comunidad</h2>
-  <p style="font-size:15px;color:rgba(255,255,255,0.55);max-width:440px;line-height:1.6;">Sin sorpresas. Sin letra pequeña. Cada comunidad paga exactamente lo que le corresponde.</p>
+  <p style="font-size:15px;color:rgba(255,255,255,0.55);max-width:440px;line-height:1.6;">Sin sorpresas. Sin letra pequeña. Elige el nivel de gestión que tu comunidad necesita.</p>
+
+  <div class="plan-toggle" style="max-width:460px;width:100%;">
+    <button class="plan-btn active" data-plan="basico" onclick="seleccionarPlan('basico')">Básico</button>
+    <button class="plan-btn" data-plan="pro" onclick="seleccionarPlan('pro')">Pro</button>
+  </div>
+
   <div class="pricing-box">
     <label>¿Cuántos socios tiene tu comunidad?</label>
     <div class="pi">
@@ -582,9 +600,10 @@ footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
     <div class="pr">
       <p class="pr-label">Precio mensual</p>
       <p class="pr-price" id="precio-display">40<span>€/mes</span></p>
-      <p class="pr-per" id="precio-detalle">0,50 € × 80 socios</p>
+      <p class="pr-per" id="precio-detalle">0,50 € × 80 socios · Plan Básico</p>
     </div>
-    <p class="pr-note">30 días de prueba gratuita · Sin permanencia · Cancela cuando quieras · Activa tu plan cuando estés listo.</p>
+    <ul class="plan-features" id="plan-features"></ul>
+    <p class="pr-note">30 días de prueba gratuita · Sin permanencia · Cancela cuando quieras · Cambia de plan cuando lo necesites.</p>
     <a href="#contacto" class="pr-btn">Empezar prueba gratuita</a>
   </div>
   <a href="#paraquien" class="arrow-box">
@@ -658,21 +677,55 @@ function gaCloseMenu() {
   gaHamburger.classList.remove('open');
   gaMobileMenu.classList.remove('open');
 }
+const PLAN_RATES = { basico: 0.50, pro: 0.80 };
+const PLAN_NOMBRE = { basico: 'Básico', pro: 'Pro' };
+const PLAN_FEATURES = {
+  basico: [
+    'Socios, parcelas y sectores ilimitados',
+    'Calendario de turnos con notificación automática',
+    'Lectura, cálculo y cobro automático por domiciliación',
+    'App del socio incluida (turno, recibos, avisos)',
+    'Hasta 2 roles de gestión configurables'
+  ],
+  pro: [
+    'Todo lo incluido en el plan Básico',
+    'Roles ilimitados con permisos granulares por módulo',
+    'Módulo de presupuesto y contabilidad interna',
+    'Gestión multi-sector y varios tipos de reparto de agua',
+    'Exportación contable avanzada para asesoría'
+  ]
+};
+let planActual = 'basico';
+
+function seleccionarPlan(plan) {
+  planActual = plan;
+  document.querySelectorAll('.plan-btn').forEach(b => b.classList.toggle('active', b.dataset.plan === plan));
+  renderFeatures();
+  calcular();
+}
+
+function renderFeatures() {
+  const ul = document.getElementById('plan-features');
+  ul.innerHTML = PLAN_FEATURES[planActual].map(f => '<li>' + f + '</li>').join('');
+}
+
 function calcular() {
   const input = document.getElementById('nsocios');
   const socios = Math.max(5, Math.min(2000, parseInt(input.value) || 5));
   input.value = socios;
-  document.getElementById('precio-display').innerHTML = Math.round(socios * 0.5) + '<span>€/mes</span>';
-  document.getElementById('precio-detalle').textContent = '0,50 € × ' + socios + ' socios';
+  const rate = PLAN_RATES[planActual];
+  document.getElementById('precio-display').innerHTML = Math.round(socios * rate) + '<span>€/mes</span>';
+  document.getElementById('precio-detalle').textContent =
+    rate.toFixed(2).replace('.', ',') + ' € × ' + socios + ' socios · Plan ' + PLAN_NOMBRE[planActual];
 }
 function cambiarSocios(d) {
   const input = document.getElementById('nsocios');
   input.value = Math.max(5, Math.min(2000, (parseInt(input.value)||80) + d));
   calcular();
 }
+renderFeatures();
 calcular();
 
-// Flecha global — detecta sección visible y actualiza destino
 const sections = [
   { id: 'hero',        next: '#flujo' },
   { id: 'flujo',       next: '#dashboard' },
@@ -696,7 +749,6 @@ function updateArrow() {
     const el = document.getElementById(s.id);
     if (el && el.offsetTop <= scrollY) current = s;
   }
-  // Ocultar en la última sección (contacto)
   const contactoEl = document.getElementById('contacto');
   if (contactoEl && window.scrollY + window.innerHeight >= contactoEl.offsetTop + 100) {
     arrow.classList.remove('visible');
@@ -711,4 +763,3 @@ updateArrow();
 </script>
 </body>
 </html>
- 
