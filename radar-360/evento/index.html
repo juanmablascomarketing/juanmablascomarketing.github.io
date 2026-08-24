@@ -65,20 +65,41 @@ a{color:inherit}
 .example-section{margin:44px 0}
 .example-section .kicker{justify-content:center}
 .example-section h2{font-family:var(--serif);font-size:24px;font-weight:600;text-align:center;margin-bottom:6px}
-.example-section .sub{color:var(--text-mid);font-size:14px;text-align:center;margin-bottom:24px}
-.report-mock{
-  background:var(--surface);border:1px solid var(--border);border-radius:12px;
-  padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.4);
+.example-section .sub{color:var(--text-mid);font-size:14px;text-align:center;margin-bottom:28px}
+
+/* extractos nítidos — lo que sí se lee, elegido a propósito */
+.extracts{display:flex;flex-direction:column;gap:14px;margin-bottom:32px}
+.extract-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.35)}
+.extract-card img{width:100%;display:block}
+.extract-tag{font-family:var(--mono);font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;padding:10px 16px 0}
+
+/* galería borrosa clicable — el resto del informe, sin que se pueda leer */
+.gallery-label{font-family:var(--mono);font-size:11px;color:var(--text-dim);text-align:center;margin-bottom:12px}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media(max-width:480px){.gallery{grid-template-columns:repeat(2,1fr)}}
+.gallery-item{
+  border:1px solid var(--border);border-radius:8px;overflow:hidden;cursor:pointer;
+  position:relative;transition:border-color .2s;background:var(--surface);
 }
-.report-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--border)}
-.report-top .name{font-family:var(--serif);font-weight:600;font-size:16px}
-.report-top .sub{font-family:var(--mono);font-size:10.5px;color:var(--text-dim);text-transform:uppercase;margin-top:3px}
-.score{text-align:right}
-.score-num{font-family:var(--serif);font-size:30px;font-weight:600;color:var(--accent);line-height:1}
-.score-label{font-family:var(--mono);font-size:9.5px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em}
-.finding{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04)}
-.finding:last-child{border-bottom:none}
-.finding-icon{font-family:var(--mono);font-size:11px;color:var(--accent);flex-shrink:0;padding-top:2px}
+.gallery-item:hover{border-color:var(--border-strong)}
+.gallery-item img{width:100%;display:block}
+.gallery-item::after{
+  content:'🔍';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(4,13,26,.35);opacity:0;transition:opacity .2s;font-size:22px;
+}
+.gallery-item:hover::after{opacity:1}
+
+/* visor a pantalla completa */
+.lightbox{
+  display:none;position:fixed;inset:0;z-index:100;background:rgba(4,13,26,.92);
+  align-items:center;justify-content:center;padding:20px;cursor:zoom-out;
+}
+.lightbox.open{display:flex}
+.lightbox img{max-width:100%;max-height:90vh;border-radius:8px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+
+/* barra de redacción: bloque sin texto real dentro, no es texto oculto con CSS */
+.redact{display:inline-block;height:.8em;background:var(--text-dim);opacity:.55;border-radius:2px;vertical-align:middle;margin:0 2px}
+.real-tag{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9.5px;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:20px;margin-left:8px;vertical-align:middle}
 .finding-text{font-size:13.5px;color:var(--text-mid);line-height:1.5}
 .finding-text strong{color:var(--text);font-weight:600}
 
@@ -135,31 +156,30 @@ footer a{color:var(--text-dim);text-decoration:underline}
   <div class="example-section reveal">
     <div class="kicker">Esto es lo que recibes</div>
     <h2>Un informe real, no una lista genérica</h2>
-    <p class="sub">Ejemplo ilustrativo, con datos de muestra</p>
-    <div class="report-mock">
-      <div class="report-top">
-        <div>
-          <div class="name">Carpintería Ejemplo S.L.</div>
-          <div class="sub">Radar 360 · Comarca de Teruel</div>
-        </div>
-        <div class="score">
-          <div class="score-num">58</div>
-          <div class="score-label">Nota digital / 100</div>
-        </div>
+    <p class="sub">Caso real de uno de nuestros propios negocios — nombre y datos identificativos tapados</p>
+
+    <div class="extracts">
+      <div class="extract-card">
+        <div class="extract-tag">Tu nota, sin adornos</div>
+        <img src="informe-ejemplo-extracto-nota.png" alt="Nota digital 32/100, crítico">
       </div>
-      <div class="finding">
-        <span class="finding-icon">01</span>
-        <span class="finding-text"><strong>No apareces en "carpintería + tu zona".</strong> Tu competencia directa ocupa las 3 primeras posiciones.</span>
-      </div>
-      <div class="finding">
-        <span class="finding-icon">02</span>
-        <span class="finding-text"><strong>Ficha de Google incompleta.</strong> Sin fotos de trabajos terminados — el 40% de las visitas se van antes de contactar.</span>
-      </div>
-      <div class="finding">
-        <span class="finding-icon">03</span>
-        <span class="finding-text"><strong>Reputación fuerte, poco visible.</strong> Buenas reseñas, pero enterradas y difíciles de encontrar.</span>
+      <div class="extract-card">
+        <div class="extract-tag">Lo que más pesa</div>
+        <img src="informe-ejemplo-extracto-incoherencias.png" alt="Cosas que no cuadran, ejemplo real">
       </div>
     </div>
+
+    <div class="gallery-label">Las 4 páginas completas del informe real — toca para ampliar</div>
+    <div class="gallery">
+      <div class="gallery-item" onclick="openLightbox('informe-ejemplo-pagina-1.png')"><img src="informe-ejemplo-pagina-1.png" alt="Página 1 del informe"></div>
+      <div class="gallery-item" onclick="openLightbox('informe-ejemplo-pagina-2.png')"><img src="informe-ejemplo-pagina-2.png" alt="Página 2 del informe"></div>
+      <div class="gallery-item" onclick="openLightbox('informe-ejemplo-pagina-3.png')"><img src="informe-ejemplo-pagina-3.png" alt="Página 3 del informe"></div>
+      <div class="gallery-item" onclick="openLightbox('informe-ejemplo-pagina-4.png')"><img src="informe-ejemplo-pagina-4.png" alt="Página 4 del informe"></div>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <img id="lightboxImg" src="" alt="Página ampliada del informe">
   </div>
 
   <div class="pro-box reveal">
@@ -209,8 +229,15 @@ function guardPaymentClick(e){
 }
 const payNowBtn = document.getElementById('payNowBtn');
 if(payNowBtn) payNowBtn.addEventListener('click', guardPaymentClick);
+
+function openLightbox(src){
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+}
 </script>
 
 </body>
 </html>
-
