@@ -3,556 +3,477 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Auditoría de Negocio · Entrufados (Trufamas S.L.)</title>
+<title>Tu informe Radar 360</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --texto:#1f2933; --manual:#b26a00; --fuga:#c0392b; --auto:#2f6fb2; --ok:#1e8f5a;
-    --bg-manual:#fdf3e3; --bg-fuga:#fbeae7; --bg-auto:#e8f1fa; --bg-ok:#e7f6ee;
-    --bg-sindatos:#f1f2f4; --borde-sindatos:#8a8f98;
-    --fondo:#ffffff; --fondo-suave:#f7f8fa; --borde:#d7dce1;
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0; padding:0; background:var(--fondo-suave); color:var(--texto);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    line-height:1.55; font-size:16px;
-  }
-  .envoltorio{max-width:1000px; margin:0 auto; padding:32px 20px 80px;}
-  header.cabecera{background:var(--fondo); border:1px solid var(--borde); border-radius:12px; padding:28px 32px; margin-bottom:24px;}
-  header.cabecera h1{margin:0 0 6px; font-size:1.7rem;}
-  header.cabecera .sub{color:#52606d; font-size:0.98rem;}
-  header.cabecera .meta{margin-top:14px; display:flex; flex-wrap:wrap; gap:8px 24px; font-size:0.9rem; color:#3e4c59;}
-  .badge-alcance{display:inline-block; background:var(--bg-manual); color:var(--manual); border:1px solid var(--manual); border-radius:999px; padding:3px 12px; font-size:0.82rem; font-weight:600;}
+:root{
+  --bg:#040D1A; --surface:#06111F; --surface-2:#0A1B2E;
+  --border:#0F2540; --border-strong:#152E4A;
+  --text:#FFFFFF; --text-mid:#8FAABF; --text-dim:#4A6A82;
+  --accent:#1EC6E0; --accent-2:#0FA8C0; --accent-soft:rgba(30,198,224,.14);
+  --serif:'Fraunces',serif; --sans:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15.5px;line-height:1.6}
+a{color:inherit}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px}
 
-  nav.indice{background:var(--fondo); border:1px solid var(--borde); border-radius:12px; padding:20px 28px; margin-bottom:28px;}
-  nav.indice h2{font-size:1rem; margin:0 0 10px; text-transform:uppercase; letter-spacing:.03em; color:#52606d;}
-  nav.indice ol{columns:2; column-gap:32px; margin:0; padding-left:20px;}
-  nav.indice li{margin-bottom:6px; break-inside:avoid;}
-  nav.indice a{color:var(--auto); text-decoration:none;}
-  nav.indice a:hover{text-decoration:underline;}
+/* barra superior de acciones — no sale en el PDF */
+.actionbar{position:sticky;top:0;z-index:50;background:rgba(4,13,26,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:14px 0}
+.actionbar .wrap{display:flex;justify-content:space-between;align-items:center;max-width:820px}
+.logo{font-family:var(--serif);font-weight:600;font-size:16px}
+.logo span{color:var(--accent)}
+.btn-pdf{
+  font-family:var(--sans);font-weight:600;font-size:13.5px;background:var(--accent);color:#03080F;
+  padding:10px 18px;border-radius:6px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:7px;
+}
+.btn-pdf:hover{background:var(--accent-2)}
 
-  section{background:var(--fondo); border:1px solid var(--borde); border-radius:12px; padding:28px 32px; margin-bottom:24px;}
-  section h2{font-size:1.35rem; margin:0 0 4px; padding-bottom:10px; border-bottom:2px solid var(--borde);}
-  section h2 .num{color:#9aa5b1; font-weight:600; margin-right:8px;}
-  section h3{font-size:1.08rem; margin:26px 0 8px;}
-  section h3:first-of-type{margin-top:6px;}
-  p{margin:0 0 12px;}
+.doc{padding:44px 0 80px}
+.doc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:36px;padding-bottom:28px;border-bottom:1px solid var(--border)}
+.doc-head .kicker{font-family:var(--mono);font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.doc-head h1{font-family:var(--serif);font-size:26px;font-weight:600}
+.doc-head .meta{font-size:13px;color:var(--text-dim);margin-top:6px}
 
-  .titulares{display:grid; grid-template-columns:repeat(auto-fit, minmax(210px,1fr)); gap:16px; margin-top:16px;}
-  .titular{border:1px solid var(--borde); border-radius:10px; padding:18px; background:var(--fondo-suave);}
-  .titular .num{font-size:2.1rem; font-weight:700; line-height:1;}
-  .titular .etq{font-size:0.85rem; color:#52606d; margin-top:6px;}
-  .titular .banda{display:inline-block; margin-top:8px; font-size:0.78rem; font-weight:700; padding:2px 10px; border-radius:999px;}
-  .banda-critico{background:var(--bg-fuga); color:var(--fuga);}
-  .banda-flojo{background:var(--bg-manual); color:var(--manual);}
-  .banda-aceptable{background:#fff8e1; color:#8a6d00;}
-  .banda-bueno{background:var(--bg-ok); color:var(--ok);}
-  .banda-sindatos{background:var(--bg-sindatos); color:var(--borde-sindatos);}
+/* dos notas principales */
+.scores{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:40px}
+.score-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px}
+.score-card .label{font-family:var(--mono);font-size:10.5px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.score-card .value{font-family:var(--serif);font-size:38px;font-weight:600;color:var(--accent);line-height:1}
+.score-card .value span{font-size:16px;color:var(--text-dim);font-weight:400}
+.score-card .desc{font-size:12.5px;color:var(--text-mid);margin-top:6px}
+.score-card.locked{opacity:.7}
+.locked-value{font-size:26px !important;color:var(--text-dim) !important}
+.locked-section{background:var(--surface);border:1px dashed var(--border-strong);border-radius:12px;padding:22px}
+.locked-section h2{border-bottom:none;padding-bottom:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.lock-tag{font-family:var(--mono);font-size:10.5px;color:var(--accent);background:var(--accent-soft);padding:3px 10px;border-radius:20px}
+.locked-copy{font-size:13.5px;color:var(--text-mid);line-height:1.6}
 
-  blockquote{
-    margin:10px 0; padding:10px 16px; background:var(--fondo-suave); border-left:4px solid var(--auto);
-    font-style:italic; color:#3e4c59; font-size:0.95rem;
-  }
-  blockquote cite{display:block; margin-top:4px; font-style:normal; font-size:0.82rem; color:#7b8794;}
+.section{margin-bottom:36px}
+.section h2{font-family:var(--serif);font-size:19px;font-weight:600;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
 
-  table{width:100%; border-collapse:collapse; margin:14px 0; font-size:0.93rem;}
-  th, td{border:1px solid var(--borde); padding:9px 12px; text-align:left; vertical-align:top;}
-  th{background:var(--fondo-suave); font-weight:700;}
-  tr:nth-child(even) td{background:#fbfcfd;}
+/* desglose de las 11 dimensiones */
+.dims{display:flex;flex-direction:column;gap:9px}
+.dim-row{display:grid;grid-template-columns:1fr auto 90px;gap:12px;align-items:center}
+.dim-name{font-size:13px;color:var(--text-mid)}
+.dim-score{font-family:var(--mono);font-size:12px;color:var(--text-dim);text-align:right}
+.dim-bar{height:5px;background:var(--surface-2);border-radius:3px;overflow:hidden}
+.dim-bar-fill{height:100%;background:var(--accent);border-radius:3px}
+.dim-bar-fill.low{background:#E2672B}
+.dim-bar-fill.mid{background:#D9B23C}
 
-  .pill{display:inline-block; padding:2px 10px; border-radius:999px; font-size:0.78rem; font-weight:700;}
-  .pill-alta{background:var(--bg-fuga); color:var(--fuga);}
-  .pill-media{background:var(--bg-manual); color:var(--manual);}
-  .pill-baja{background:var(--bg-sindatos); color:#52606d;}
-  .pill-fuera{background:var(--bg-auto); color:var(--auto);}
-  .pill-cruce{background:#efe3fb; color:#6b3fa0;}
+/* lo que funciona bien */
+.wins{background:var(--surface);border-left:3px solid #3FA66B;border-radius:0 10px 10px 0;padding:18px 20px}
+.wins ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.wins li{font-size:13.5px;color:var(--text-mid);line-height:1.5;padding-left:20px;position:relative}
+.wins li::before{content:'✓';position:absolute;left:0;color:#3FA66B;font-weight:700}
 
-  .dimension{border:1px solid var(--borde); border-radius:10px; padding:16px 20px; margin-bottom:16px;}
-  .dimension-cab{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px;}
-  .dimension-cab h4{margin:0; font-size:1.02rem;}
-  .dimension-nota{font-size:1.3rem; font-weight:700;}
-  .dimension .peso{color:#7b8794; font-size:0.82rem;}
-  .bien{color:var(--ok);} .mal{color:var(--fuga);}
-  ul.compacta{margin:6px 0 10px; padding-left:20px;}
-  ul.compacta li{margin-bottom:4px;}
+/* hallazgos: sin límite fijo de items */
+.finding{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.finding:last-child{border-bottom:none}
+.finding-num{font-family:var(--mono);font-size:12px;color:var(--accent);flex-shrink:0;padding-top:2px}
+.finding-body strong{display:block;font-size:14.5px;margin-bottom:3px}
+.finding-body p{font-size:13.5px;color:var(--text-mid);line-height:1.55}
+.finding-evidence{font-family:var(--mono);font-size:11px;color:var(--text-dim);margin-top:5px;font-style:italic}
 
-  .sindatos-caja{background:var(--bg-sindatos); border:1px dashed var(--borde-sindatos); border-radius:10px; padding:16px 20px; color:#3e4c59;}
+/* incoherencias — sección con más peso visual, es la más persuasiva */
+.incoherencias{background:linear-gradient(160deg,rgba(226,103,43,.10),var(--surface));border:1px solid rgba(226,103,43,.35);border-radius:12px;padding:22px 24px}
+.incoherencias h2{border-bottom:none;padding-bottom:0;display:flex;align-items:center;gap:10px}
+.incoherencias .flag{font-size:11px}
+.incoherencias .intro{font-size:13px;color:var(--text-mid);margin-bottom:16px}
+.incoherencias ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.incoherencias li{font-size:13.5px;color:var(--text-mid);line-height:1.5;padding-left:22px;position:relative}
+.incoherencias li::before{content:'⚠';position:absolute;left:0;color:#f0925c}
 
-  .mapa-wrap{overflow-x:auto; border:1px solid var(--borde); border-radius:10px; padding:10px; background:#fff;}
-  .mapa-wrap svg{width:100%; height:auto; display:block; min-width:640px;}
-  .leyenda{display:flex; flex-wrap:wrap; gap:14px; margin:12px 0; font-size:0.85rem;}
-  .leyenda span{display:inline-flex; align-items:center; gap:6px;}
-  .leyenda i{width:14px; height:14px; border-radius:3px; display:inline-block; border:1.5px solid;}
+.plan-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:10px;display:flex;gap:14px;align-items:flex-start}
+.plan-priority{font-family:var(--mono);font-size:10px;text-transform:uppercase;padding:2px 8px;border-radius:20px;flex-shrink:0;margin-top:2px}
+.plan-priority.alta{background:rgba(226,103,43,.18);color:#f0925c}
+.plan-priority.media{background:var(--accent-soft);color:var(--accent)}
+.plan-body strong{display:block;font-size:14px;margin-bottom:3px}
+.plan-body p{font-size:13px;color:var(--text-mid)}
 
-  .metodologica{font-size:0.9rem; color:#3e4c59;}
-  .op{background:var(--fondo-suave); border-radius:8px; padding:10px 14px; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size:0.85rem; margin:8px 0;}
+/* upsell a PRO / otros productos — no sale en el PDF impreso, solo en pantalla y con QR en el PDF */
+.upsell{background:linear-gradient(160deg,var(--accent-soft),var(--surface));border:1.5px solid var(--accent);border-radius:14px;padding:26px;margin-top:44px;text-align:center}
+.upsell h3{font-family:var(--serif);font-size:20px;font-weight:600;margin-bottom:8px}
+.upsell p{font-size:13.5px;color:var(--text-mid);margin-bottom:18px;max-width:46ch;margin-left:auto;margin-right:auto}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#03080F;
+  font-weight:700;font-size:14.5px;padding:13px 22px;border-radius:6px;text-decoration:none;
+}
 
-  footer.pie{text-align:center; color:#9aa5b1; font-size:0.82rem; margin-top:24px;}
+.other-links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.other-links a{font-size:12.5px;color:var(--text-dim);text-decoration:underline}
 
-  @media print{
-    body{background:#fff;}
-    nav.indice{display:none;}
-    section{break-inside:avoid; border:none; box-shadow:none; padding:0; margin-bottom:28px;}
-    table{page-break-inside:avoid;}
-    .dimension{page-break-inside:avoid;}
-    .mapa-wrap{border:none;}
-  }
-  @media (max-width:640px){
-    header.cabecera, section{padding:20px 18px;}
-    nav.indice ol{columns:1;}
-  }
+/* Solo visible en la versión impresa/PDF */
+.print-only{display:none}
+
+footer{padding:30px 0;text-align:center;border-top:1px solid var(--border)}
+footer p{font-size:11.5px;color:var(--text-dim)}
+
+/* ============ ESTILOS DE IMPRESIÓN / PDF ============ */
+@media print{
+  body{background:#fff;color:#0A1626;font-size:12px}
+  .actionbar{display:none}
+  .doc{padding:0}
+  .score-card,.plan-item,.finding,.dim-row,.incoherencias li,.wins li{break-inside:avoid}
+  .score-card{background:#F7F6F2;border-color:#D6E4EA}
+  .score-card .value{color:#0B93A8}
+  .locked-value{color:#7C93A6 !important}
+  .locked-section{background:#F7F6F2;border-color:#B9CFDA}
+  .locked-copy{color:#3D5A72}
+  .section h2{border-color:#D6E4EA}
+  .finding-body p, .finding-evidence{color:#3D5A72}
+  .dim-name,.dim-score{color:#3D5A72}
+  .dim-bar{background:#E9EEF1}
+  .wins{background:#F7F6F2;border-left-color:#3FA66B}
+  .wins li{color:#3D5A72}
+  .incoherencias{background:#FDF3EC;border-color:#E2672B}
+  .incoherencias .intro,.incoherencias li{color:#3D5A72}
+  .plan-item{background:#F7F6F2;border-color:#D6E4EA}
+  .upsell{display:none}
+  .print-only{display:flex;gap:20px;align-items:center;margin-top:40px;padding-top:24px;border-top:1px solid #D6E4EA}
+  .print-only img{width:90px;height:90px;flex-shrink:0}
+  .print-only .txt strong{display:block;font-size:13px;margin-bottom:4px}
+  .print-only .txt p{font-size:11.5px;color:#3D5A72}
+  footer{border-color:#D6E4EA}
+  a{color:#0B93A8}
+}
 </style>
 </head>
 <body>
-<div class="envoltorio">
 
-  <header class="cabecera">
-    <h1>Auditoría de Negocio · Trufamas S.L. / Entrufados</h1>
-    <div class="sub">entrufados.es · Albentosa, Teruel</div>
-    <div class="meta">
-      <span><strong>Presencia pública leída:</strong> 23/08/2026</span>
-      <span><strong>Formulario de dentro:</strong> no recibido todavía</span>
-      <span class="badge-alcance">Alcance: solo mitad de fuera</span>
-    </div>
-    <p style="margin-top:14px; font-size:0.92rem; color:#52606d;">
-      Auditoría propia (autocrítica), realizada con el Kit de Auditoría de Negocio. No se ha accedido a ningún sistema del negocio: todo lo que sigue sale de lo que es público en internet.
-    </p>
-  </header>
-
-  <nav class="indice">
-    <h2>Contenido</h2>
-    <ol>
-      <li><a href="#titulares">Titulares</a></li>
-      <li><a href="#resumen">Resumen ejecutivo</a></li>
-      <li><a href="#no-cuadra">Lo que no cuadra</a></li>
-      <li><a href="#mapa1">Mapa 1 · Cómo funciona hoy</a></li>
-      <li><a href="#parte-a">Parte A · Lo que el negocio enseña al mundo</a></li>
-      <li><a href="#parte-b">Parte B · Cómo funciona por dentro</a></li>
-      <li><a href="#mapa2">Mapa 2 · Cómo funcionaría</a></li>
-      <li><a href="#plan">Plan de acción</a></li>
-      <li><a href="#quick-wins">Quick wins</a></li>
-      <li><a href="#hoja-de-ruta">Hoja de ruta</a></li>
-      <li><a href="#no-automatizar">Lo que no conviene automatizar todavía</a></li>
-      <li><a href="#competencia">Comparativa con la competencia</a></li>
-      <li><a href="#metodologia">Nota metodológica</a></li>
-    </ol>
-  </nav>
-
-  <section id="titulares">
-    <h2><span class="num">1</span>Titulares</h2>
-    <div class="titulares">
-      <div class="titular">
-        <div class="num">32<span style="font-size:1.1rem;">/100</span></div>
-        <div class="etq">Nota digital (presencia pública)</div>
-        <div class="banda banda-critico">Crítico</div>
-      </div>
-      <div class="titular">
-        <div class="num" style="font-size:1.4rem;">Sin datos</div>
-        <div class="etq">Madurez tecnológica (0-5)</div>
-        <div class="banda banda-sindatos">Falta el formulario de dentro</div>
-      </div>
-      <div class="titular">
-        <div class="num" style="font-size:1.4rem;">Sin datos</div>
-        <div class="etq">Horas/mes recuperables y su coste</div>
-        <div class="banda banda-sindatos">Falta el formulario de dentro</div>
-      </div>
-      <div class="titular">
-        <div class="num" style="font-size:1.4rem;">Sin datos</div>
-        <div class="etq">Riesgos críticos internos</div>
-        <div class="banda banda-sindatos">Falta el formulario de dentro</div>
-      </div>
-      <div class="titular">
-        <div class="num">8</div>
-        <div class="etq">Incoherencias detectadas (solo en la mitad de fuera)</div>
-        <div class="banda banda-flojo">Ver sección 4</div>
-      </div>
-    </div>
-    <p style="margin-top:16px; font-size:0.9rem; color:#52606d;">
-      Esta auditoría cubre solo la mitad de fuera: lo que Entrufados enseña al mundo. La mitad de dentro —cómo llega y se gestiona cada cliente— y los cruces entre ambas mitades quedan pendientes hasta recibir el formulario de 36 preguntas.
-    </p>
-  </section>
-
-  <section id="resumen">
-    <h2><span class="num">2</span>Resumen ejecutivo</h2>
-    <p>
-      Entrufados tiene una propuesta de marca real y diferenciada: trufa negra de Teruel cultivada por la propia familia Blasco desde 1998, con un mensaje de venta claro ("Trufa de verdad. Sin aromas.") y una tienda Shopify que funciona técnicamente bien, con checkout operativo y varios medios de pago. Esa base es sólida y no es habitual encontrarla tan bien resuelta en un negocio de este tamaño.
-    </p>
-    <p>
-      El problema no es la propuesta, es lo que rodea a la propuesta. La trufa fresca —el producto que da nombre a la marca— está marcada como fuera de temporada mientras el resto del catálogo sigue a la venta. La página pensada para reservar la experiencia de trufiturismo se llama "Reserva tu Experiencia Ahora" pero no tiene ni calendario ni forma de pagar una señal. El banner de la web promete "Atención por WhatsApp" y ese número no aparece en ningún canal revisado. Instagram (2.750 seguidores) y Facebook llevan sin publicar desde el 27 de enero, unos siete meses. Y no hay ni una sola reseña pública en ningún sitio: ni en Facebook, ni en Google (no se ha encontrado ficha), ni en ningún agregador. A esto se suma que la propia identidad del negocio se cuenta de tres formas distintas según el canal: tres teléfonos diferentes, dos códigos postales, un email de Gmail personal en vez del dominio propio, y un CIF sin rellenar en el aviso legal.
-    </p>
-    <p>
-      Lo que se gana arreglando esto no es una web nueva: es cerrar las cinco o seis fugas que hoy hacen que alguien que llega interesado no pueda comprar, no pueda reservar, no encuentre el negocio en Google, o no encuentre una sola prueba de que otros ya confiaron en él. Son arreglos de bajo coste y alto impacto —ver sección 9— y la mayoría no necesitan ni una herramienta nueva, solo rellenar lo que ya existe a medias.
-    </p>
-  </section>
-
-  <section id="no-cuadra">
-    <h2><span class="num">3</span>Lo que no cuadra</h2>
-    <p style="font-size:0.9rem; color:#52606d;">
-      Sin el formulario de dentro no se pueden calcular los <strong>cruces</strong> del Paso 9 (lo que el negocio promete por fuera frente a lo que puede cumplir por dentro): esos son, normalmente, los hallazgos más caros de toda la auditoría, y quedan pendientes. Lo que sigue son las incoherencias detectadas <strong>solo dentro de la mitad de fuera</strong>, comparando entre sí la web, las redes, el aviso legal y los directorios donde aparece el negocio.
-    </p>
-
-    <div class="dimension">
-      <div class="dimension-cab"><h4>Tres teléfonos distintos según la fuente</h4><span class="pill pill-alta">Prioridad alta</span></div>
-      <p>Un cliente que quiera llamar no sabe qué número es el correcto, y cada canal manda a uno distinto.</p>
-      <blockquote>"902023217" <cite>— entrufados.es/policies/contact-information, 23/08/2026</cite></blockquote>
-      <blockquote>"603 84 20 11" <cite>— facebook.com/EntrufadosbyTrufamas, 23/08/2026</cite></blockquote>
-      <blockquote>"(+34) 615 613 366" <cite>— mycotour.es/project/entrufados, 23/08/2026</cite></blockquote>
-      <p><strong>Cómo se corrige:</strong> decidir un único número de contacto y sustituirlo en la web, Facebook y cualquier directorio de terceros donde se pueda editar.</p>
-    </div>
-
-    <div class="dimension">
-      <div class="dimension-cab"><h4>"Atención por WhatsApp" sin número de WhatsApp en ningún sitio</h4><span class="pill pill-alta">Prioridad alta</span></div>
-      <p>La web anuncia el canal pero no dice a qué número escribir; no aparece tampoco en Instagram ni en Facebook.</p>
-      <blockquote>Banner de cabecera: "Atención por WhatsApp" <cite>— entrufados.es, 23/08/2026</cite></blockquote>
-      <blockquote>Página de contacto (entrufados.es/pages/contact, WebFetch 23/08/2026): "WhatsApp number (though service is mentioned)... NOT visible"</blockquote>
-      <p><strong>Cómo se corrige:</strong> publicar el número con un enlace directo <code>wa.me</code> en la web y en la bio de las dos redes.</p>
-    </div>
-
-    <div class="dimension">
-      <div class="dimension-cab"><h4>"Reserva tu Experiencia Ahora" no permite reservar</h4><span class="pill pill-alta">Prioridad alta</span></div>
-      <p>El título promete una acción inmediata; la página no tiene formulario, calendario ni precio.</p>
-      <blockquote>"Aunque aparece 'Reserva tu Experiencia Ahora' como encabezado principal, no hay formulario, calendario de disponibilidad, ni instrucciones explícitas visibles" <cite>— entrufados.es/pages/reserva-tu-experiencia-ahora, WebFetch 23/08/2026</cite></blockquote>
-      <p><strong>Cómo se corrige:</strong> mientras no haya un sistema de reservas, cambiar el CTA por un enlace de contacto real (WhatsApp o email) que sí funcione.</p>
-    </div>
-
-    <div class="dimension">
-      <div class="dimension-cab"><h4>El producto que da nombre a la marca está fuera de stock</h4><span class="pill pill-media">Prioridad media</span></div>
-      <p>Quien busca "trufa negra" —lo que el propio dominio promete— encuentra el resto del catálogo pero no el producto principal, sin ninguna explicación ni alternativa.</p>
-      <blockquote>Trufa Negra Fresca: "Fuera de Temporada" <cite>— entrufados.es/collections/all, WebFetch 23/08/2026</cite></blockquote>
-      <p><strong>Cómo se corrige:</strong> añadir un aviso de temporada con fecha de vuelta y una lista de espera ("avísame cuando vuelva"), en vez de dejarlo como agotado sin más.</p>
-    </div>
-
-    <div class="dimension">
-      <div class="dimension-cab"><h4>Email de contacto en Gmail personal, no en el dominio propio</h4><span class="pill pill-media">Prioridad media</span></div>
-      <p>El negocio tiene dominio propio (entrufados.es) pero da un correo de Gmail personal como contacto oficial.</p>
-      <blockquote>"hnosblasco@gmail.com" <cite>— facebook.com/EntrufadosbyTrufamas y mycotour.es/project/entrufados, 23/08/2026</cite></blockquote>
-      <p><strong>Cómo se corrige:</strong> crear una cuenta de correo con el propio dominio (p. ej. hola@entrufados.es) y usarla en todos los canales.</p>
-    </div>
-
-    <div class="dimension">
-      <div class="dimension-cab"><h4>Dirección con dos códigos postales distintos</h4><span class="pill pill-baja">Prioridad baja</span></div>
-      <p>El aviso legal y una ficha de terceros no coinciden en el código postal de la misma calle.</p>
-      <blockquote>"Calle del Aire 6, 44477, Albentosa, Teruel" <cite>— entrufados.es/policies/legal-notice, WebFetch 23/08/2026</cite></blockquote>
-      <blockquote>"Calle El Aire 6 – ALBENTOSA, Teruel, 44777" <cite>— mycotour.es/project/entrufados, WebFetch 23/08/2026</cite></blockquote>
-      <p><strong>Cómo se corrige:</strong> confirmar el código postal real y unificarlo en ambos sitios.</p>
-    </div>
-
-    <div class="dimension">
-      <div class="dimension-cab"><h4>CIF sin rellenar en el aviso legal</h4><span class="pill pill-alta">Prioridad alta</span></div>
-      <p>El documento legal obligatorio muestra un CIF de plantilla, no el real, y no se ha actualizado desde 2022.</p>
-      <blockquote>"propiedad de TRUFAMAS S.L. ... CIF.: 000000000" <cite>— entrufados.es/policies/legal-notice, 23/08/2026</cite></blockquote>
-      <blockquote>"Albentosa a 1 de Diciembre de 2022" <cite>— pie de fecha del mismo documento</cite></blockquote>
-      <p><strong>Cómo se corrige:</strong> sustituir el CIF de plantilla por el real; es un documento legal obligatorio y en su estado actual no cumple su función.</p>
-    </div>
-
-    <div class="dimension">
-      <div class="dimension-cab"><h4>Cero anuncios activos y cero reseñas públicas, pese a tener audiencia</h4><span class="pill pill-media">Prioridad media</span></div>
-      <p>2.750 personas siguen la marca en Instagram, pero no hay ni un anuncio activo en Meta ni una sola reseña visible en ningún canal.</p>
-      <blockquote>Biblioteca de Anuncios de Meta, España, "Trufamas": "No hay ningún anuncio que coincida con los criterios de búsqueda" <cite>— facebook.com/ads/library, 23/08/2026</cite></blockquote>
-      <blockquote>"Aún sin calificación (0 opiniones)" <cite>— facebook.com/EntrufadosbyTrufamas, 23/08/2026</cite></blockquote>
-      <p><strong>Cómo se corrige:</strong> antes de invertir en anuncios, cerrar las fugas de arriba (WhatsApp, reserva, teléfono); después, pedir activamente una reseña tras cada pedido.</p>
-    </div>
-  </section>
-
-  <section id="mapa1">
-    <h2><span class="num">4</span>Mapa 1 · Cómo funciona hoy</h2>
-    <p>El recorrido de quien descubre Entrufados y decide comprar un producto o reservar una experiencia. El tramo posterior a la compra (envío, seguimiento) queda como "sin datos": pertenece a la mitad de dentro, todavía sin auditar.</p>
-    <div class="leyenda">
-      <span><i style="background:var(--bg-ok); border-color:var(--ok);"></i>Funciona bien</span>
-      <span><i style="background:var(--bg-manual); border-color:var(--manual);"></i>Nota / a mano</span>
-      <span><i style="background:var(--bg-fuga); border-color:var(--fuga);"></i>Fuga</span>
-      <span><i style="background:#eef1f4; border-color:#9aa5b1;"></i>Paso neutro</span>
-      <span><i style="background:var(--bg-sindatos); border-color:var(--borde-sindatos);"></i>Sin datos</span>
-    </div>
-    <div class="mapa-wrap">
-<svg viewBox="0 0 1000 990" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif">
-  <defs>
-    <marker id="arrow-base1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#5b6773"/>
-    </marker>
-  </defs>
-  <rect x="0" y="0" width="1000" height="990" fill="#ffffff"/>
-  <text x="500" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1f2933">Mapa 1 · Cómo funciona hoy</text>
-  <path d="M 480 146 L 480 200" fill="none" stroke="#5b6773" stroke-width="1.8" marker-end="url(#arrow-base1)"/>
-  <path d="M 480 296 L 480 350" fill="none" stroke="#5b6773" stroke-width="1.8" marker-end="url(#arrow-base1)"/>
-  <path d="M 480 446 L 480 500" fill="none" stroke="#5b6773" stroke-width="1.8" marker-end="url(#arrow-base1)"/><text x="490" y="459.5" font-size="11" fill="#5b6773" text-anchor="start">comprar</text>
-  <path d="M 480 446 L 480 473 L 810 473 L 810 500" fill="none" stroke="#5b6773" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#arrow-base1)"/><text x="645" y="467" font-size="11" fill="#5b6773" text-anchor="middle">reservar experiencia</text>
-  <path d="M 480 596 L 480 650" fill="none" stroke="#5b6773" stroke-width="1.8" marker-end="url(#arrow-base1)"/>
-  <path d="M 480 746 L 480 800" fill="none" stroke="#5b6773" stroke-width="1.8" marker-end="url(#arrow-base1)"/>
-  <path d="M 620 98 L 660 98" fill="none" stroke="#5b6773" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#arrow-base1)"/>
-  <path d="M 620 248 L 660 248" fill="none" stroke="#5b6773" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#arrow-base1)"/>
-  <path d="M 620 398 L 660 398" fill="none" stroke="#5b6773" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#arrow-base1)"/>
-  <rect x="30" y="50" width="260" height="96" rx="4" fill="#fdf3e3" stroke="#b26a00" stroke-width="1.5" stroke-dasharray="4,3"/>
-  <ellipse cx="480" cy="98" rx="140" ry="48" fill="#eef1f4" stroke="#9aa5b1" stroke-width="2"/>
-  <rect x="660" y="50" width="300" height="96" rx="10" fill="#fbeae7" stroke="#c0392b" stroke-width="2"/>
-  <rect x="30" y="200" width="260" height="96" rx="4" fill="#fdf3e3" stroke="#b26a00" stroke-width="1.5" stroke-dasharray="4,3"/>
-  <rect x="340" y="200" width="280" height="96" rx="10" fill="#e7f6ee" stroke="#1e8f5a" stroke-width="2"/>
-  <rect x="660" y="200" width="300" height="96" rx="10" fill="#fbeae7" stroke="#c0392b" stroke-width="2"/>
-  <polygon points="480,350 620,398 480,446 340,398" fill="#eef1f4" stroke="#9aa5b1" stroke-width="2"/>
-  <rect x="660" y="350" width="300" height="96" rx="10" fill="#fbeae7" stroke="#c0392b" stroke-width="2"/>
-  <rect x="340" y="500" width="280" height="96" rx="10" fill="#e7f6ee" stroke="#1e8f5a" stroke-width="2"/>
-  <rect x="660" y="500" width="300" height="96" rx="10" fill="#fbeae7" stroke="#c0392b" stroke-width="2"/>
-  <ellipse cx="480" cy="698" rx="140" ry="48" fill="#eef1f4" stroke="#9aa5b1" stroke-width="2"/>
-  <rect x="340" y="800" width="280" height="96" rx="10" fill="#f1f2f4" stroke="#8a8f98" stroke-width="2" stroke-dasharray="6,4"/>
-  <text text-anchor="middle" font-size="13" font-weight="500" fill="#1f2933" style="font-style:italic;"><tspan x="160" y="93.75">IG y FB sin publicar</tspan><tspan x="160" y="110.75">desde hace ~7 meses</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="600" fill="#1f2933"><tspan x="480" y="93.75">Descubre Entrufados</tspan><tspan x="480" y="110.75">(Instagram, búsqueda)</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="500" fill="#1f2933"><tspan x="810" y="85.25">Busca 'trufa negra fresca</tspan><tspan x="810" y="102.25">Teruel' en Google:</tspan><tspan x="810" y="119.25">no aparece (9 sí)</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="500" fill="#1f2933" style="font-style:italic;"><tspan x="160" y="235.25">El producto que da</tspan><tspan x="160" y="252.25">nombre a la marca está</tspan><tspan x="160" y="269.25">'Fuera de Temporada'</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="500" fill="#1f2933"><tspan x="480" y="243.75">Ve la web:</tspan><tspan x="480" y="260.75">'Trufa de verdad. Sin aromas.'</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="500" fill="#1f2933"><tspan x="810" y="235.25">Busca reseñas antes de</tspan><tspan x="810" y="252.25">comprar: 0 en Facebook,</tspan><tspan x="810" y="269.25">sin ficha de Google</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="500" fill="#1f2933"><tspan x="480" y="393.75">¿Comprar producto</tspan><tspan x="480" y="410.75">o reservar experiencia?</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="500" fill="#1f2933"><tspan x="810" y="385.25">Busca el WhatsApp</tspan><tspan x="810" y="402.25">anunciado: no aparece</tspan><tspan x="810" y="419.25">en ningún canal</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="500" fill="#1f2933"><tspan x="480" y="543.75">Compra en el carrito</tspan><tspan x="480" y="560.75">(Shopify)</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="500" fill="#1f2933"><tspan x="810" y="535.25">'Reserva tu Experiencia</tspan><tspan x="810" y="552.25">Ahora': sin formulario,</tspan><tspan x="810" y="569.25">sin calendario, sin precio</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="600" fill="#1f2933"><tspan x="480" y="702.25">Pedido pagado</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="500" fill="#1f2933"><tspan x="480" y="835.25">Envío y atención posventa</tspan><tspan x="480" y="852.25">— sin datos (falta el</tspan><tspan x="480" y="869.25">formulario de dentro)</tspan></text>
-</svg>
-    </div>
-  </section>
-
-  <section id="parte-a">
-    <h2><span class="num">5</span>Parte A · Lo que el negocio enseña al mundo</h2>
-    <p>Once dimensiones puntúan sobre 100. Cada nota lleva al menos dos evidencias citadas. La nota digital (32/100) es la media ponderada de estas once.</p>
-
-    <div class="dimension">
-      <div class="dimension-cab"><h4>1. Web y UX</h4><span class="dimension-nota mal">45<span class="peso"> /100 · peso 15</span></span></div>
-      <p class="bien">Bien: hero claro y diferenciado, checkout de Shopify funcional con varios medios de pago, newsletter con lead magnet.</p>
-      <blockquote>"Trufa de verdad. Sin aromas." <cite>— entrufados.es, home, 23/08/2026</cite></blockquote>
-      <p class="mal">Mal: el producto ancla (trufa fresca) está fuera de temporada; la página "Reserva tu Experiencia Ahora" no tiene forma de reservar; sin testimonios; blog sin publicar desde el 29/06/2024.</p>
-      <p><strong>Acciones:</strong> aviso de temporada + lista de espera en la trufa fresca · dar función real (o quitar) a la página de reserva · añadir 2-3 testimonios reales de clientes.</p>
-    </div>
-
-    <div class="dimension">
-      <div class="dimension-cab"><h4>2. Oferta y precios</h4><span class="dimension-nota mal">40<span class="peso"> /100 · peso 15</span></span></div>
-      <p class="bien">Bien: precios visibles en cada ficha de producto, catálogo amplio (25 referencias, 8€-120€).</p>
-      <p class="mal">Mal: mezcla sin jerarquía de producto fresco, elaborados, utillaje y experiencias, sin producto estrella señalado; el gin BTG muestra un tachado "69,95€ → 96,00€" que sube el precio, confuso.</p>
-      <blockquote>"BTG Black Truffle Gin (€96,00 / €69,95)" <cite>— entrufados.es/collections/all, WebFetch 23/08/2026</cite></blockquote>
-      <p><strong>Acciones:</strong> revisar y corregir el precio tachado del gin · marcar un producto o pack "estrella" en portada.</p>
-    </div>
-
-    <div class="dimension">
-      <div class="dimension-cab"><h4>3. Copy y comunicación</h4><span class="dimension-nota" style="color:#8a6d00;">50<span class="peso"> /100 · peso 12</span></span></div>
-      <p class="bien">Bien: hero de la web e Instagram coherentes, hablan de autenticidad y experiencia, no de genéricos.</p>
-      <blockquote>IG: "Experiencias gourmet con Trufa Negra de Teruel" <cite>— instagram.com/entrufadosbytrufamas, 23/08/2026</cite></blockquote>
-      <p class="mal">Mal: el tono de Facebook (histórico/familiar) no coincide con el de la web e Instagram (producto/experiencia); ningún canal anticipa objeciones ni incluye prueba social en el texto.</p>
-      <blockquote>FB: "Hnos. Blasco desde 1998, mimamos la Trufa Negra de Teruel" <cite>— facebook.com/EntrufadosbyTrufamas, 23/08/2026</cite></blockquote>
-      <p><strong>Antes → después:</strong> "Reserva tu Experiencia Ahora" (sin acción posible) → "Elige tu fecha y reserva con 20€ de señal — te confirmamos en 24h".</p>
-      <p><strong>Acciones:</strong> unificar el tono de marca en los tres canales · reescribir el CTA de la página de reserva con una acción real.</p>
-    </div>
-
-    <div class="dimension">
-      <div class="dimension-cab"><h4>4. Recorrido del cliente (parte visible)</h4><span class="dimension-nota mal">38<span class="peso"> /100 · peso 12</span></span></div>
-      <p class="bien">Bien: el recorrido de compra de producto físico funciona de principio a fin (descubrir → web → carrito → pago).</p>
-      <p class="mal">Mal: el recorrido de la experiencia de trufiturismo termina en un callejón sin salida; son dos recorridos distintos sin diferenciarse en la navegación de la web.</p>
-      <p><strong>Acciones:</strong> separar claramente "comprar producto" de "reservar experiencia" en el menú, con su propio flujo cada uno.</p>
-    </div>
-
-    <div class="dimension">
-      <div class="dimension-cab"><h4>5. Redes sociales</h4><span class="dimension-nota mal">25<span class="peso"> /100 · peso 10</span></span></div>
-      <p class="bien">Bien: 2.750 seguidores en Instagram, enlace en bio directo a la tienda (no a una home genérica).</p>
-      <blockquote>Instagram: 2.750 seguidores, 124 seguidos <cite>— instagram.com/entrufadosbytrufamas, 23/08/2026</cite></blockquote>
-      <p class="mal">Mal: última publicación (27 de enero, ~7 meses) con solo 5 "me gusta" y 0 comentarios; mismo contenido y misma fecha en Facebook (59 seguidores, 2 reacciones) — ambas redes paradas al unísono.</p>
-      <blockquote>"Hay momentos, encuentros y lugares que no se anuncian a lo grande..." — 5 me gusta, 27 de enero <cite>— instagram.com/entrufadosbytrufamas, 23/08/2026</cite></blockquote>
-      <p><strong>Acciones:</strong> calendario de publicación mínimo (1-2 posts/semana) · revisar y limpiar las historias destacadas.</p>
-    </div>
-
-    <div class="dimension">
-      <div class="dimension-cab"><h4>6. Anuncios (Meta Ads)</h4><span class="dimension-nota mal">15<span class="peso"> /100 · peso 8</span></span></div>
-      <p class="mal">Sin anuncios activos hoy. Comprobado con dos variantes del nombre en la Biblioteca de Anuncios de Meta (España); el sistema sí reconoce al anunciante, así que no es un problema de nombre.</p>
-      <blockquote>Búsqueda "Entrufados" y "Trufamas": "No hay ningún anuncio que coincida con los criterios de búsqueda" <cite>— facebook.com/ads/library, 23/08/2026</cite></blockquote>
-      <p><strong>Acciones:</strong> no lanzar anuncios todavía (ver sección 11) — primero cerrar las fugas de WhatsApp y reserva; después, campaña sencilla sobre el pack regalo con seguimiento por píxel.</p>
-    </div>
-
-    <div class="dimension">
-      <div class="dimension-cab"><h4>7. Google Business / Maps</h4><span class="dimension-nota mal">10<span class="peso"> /100 · peso 8</span></span></div>
-      <p class="mal">No se ha localizado ninguna ficha de Google Business para "Entrufados" ni "Trufamas" en Albentosa, tras varias búsquedas con distintas variantes del nombre.</p>
-      <p><strong>Por qué es un problema:</strong> es un negocio con local físico que además vende experiencias presenciales (trufiturismo); sin ficha, no aparece con horario, fotos ni botón de "cómo llegar" cuando alguien busca en Google o Maps.</p>
-      <p><strong>Acciones:</strong> crear el Perfil de Empresa en Google (gratuito) con dirección, horario, fotos y categoría correcta.</p>
-    </div>
-
-    <div class="dimension">
-      <div class="dimension-cab"><h4>8. Reputación</h4><span class="dimension-nota mal">15<span class="peso"> /100 · peso 6</span></span></div>
-      <p class="mal">Cero reseñas en todos los canales revisados: no es una reputación mala, es una reputación inexistente.</p>
-      <blockquote>"Aún sin calificación (0 opiniones)" <cite>— facebook.com/EntrufadosbyTrufamas, 23/08/2026</cite></blockquote>
-      <p>Sin ficha de Google (no hay reseñas de Google) y sin resultados al buscar en Trustpilot u otros agregadores (WebSearch, 23/08/2026).</p>
-      <p><strong>Acciones:</strong> pedir una reseña a cada cliente tras el envío/la experiencia, empezando en Google en cuanto exista la ficha.</p>
-    </div>
-
-    <div class="dimension">
-      <div class="dimension-cab"><h4>9. Coherencia de marca</h4><span class="dimension-nota mal">20<span class="peso"> /100 · peso 6</span></span></div>
-      <p class="mal">Tres teléfonos, dos códigos postales, un email personal en vez del dominio propio y un CIF sin rellenar en el aviso legal (ver detalle en la sección 3 "Lo que no cuadra").</p>
-      <p><strong>Acciones:</strong> las de la sección 3, todas de bajo esfuerzo y alto impacto en confianza.</p>
-    </div>
-
-    <div class="dimension">
-      <div class="dimension-cab"><h4>10. SEO básico</h4><span class="dimension-nota mal">30<span class="peso"> /100 · peso 4</span></span></div>
-      <p class="bien">Bien: robots.txt correcto, con sitemap.xml declarado.</p>
-      <p class="mal">Mal: no aparece entre los primeros resultados al buscar "comprar trufa negra fresca Teruel online" — su búsqueda comercial más directa — mientras que 9 competidores sí aparecen (Trufato, Truffal Shop, Truficas, Pura Trufa, Trufas Gorriz y otros).</p>
-      <p><strong>Acciones:</strong> trabajar el SEO de las páginas de producto y categoría para esa búsqueda concreta; recuperar o cerrar el blog (ver dimensión 11).</p>
-    </div>
-
-    <div class="dimension">
-      <div class="dimension-cab"><h4>11. Contenido</h4><span class="dimension-nota mal">25<span class="peso"> /100 · peso 4</span></span></div>
-      <p class="mal">El blog "El Secreto de la Carrasca" solo estuvo activo entre el 01/06/2024 y el 29/06/2024, y no se ha vuelto a publicar en más de dos años.</p>
-      <p><strong>Acciones:</strong> decidir de forma explícita: retomarlo con un plan sostenible (aunque sea un post al mes) o cerrarlo formalmente — un blog abandonado da peor imagen que no tener blog.</p>
-    </div>
-  </section>
-
-  <section id="parte-b">
-    <h2><span class="num">6</span>Parte B · Cómo funciona por dentro</h2>
-    <div class="sindatos-caja">
-      <p style="margin-bottom:0;"><strong>Sin datos.</strong> Esta auditoría se ha hecho solo con información pública (Parte A). La mitad de dentro —captación, agenda, cobro, seguimiento, herramientas, riesgos y madurez tecnológica— no puntúa porque todavía no se ha recibido el formulario de 36 preguntas que rellena el propio negocio.</p>
-    </div>
-    <p style="margin-top:16px;">
-      Con el formulario relleno (está en <code>formulario/</code>, en versión para pegar en email/WhatsApp o en HTML para rellenar en el navegador) se puede completar:
-    </p>
-    <ul class="compacta">
-      <li>El nivel de madurez tecnológica (1-5) de las 8 áreas internas.</li>
-      <li>Las horas al mes que se van a mano y su coste, con la operación a la vista.</li>
-      <li>El inventario de herramientas que se pagan y los riesgos (copias de seguridad, accesos, RGPD).</li>
-      <li>Los <strong>cruces</strong> entre lo que Entrufados promete por fuera y lo que puede cumplir por dentro — habitualmente, la parte más valiosa del informe.</li>
-    </ul>
-  </section>
-
-  <section id="mapa2">
-    <h2><span class="num">7</span>Mapa 2 · Cómo funcionaría</h2>
-    <p>Mismo recorrido, mismos pasos y mismo orden que el Mapa 1, con las fugas cerradas. El último paso (seguimiento posventa) es una propuesta orientativa: se afinará con los datos del formulario de dentro.</p>
-    <div class="leyenda">
-      <span><i style="background:var(--bg-ok); border-color:var(--ok);"></i>Funciona bien</span>
-      <span><i style="background:var(--bg-auto); border-color:var(--auto);"></i>Automatizado / arreglado</span>
-      <span><i style="background:var(--bg-manual); border-color:var(--manual);"></i>Nota</span>
-      <span><i style="background:#eef1f4; border-color:#9aa5b1;"></i>Paso neutro</span>
-    </div>
-    <div class="mapa-wrap">
-<svg viewBox="0 0 1000 990" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif">
-  <defs>
-    <marker id="arrow-base2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#5b6773"/>
-    </marker>
-  </defs>
-  <rect x="0" y="0" width="1000" height="990" fill="#ffffff"/>
-  <text x="500" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1f2933">Mapa 2 · Cómo funcionaría</text>
-  <path d="M 480 146 L 480 200" fill="none" stroke="#5b6773" stroke-width="1.8" marker-end="url(#arrow-base2)"/>
-  <path d="M 480 296 L 480 350" fill="none" stroke="#5b6773" stroke-width="1.8" marker-end="url(#arrow-base2)"/>
-  <path d="M 480 446 L 480 500" fill="none" stroke="#5b6773" stroke-width="1.8" marker-end="url(#arrow-base2)"/><text x="490" y="459.5" font-size="11" fill="#5b6773" text-anchor="start">comprar</text>
-  <path d="M 480 446 L 480 473 L 810 473 L 810 500" fill="none" stroke="#5b6773" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#arrow-base2)"/><text x="645" y="467" font-size="11" fill="#5b6773" text-anchor="middle">reservar experiencia</text>
-  <path d="M 480 596 L 480 650" fill="none" stroke="#5b6773" stroke-width="1.8" marker-end="url(#arrow-base2)"/>
-  <path d="M 480 746 L 480 800" fill="none" stroke="#5b6773" stroke-width="1.8" marker-end="url(#arrow-base2)"/>
-  <path d="M 620 98 L 660 98" fill="none" stroke="#5b6773" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#arrow-base2)"/>
-  <path d="M 620 248 L 660 248" fill="none" stroke="#5b6773" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#arrow-base2)"/>
-  <path d="M 620 398 L 660 398" fill="none" stroke="#5b6773" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#arrow-base2)"/>
-  <rect x="30" y="50" width="260" height="96" rx="4" fill="#fdf3e3" stroke="#b26a00" stroke-width="1.5" stroke-dasharray="4,3"/>
-  <ellipse cx="480" cy="98" rx="140" ry="48" fill="#eef1f4" stroke="#9aa5b1" stroke-width="2"/>
-  <rect x="660" y="50" width="300" height="96" rx="10" fill="#e8f1fa" stroke="#2f6fb2" stroke-width="2"/>
-  <rect x="30" y="200" width="260" height="96" rx="4" fill="#fdf3e3" stroke="#b26a00" stroke-width="1.5" stroke-dasharray="4,3"/>
-  <rect x="340" y="200" width="280" height="96" rx="10" fill="#e7f6ee" stroke="#1e8f5a" stroke-width="2"/>
-  <rect x="660" y="200" width="300" height="96" rx="10" fill="#e8f1fa" stroke="#2f6fb2" stroke-width="2"/>
-  <polygon points="480,350 620,398 480,446 340,398" fill="#eef1f4" stroke="#9aa5b1" stroke-width="2"/>
-  <rect x="660" y="350" width="300" height="96" rx="10" fill="#e8f1fa" stroke="#2f6fb2" stroke-width="2"/>
-  <rect x="340" y="500" width="280" height="96" rx="10" fill="#e7f6ee" stroke="#1e8f5a" stroke-width="2"/>
-  <rect x="660" y="500" width="300" height="96" rx="10" fill="#e8f1fa" stroke="#2f6fb2" stroke-width="2"/>
-  <ellipse cx="480" cy="698" rx="140" ry="48" fill="#e7f6ee" stroke="#1e8f5a" stroke-width="2"/>
-  <rect x="340" y="800" width="280" height="96" rx="10" fill="#e8f1fa" stroke="#2f6fb2" stroke-width="2"/>
-  <text text-anchor="middle" font-size="13" font-weight="500" fill="#1f2933" style="font-style:italic;"><tspan x="160" y="93.75">IG y FB con calendario</tspan><tspan x="160" y="110.75">de publicación activo</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="600" fill="#1f2933"><tspan x="480" y="93.75">Descubre Entrufados</tspan><tspan x="480" y="110.75">(IG activo + SEO)</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="500" fill="#1f2933"><tspan x="810" y="85.25">Aparece en Google para</tspan><tspan x="810" y="102.25">'trufa negra fresca Teruel'</tspan><tspan x="810" y="119.25">(SEO trabajado)</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="500" fill="#1f2933" style="font-style:italic;"><tspan x="160" y="235.25">Trufa fresca con aviso</tspan><tspan x="160" y="252.25">de temporada y lista</tspan><tspan x="160" y="269.25">de espera si falta</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="500" fill="#1f2933"><tspan x="480" y="243.75">Ve la web:</tspan><tspan x="480" y="260.75">mensaje claro + reseñas</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="500" fill="#1f2933"><tspan x="810" y="235.25">Ficha de Google Business</tspan><tspan x="810" y="252.25">activa con reseñas</tspan><tspan x="810" y="269.25">gestionadas</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="500" fill="#1f2933"><tspan x="480" y="393.75">¿Comprar producto</tspan><tspan x="480" y="410.75">o reservar experiencia?</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="500" fill="#1f2933"><tspan x="810" y="385.25">WhatsApp visible con</tspan><tspan x="810" y="402.25">respuesta automática</tspan><tspan x="810" y="419.25">fuera de horario</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="500" fill="#1f2933"><tspan x="480" y="543.75">Compra en el carrito</tspan><tspan x="480" y="560.75">(Shopify)</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="500" fill="#1f2933"><tspan x="810" y="535.25">'Reserva tu Experiencia</tspan><tspan x="810" y="552.25">Ahora': calendario y pago</tspan><tspan x="810" y="569.25">de señal online</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="600" fill="#1f2933"><tspan x="480" y="693.75">Pedido pagado /</tspan><tspan x="480" y="710.75">experiencia reservada</tspan></text>
-  <text text-anchor="middle" font-size="13" font-weight="500" fill="#1f2933"><tspan x="480" y="835.25">Confirmación y seguimiento</tspan><tspan x="480" y="852.25">post-venta automáticos</tspan><tspan x="480" y="869.25">(a definir con el formulario)</tspan></text>
-</svg>
-    </div>
-  </section>
-
-  <section id="plan">
-    <h2><span class="num">8</span>Plan de acción</h2>
-    <p>Todas las líneas de este plan salen de la mitad de fuera (origen "fuera"): sin el formulario de dentro no hay todavía hallazgos de "cruce". Ordenadas por retorno, no por lo llamativo.</p>
-    <table>
-      <thead><tr><th>Prioridad</th><th>Acción</th><th>Origen</th><th>Impacto</th><th>Esfuerzo</th><th>Qué resuelve</th></tr></thead>
-      <tbody>
-        <tr><td>1</td><td>Rellenar el CIF real y unificar teléfono/dirección en web, Facebook y directorios</td><td><span class="pill pill-fuera">fuera</span></td><td>Alto</td><td>Bajo</td><td>Aviso legal sin CIF; 3 teléfonos distintos</td></tr>
-        <tr><td>2</td><td>Publicar el número de WhatsApp con enlace directo en web y redes</td><td><span class="pill pill-fuera">fuera</span></td><td>Alto</td><td>Bajo</td><td>"Atención por WhatsApp" sin número visible</td></tr>
-        <tr><td>3</td><td>Crear el Perfil de Empresa en Google (dirección, horario, fotos)</td><td><span class="pill pill-fuera">fuera</span></td><td>Alto</td><td>Bajo</td><td>Sin ficha de Google Business/Maps</td></tr>
-        <tr><td>4</td><td>Dar función real a "Reserva tu Experiencia Ahora" o sustituir el CTA por contacto directo</td><td><span class="pill pill-fuera">fuera</span></td><td>Alto</td><td>Medio</td><td>Página de reserva sin forma de reservar</td></tr>
-        <tr><td>5</td><td>Aviso de temporada + lista de espera para la trufa fresca</td><td><span class="pill pill-fuera">fuera</span></td><td>Medio</td><td>Bajo</td><td>Producto ancla fuera de stock sin explicación</td></tr>
-        <tr><td>6</td><td>Crear email del dominio propio y sustituirlo en todos los canales</td><td><span class="pill pill-fuera">fuera</span></td><td>Medio</td><td>Bajo</td><td>Contacto en Gmail personal</td></tr>
-        <tr><td>7</td><td>Retomar publicaciones en Instagram y Facebook con calendario mínimo</td><td><span class="pill pill-fuera">fuera</span></td><td>Medio</td><td>Medio</td><td>~7 meses sin publicar en ambas redes</td></tr>
-        <tr><td>8</td><td>Pedir reseña tras cada pedido/experiencia (empezando en Google en cuanto haya ficha)</td><td><span class="pill pill-fuera">fuera</span></td><td>Medio</td><td>Bajo</td><td>Cero reseñas públicas en cualquier canal</td></tr>
-        <tr><td>9</td><td>Trabajar el SEO de producto/categoría para "comprar trufa negra fresca Teruel"</td><td><span class="pill pill-fuera">fuera</span></td><td>Medio</td><td>Medio</td><td>No aparece frente a 9 competidores directos</td></tr>
-        <tr><td>10</td><td>Decidir sobre el blog: retomarlo con plan sostenible o cerrarlo</td><td><span class="pill pill-fuera">fuera</span></td><td>Bajo</td><td>Bajo</td><td>Blog sin publicar desde 06/2024</td></tr>
-        <tr><td>11</td><td>Recibir el formulario de dentro para completar madurez, horas, riesgos y cruces</td><td><span class="pill pill-fuera">fuera</span></td><td>Alto</td><td>Bajo</td><td>Parte B y sección de cruces, hoy "sin datos"</td></tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section id="quick-wins">
-    <h2><span class="num">9</span>Quick wins</h2>
-    <ul class="compacta">
-      <li><strong>Publicar el número de WhatsApp</strong> con enlace <code>wa.me</code> en la web y en la bio de Instagram/Facebook. Resultado esperado: los interesados pueden escribir directamente en vez de rebotar. Tiempo: menos de 1 hora.</li>
-      <li><strong>Corregir el aviso legal</strong>: CIF real y fecha actualizada. Tiempo: menos de 30 minutos.</li>
-      <li><strong>Unificar el teléfono de contacto</strong> en web, Facebook y directorios donde se pueda editar. Tiempo: 1-2 horas.</li>
-      <li><strong>Cambiar el CTA de "Reserva tu Experiencia Ahora"</strong> por un enlace de WhatsApp o email mientras no haya calendario propio. Tiempo: menos de 1 hora.</li>
-      <li><strong>Publicar en Instagram y Facebook</strong> para romper el silencio de 7 meses. Tiempo: 1 hora.</li>
-    </ul>
-  </section>
-
-  <section id="hoja-de-ruta">
-    <h2><span class="num">10</span>Hoja de ruta</h2>
-    <table>
-      <thead><tr><th>Fase</th><th>Qué incluye</th></tr></thead>
-      <tbody>
-        <tr><td><strong>0-30 días</strong></td><td>Corregir CIF, teléfono y dirección · publicar el WhatsApp · crear la ficha de Google Business · arreglar o redirigir el CTA de reserva · primera tanda de publicaciones en redes.</td></tr>
-        <tr><td><strong>30-90 días</strong></td><td>Sistema de reserva real para la experiencia (calendario + señal) · calendario de contenido sostenido en redes · gestión activa de reseñas · aviso de temporada/lista de espera para la trufa fresca.</td></tr>
-        <tr><td><strong>90+ días</strong></td><td>Trabajo de SEO de fondo sobre las páginas de producto · decisión y ejecución sobre el blog · primera campaña de anuncios, una vez cerradas las fugas del embudo.</td></tr>
-      </tbody>
-    </table>
-    <p style="font-size:0.85rem; color:#7b8794; margin-top:10px;">Esta hoja de ruta no incluye importes: se pueden añadir rangos orientativos si se solicita expresamente.</p>
-  </section>
-
-  <section id="no-automatizar">
-    <h2><span class="num">11</span>Lo que no conviene automatizar todavía</h2>
-    <p style="font-size:0.9rem; color:#52606d;">Sin el formulario de dentro no se sabe qué automatizaciones se han probado ya (P33) o qué preocupa delegar en una máquina (P34). Estas cautelas se basan solo en lo observado por fuera:</p>
-    <ul class="compacta">
-      <li><strong>No lanzar anuncios pagados todavía.</strong> Con el WhatsApp sin publicar, la página de reserva rota y las redes paradas, cualquier clic pagado caería en el mismo embudo roto. Primero se cierran esas fugas.</li>
-      <li><strong>No automatizar de golpe todo el sistema de reservas con pago automático.</strong> Mejor validar primero con un calendario simple y una señal cobrada a mano antes de conectar pagos recurrentes o confirmaciones automáticas.</li>
-      <li><strong>No retomar el blog solo por inercia.</strong> Si se reactiva, que sea con un plan de contenido sostenible: un blog que vuelve a pararse a los dos meses transmite peor imagen que uno cerrado formalmente.</li>
-    </ul>
-  </section>
-
-  <section id="competencia">
-    <h2><span class="num">12</span>Comparativa con la competencia</h2>
-    <p>El usuario no ha confirmado todavía competidores directos para hacer la comparación completa (oferta, redes, SEO, anuncios y reputación una a una). Al buscar la keyword comercial principal del negocio, aparecieron estos posibles competidores, pendientes de confirmación:</p>
-    <table>
-      <thead><tr><th>Negocio</th><th>Por qué aparece</th></tr></thead>
-      <tbody>
-        <tr><td>Trufato</td><td>Aparece para "comprar trufa negra fresca Teruel online" (WebSearch, 23/08/2026)</td></tr>
-        <tr><td>Truffal Shop</td><td>Ídem</td></tr>
-        <tr><td>Truficas</td><td>Ídem</td></tr>
-        <tr><td>Pura Trufa</td><td>Ídem (Sarrión, Teruel)</td></tr>
-        <tr><td>Trufas Gorriz</td><td>Ídem</td></tr>
-      </tbody>
-    </table>
-    <p style="font-size:0.9rem; color:#52606d;">Si se confirman 1-2 competidores directos, se puede ampliar esta sección con oferta, precios, redes, SEO y reputación lado a lado.</p>
-  </section>
-
-  <section id="metodologia">
-    <h2><span class="num">13</span>Nota metodológica</h2>
-    <div class="metodologica">
-      <p><strong>Fuentes y fechas:</strong> toda la Parte A se ha leído de fuentes públicas el 23/08/2026 — entrufados.es y sus páginas de políticas, Instagram (@entrufadosbytrufamas), Facebook (Entrufados by Trufamas), la Biblioteca de Anuncios de Meta, resultados de Google (WebSearch) y la ficha de terceros en mycotour.es. La Parte B no se ha auditado: no se ha recibido el formulario de dentro.</p>
-      <p><strong>Sin acceso a sistemas internos:</strong> no se ha entrado en ningún panel, programa ni cuenta del negocio. Todo lo anterior es información pública o publicada por el propio negocio.</p>
-      <p><strong>Sin datos vs. hallazgo:</strong> cuando una fuente no se pudo leer se marca "sin datos"; cuando se buscó activamente y no se encontró nada (p. ej. la ficha de Google Business o los anuncios activos), esa ausencia se trata como un hallazgo con su propia nota, no como "sin datos".</p>
-      <p><strong>Nada inventado:</strong> cada nota y cada afirmación se apoya en una cita literal con su origen y fecha. No se han estimado cifras de gasto en anuncios, tráfico ni conversión: la Biblioteca de Anuncios de Meta no las publica.</p>
-      <p><strong>Mapas:</strong> generados a mano con un script propio en Node.js siguiendo la misma paleta y formato que <code>scripts/excalidraw.py</code>, porque no se encontró un intérprete de Python instalado en este equipo. No se ha generado el archivo <code>.excalidraw</code> editable por el mismo motivo; los dos SVG de este informe son el documento de referencia.</p>
-      <p><strong>Próximo paso:</strong> enviar el formulario de <code>formulario/</code> para completar la Parte B, la madurez tecnológica, las horas recuperables y los cruces entre ambas mitades.</p>
-    </div>
-  </section>
-
-  <footer class="pie">Auditoría de Negocio · Kit de Auditoría de Negocio · Trufamas S.L. / Entrufados · 23/08/2026</footer>
+<div class="actionbar">
+  <div class="wrap">
+    <div class="logo">Radar <span>360</span></div>
+    <button class="btn-pdf" onclick="window.print()">↓ Descargar en PDF</button>
+  </div>
 </div>
+
+<div class="doc">
+  <div class="wrap">
+
+    <div class="doc-head">
+      <div>
+        <div class="kicker">Informe Radar 360</div>
+        <h1>Entrufados</h1>
+        <div class="meta">Generado el 24/08/2026 · Comarca de Teruel</div>
+      </div>
+    </div>
+
+    <div class="scores">
+      <div class="score-card">
+        <div class="label">Nota digital</div>
+        <div class="value">32<span>/100</span></div>
+        <div class="desc">Crítico — Presencia y visibilidad frente a tu competencia</div>
+      </div>
+      <div class="score-card locked">
+        <div class="label">Madurez tecnológica</div>
+        <div class="value locked-value">🔒</div>
+        <div class="desc">Se calcula cruzando tus procesos internos — solo con el PRO</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Desglose por dimensión</h2>
+      <div class="dims">
+        <div class="dim-row">
+          <span class="dim-name">Web y UX</span>
+          <span class="dim-score">45/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill mid" style="width:45%"></div></div>
+        </div>
+        <div class="dim-row">
+          <span class="dim-name">Oferta y precios</span>
+          <span class="dim-score">40/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill mid" style="width:40%"></div></div>
+        </div>
+        <div class="dim-row">
+          <span class="dim-name">Copy y comunicación</span>
+          <span class="dim-score">50/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill mid" style="width:50%"></div></div>
+        </div>
+        <div class="dim-row">
+          <span class="dim-name">Recorrido del cliente (parte visible)</span>
+          <span class="dim-score">38/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill low" style="width:38%"></div></div>
+        </div>
+        <div class="dim-row">
+          <span class="dim-name">Redes sociales</span>
+          <span class="dim-score">25/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill low" style="width:25%"></div></div>
+        </div>
+        <div class="dim-row">
+          <span class="dim-name">Anuncios (Meta Ads)</span>
+          <span class="dim-score">15/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill low" style="width:15%"></div></div>
+        </div>
+        <div class="dim-row">
+          <span class="dim-name">Google Business / Maps</span>
+          <span class="dim-score">10/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill low" style="width:10%"></div></div>
+        </div>
+        <div class="dim-row">
+          <span class="dim-name">Reputación</span>
+          <span class="dim-score">15/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill low" style="width:15%"></div></div>
+        </div>
+        <div class="dim-row">
+          <span class="dim-name">Coherencia de marca</span>
+          <span class="dim-score">20/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill low" style="width:20%"></div></div>
+        </div>
+        <div class="dim-row">
+          <span class="dim-name">SEO básico</span>
+          <span class="dim-score">30/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill low" style="width:30%"></div></div>
+        </div>
+        <div class="dim-row">
+          <span class="dim-name">Contenido</span>
+          <span class="dim-score">25/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill low" style="width:25%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section wins">
+      <h2 style="border:none;padding:0;margin-bottom:10px">Lo que ya funciona bien</h2>
+      <ul>
+        <li>Propuesta de valor clara y diferenciada en el hero de la web y en Instagram: "Trufa de verdad. Sin aromas." — no es un mensaje genérico.</li>
+        <li>El carrito y el proceso de pago de la tienda (Shopify) funcionan correctamente, con varios medios de pago (Amex, Apple Pay, Google Pay, Klarna, PayPal, Visa...).</li>
+        <li>Las políticas legales de la web están publicadas y accesibles (aviso legal, privacidad, envío, reembolso), aunque algunos de sus datos estén desactualizados.</li>
+        <li>Newsletter con incentivo real para suscribirse: "recetas exclusivas" y "secretos mejor guardados" de la trufa negra.</li>
+        <li>Precios visibles en todas las fichas de producto — no hay que preguntar.</li>
+        <li>Catálogo amplio: 25 referencias entre producto fresco, elaborados, utillaje y experiencias.</li>
+        <li>El recorrido de compra de un producto físico funciona de principio a fin: descubrir, ver la web, añadir al carrito y pagar.</li>
+        <li>2.750 seguidores reales en Instagram — una audiencia ya construida.</li>
+        <li>El enlace en la bio de Instagram lleva directo a la tienda (/collections/all), no a una home genérica: buena práctica poco habitual.</li>
+        <li>robots.txt correcto y sitemap.xml declarado — la parte técnica del SEO está bien resuelta.</li>
+        <li>Marca con historia real y verificable: la familia Blasco cultiva la trufa desde 1998, un activo que el copy de venta todavía no explota del todo.</li>
+        <li>Presencia mediática y en directorios del sector: mención en un artículo de Aragón Digital sobre la trufa de Teruel y ficha propia en el directorio de turismo Mycotour.es.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Lo que hemos encontrado (por fuera)</h2>
+      <div class="finding">
+        <span class="finding-num">01</span>
+        <div class="finding-body">
+          <strong>El producto que da nombre a la marca está fuera de temporada</strong>
+          <p>La trufa negra fresca —lo que da nombre al negocio— aparece marcada como fuera de temporada, mientras el resto del catálogo sigue a la venta con normalidad.</p>
+          <div class="finding-evidence">Evidencia: entrufados.es/collections/all — "Fuera de Temporada" (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">02</span>
+        <div class="finding-body">
+          <strong>Otras 9-10 referencias más, agotadas</strong>
+          <p>Además de la trufa fresca, entre 9 y 10 productos más del catálogo están marcados como agotados: el gin BTG, quesos trufados, mandolinas y huevos trufados, entre otros.</p>
+          <div class="finding-evidence">Evidencia: entrufados.es/collections/all, filtro de disponibilidad (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">03</span>
+        <div class="finding-body">
+          <strong>Sin un H1 claro en el hero de la web</strong>
+          <p>El título de la pestaña del navegador es descriptivo, pero la propia página no marca con claridad cuál es su mensaje principal — algo que también penaliza al posicionamiento en buscadores.</p>
+          <div class="finding-evidence">Evidencia: revisión del código de entrufados.es, home (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">04</span>
+        <div class="finding-body">
+          <strong>"Reserva tu Experiencia Ahora" no deja reservar nada</strong>
+          <p>El título promete una acción inmediata, pero la página no tiene formulario, calendario, precio ni instrucciones: quien llega interesado no tiene forma de dar el siguiente paso.</p>
+          <div class="finding-evidence">Evidencia: entrufados.es/pages/reserva-tu-experiencia-ahora (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">05</span>
+        <div class="finding-body">
+          <strong>Sin testimonios de clientes en ninguna página</strong>
+          <p>No hay ni un testimonio, valoración o caso de cliente visible en la web, ni en el catálogo ni en las páginas de contacto.</p>
+          <div class="finding-evidence">Evidencia: revisión de home, catálogo y páginas de contacto de entrufados.es (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">06</span>
+        <div class="finding-body">
+          <strong>El blog lleva más de dos años parado</strong>
+          <p>"El Secreto de la Carrasca" no publica nada desde hace más de dos años: da la sensación de un proyecto abandonado a quien lo encuentra.</p>
+          <div class="finding-evidence">Evidencia: último artículo publicado el 29/06/2024 (WebFetch 23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">07</span>
+        <div class="finding-body">
+          <strong>Catálogo sin producto estrella</strong>
+          <p>Las 25 referencias mezclan producto fresco, elaborados, utillaje y experiencias sin ninguna jerarquía visible que oriente a quien no sabe qué elegir.</p>
+          <div class="finding-evidence">Evidencia: entrufados.es/collections/all, 25 productos listados (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">08</span>
+        <div class="finding-body">
+          <strong>Un precio "rebajado" que en realidad sube</strong>
+          <p>El gin BTG se muestra con un tachado de precio que pasa de 69,95€ a 96,00€ — el formato visual de una oferta, pero al revés. Genera desconfianza en quien compara precios.</p>
+          <div class="finding-evidence">Evidencia: entrufados.es/collections/all — "€96,00 / €69,95" (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">09</span>
+        <div class="finding-body">
+          <strong>El tono de marca cambia según el canal</strong>
+          <p>Facebook habla en clave histórica y familiar ("desde 1998"); la web e Instagram hablan de producto y experiencia gourmet. Quien sigue los dos canales recibe dos promesas de marca distintas.</p>
+          <div class="finding-evidence">Evidencia: facebook.com/EntrufadosbyTrufamas e instagram.com/entrufadosbytrufamas (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">10</span>
+        <div class="finding-body">
+          <strong>Dos negocios distintos, un solo recorrido a medias</strong>
+          <p>El recorrido para comprar un producto físico funciona de principio a fin; el de la experiencia de trufiturismo no existe como tal — y la web no los separa en la navegación, así que se pisan entre sí.</p>
+          <div class="finding-evidence">Evidencia: navegación completa de entrufados.es (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">11</span>
+        <div class="finding-body">
+          <strong>Redes paradas desde hace unos 7 meses</strong>
+          <p>Tienes 2.750 seguidores en Instagram, pero la última publicación es del 27 de enero, con solo 5 "me gusta". El mismo contenido se publicó el mismo día en Facebook (59 seguidores, 2 reacciones) y tampoco ha habido nada después.</p>
+          <div class="finding-evidence">Evidencia: instagram.com/entrufadosbytrufamas y facebook.com/EntrufadosbyTrufamas (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">12</span>
+        <div class="finding-body">
+          <strong>Las historias destacadas de Instagram mezclan categorías sin criterio</strong>
+          <p>Las cuatro carpetas fijadas en el perfil — "Calidad/Servicio", "Eventos E2", "Última hora" y "BTG" (el gin) — no siguen un criterio reconocible: mezclan tipo de contenido, producto concreto y actualidad en el mismo nivel.</p>
+          <div class="finding-evidence">Evidencia: instagram.com/entrufadosbytrufamas, historias destacadas (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">13</span>
+        <div class="finding-body">
+          <strong>El contenido de Instagram no tiene gancho comercial ni CTA</strong>
+          <p>La única publicación reciente localizada es puramente emocional y de marca ("Hay momentos, encuentros y lugares que no se anuncian a lo grande..."), sin ningún gancho de producto ni llamada a la acción.</p>
+          <div class="finding-evidence">Evidencia: instagram.com/entrufadosbytrufamas, publicación del 27/01 (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">14</span>
+        <div class="finding-body">
+          <strong>Cero anuncios activos en Meta</strong>
+          <p>Se ha comprobado con dos variantes del nombre del negocio ("Entrufados" y "Trufamas") en la Biblioteca de Anuncios de Meta: el sistema reconoce al anunciante, así que no es un problema de nombre — simplemente no hay ninguna campaña activa hoy.</p>
+          <div class="finding-evidence">Evidencia: facebook.com/ads/library, búsquedas "Entrufados" y "Trufamas" (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">15</span>
+        <div class="finding-body">
+          <strong>Sin ficha de Google Business</strong>
+          <p>No se ha localizado ninguna ficha de Google Business Profile para el negocio en Albentosa, pese a tener local físico y ofrecer experiencias presenciales. Quien busca en Google o Maps no encuentra horario, fotos ni cómo llegar.</p>
+          <div class="finding-evidence">Evidencia: búsquedas con varias combinaciones del nombre (WebSearch, 23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">16</span>
+        <div class="finding-body">
+          <strong>Cero reseñas públicas en cualquier canal</strong>
+          <p>Ni en Facebook, ni en Google (no hay ficha), ni en Trustpilot ni en ningún otro agregador aparece una sola reseña de un cliente real.</p>
+          <div class="finding-evidence">Evidencia: facebook.com/EntrufadosbyTrufamas — "Aún sin calificación (0 opiniones)" (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">17</span>
+        <div class="finding-body">
+          <strong>No aparece en Google para su búsqueda comercial más directa</strong>
+          <p>Al buscar "comprar trufa negra fresca Teruel online" —justo lo que vendes— entrufados.es no aparece entre los primeros resultados, mientras que 9 competidores directos sí.</p>
+          <div class="finding-evidence">Evidencia: WebSearch "comprar trufa negra fresca Teruel online" (23/08/2026) — Trufato, Truffal Shop, Truficas, Pura Trufa, Trufas Gorriz y otros</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section incoherencias">
+      <h2><span class="flag">⚠️</span> Cosas que no cuadran</h2>
+      <p class="intro">Detalles que, vistos desde fuera, generan dudas a quien te está conociendo por primera vez.</p>
+      <ul>
+        <li>Tres números de teléfono distintos según la fuente: 902 023 217 (web) / 603 84 20 11 (Facebook) / +34 615 613 366 (Mycotour.es).</li>
+        <li>Email de contacto en Gmail personal (hnosblasco@gmail.com) en vez del dominio propio (@entrufados.es).</li>
+        <li>La dirección cambia según dónde se mire: el aviso legal dice "Calle del Aire 6, 44477, Albentosa, Teruel"; Facebook solo pone "Calle del aire", sin número ni código postal; y Mycotour.es pone "Calle El Aire 6 – Albentosa, Teruel, 44777" — con un código postal distinto al del aviso legal.</li>
+        <li>CIF sin rellenar en el aviso legal ("CIF.: 000000000"), documento sin actualizar desde diciembre de 2022.</li>
+        <li>La web anuncia "Atención por WhatsApp" pero ningún número de WhatsApp aparece publicado en ningún canal.</li>
+        <li>La página "Reserva tu Experiencia Ahora" no tiene ninguna manera real de reservar.</li>
+        <li>El producto que da nombre a la marca —la trufa negra fresca— está fuera de stock/temporada mientras el resto del catálogo sigue a la venta.</li>
+        <li>Cero anuncios activos y cero reseñas públicas, pese a tener una audiencia real de 2.750 seguidores en Instagram.</li>
+      </ul>
+    </div>
+
+    <div class="section" style="opacity:.85">
+      <h2 style="font-size:16px">Pendiente de confirmar</h2>
+      <p style="font-size:13px;color:var(--text-mid);margin-bottom:10px">Esto no lo hemos podido comprobar todavía con las herramientas de esta primera fase — te lo decimos igual, en vez de omitirlo.</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+        <li style="font-size:13px;color:var(--text-mid);padding-left:16px;position:relative"><span style="position:absolute;left:0">·</span>Si hay un píxel de medición instalado (Meta Pixel, Google Analytics o GTM) en la web — no se ha podido confirmar con las herramientas de esta fase.</li>
+        <li style="font-size:13px;color:var(--text-mid);padding-left:16px;position:relative"><span style="position:absolute;left:0">·</span>La actividad en Threads (@entrufadosbytrufamas existe, pero no se ha podido evaluar qué publica ni con qué frecuencia).</li>
+        <li style="font-size:13px;color:var(--text-mid);padding-left:16px;position:relative"><span style="position:absolute;left:0">·</span>Si el negocio ha tenido anuncios activos en Meta en el pasado — solo se ha comprobado el estado actual, que es sin anuncios.</li>
+        <li style="font-size:13px;color:var(--text-mid);padding-left:16px;position:relative"><span style="position:absolute;left:0">·</span>El contenido completo de la mención en prensa de Aragón Digital sobre la trufa de Teruel — la página no se pudo abrir para leerla entera.</li>
+        <li style="font-size:13px;color:var(--text-mid);padding-left:16px;position:relative"><span style="position:absolute;left:0">·</span>Una comparativa completa con la competencia (oferta, precios, redes, reputación) — de momento solo sabemos qué negocios aparecen antes que tú en Google para tu búsqueda principal.</li>
+        <li style="font-size:13px;color:var(--text-mid);padding-left:16px;position:relative"><span style="position:absolute;left:0">·</span>El contexto de negocio que ayuda a afinar el diagnóstico (tu cliente ideal, tu objetivo actual, tus competidores de referencia, tus canales de venta habituales) — pendiente de que nos lo cuentes.</li>
+      </ul>
+    </div>
+
+    <div class="section locked-section">
+      <h2>Plan de acción priorizado <span class="lock-tag">🔒 Solo con el PRO</span></h2>
+      <p class="locked-copy">Ya sabemos qué se ve desde fuera. Para decirte qué hacer con ello — en qué orden, con qué prioridad — necesitamos mirar también por dentro. Eso es exactamente lo que añade el Radar 360 PRO.</p>
+    </div>
+
+    <!-- Solo en pantalla: upsell a PRO. En el PDF, se sustituye por el QR de abajo -->
+    <div class="upsell">
+      <h3>¿Vamos más allá?</h3>
+      <p>Este es el diagnóstico. El Radar 360 PRO añade el análisis completo por dentro de tu negocio y un plan de acción todavía más detallado.</p>
+      <p style="font-family:var(--mono);font-size:11px;color:var(--text-dim);margin-top:-10px;margin-bottom:18px">Seguimos justo donde lo dejamos — no vuelves a contar nada de lo que ya sabemos.</p>
+      <label id="consentWrap" style="display:flex;gap:9px;align-items:flex-start;text-align:left;font-size:11.5px;color:var(--text-dim);margin-bottom:16px;cursor:pointer;max-width:420px;margin-left:auto;margin-right:auto;border-radius:6px;padding:6px;transition:box-shadow .3s">
+        <input type="checkbox" id="withdrawalConsent" style="margin-top:2px;flex-shrink:0;width:15px;height:15px;accent-color:var(--accent)">
+        <span>He leído y acepto que el servicio comienza a ejecutarse de inmediato al confirmar el pago, y renuncio a mi derecho de desistimiento de 14 días conforme al <a href="https://jbmarketing.es/legal/terminos/#desistimiento" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">artículo 103 de la Ley de Consumidores</a>.</span>
+      </label>
+      <a href="https://buy.stripe.com/test_4gM28sc6J6nn6Ljg7N57W03" target="_blank" rel="noopener" id="payNowBtn" class="btn-primary">Completar con el PRO →</a>
+      <div class="other-links">
+        <a href="https://jbmarketing.es/apps/korix/">KORIX</a>
+        <a href="https://jbmarketing.es/apps/gestaqua/">MiDula</a>
+        <a href="https://jbmarketing.es/apps/partapp/">PartApp</a>
+      </div>
+    </div>
+
+    <!-- Solo en el PDF impreso: QR al Radar 360 PRO -->
+    <div class="print-only">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://jbmarketing.es/radar-360/" alt="QR Radar 360 PRO">
+      <div class="txt">
+        <strong>¿Quieres el análisis completo?</strong>
+        <p>Escanea este código para ver el Radar 360 PRO — el plan de acción detallado, listo para implementar.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>Un servicio de JBMarketing · jbmarketing.es/radar-360</p>
+</footer>
+
+<script>
+function guardPaymentClick(e){
+  const consent = document.getElementById('withdrawalConsent');
+  const wrap = document.getElementById('consentWrap');
+  if(consent && !consent.checked){
+    e.preventDefault();
+    wrap.scrollIntoView({behavior:'smooth', block:'center'});
+    wrap.style.boxShadow = '0 0 0 2px var(--accent)';
+    setTimeout(()=>{ wrap.style.boxShadow = 'none'; }, 1800);
+  }
+}
+const payNowBtn = document.getElementById('payNowBtn');
+if(payNowBtn) payNowBtn.addEventListener('click', guardPaymentClick);
+</script>
+
 </body>
 </html>
