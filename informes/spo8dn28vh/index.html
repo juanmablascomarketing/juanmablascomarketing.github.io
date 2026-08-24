@@ -53,12 +53,39 @@ a{color:inherit}
 
 .section{margin-bottom:36px}
 .section h2{font-family:var(--serif);font-size:19px;font-weight:600;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+
+/* desglose de las 11 dimensiones */
+.dims{display:flex;flex-direction:column;gap:9px}
+.dim-row{display:grid;grid-template-columns:1fr auto 90px;gap:12px;align-items:center}
+.dim-name{font-size:13px;color:var(--text-mid)}
+.dim-score{font-family:var(--mono);font-size:12px;color:var(--text-dim);text-align:right}
+.dim-bar{height:5px;background:var(--surface-2);border-radius:3px;overflow:hidden}
+.dim-bar-fill{height:100%;background:var(--accent);border-radius:3px}
+.dim-bar-fill.low{background:#E2672B}
+.dim-bar-fill.mid{background:#D9B23C}
+
+/* lo que funciona bien */
+.wins{background:var(--surface);border-left:3px solid #3FA66B;border-radius:0 10px 10px 0;padding:18px 20px}
+.wins ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.wins li{font-size:13.5px;color:var(--text-mid);line-height:1.5;padding-left:20px;position:relative}
+.wins li::before{content:'✓';position:absolute;left:0;color:#3FA66B;font-weight:700}
+
+/* hallazgos: sin límite fijo de items */
 .finding{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.05)}
 .finding:last-child{border-bottom:none}
 .finding-num{font-family:var(--mono);font-size:12px;color:var(--accent);flex-shrink:0;padding-top:2px}
 .finding-body strong{display:block;font-size:14.5px;margin-bottom:3px}
 .finding-body p{font-size:13.5px;color:var(--text-mid);line-height:1.55}
 .finding-evidence{font-family:var(--mono);font-size:11px;color:var(--text-dim);margin-top:5px;font-style:italic}
+
+/* incoherencias — sección con más peso visual, es la más persuasiva */
+.incoherencias{background:linear-gradient(160deg,rgba(226,103,43,.10),var(--surface));border:1px solid rgba(226,103,43,.35);border-radius:12px;padding:22px 24px}
+.incoherencias h2{border-bottom:none;padding-bottom:0;display:flex;align-items:center;gap:10px}
+.incoherencias .flag{font-size:11px}
+.incoherencias .intro{font-size:13px;color:var(--text-mid);margin-bottom:16px}
+.incoherencias ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.incoherencias li{font-size:13.5px;color:var(--text-mid);line-height:1.5;padding-left:22px;position:relative}
+.incoherencias li::before{content:'⚠';position:absolute;left:0;color:#f0925c}
 
 .plan-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:10px;display:flex;gap:14px;align-items:flex-start}
 .plan-priority{font-family:var(--mono);font-size:10px;text-transform:uppercase;padding:2px 8px;border-radius:20px;flex-shrink:0;margin-top:2px}
@@ -90,7 +117,7 @@ footer p{font-size:11.5px;color:var(--text-dim)}
   body{background:#fff;color:#0A1626;font-size:12px}
   .actionbar{display:none}
   .doc{padding:0}
-  .score-card,.plan-item,.finding{break-inside:avoid}
+  .score-card,.plan-item,.finding,.dim-row,.incoherencias li,.wins li{break-inside:avoid}
   .score-card{background:#F7F6F2;border-color:#D6E4EA}
   .score-card .value{color:#0B93A8}
   .locked-value{color:#7C93A6 !important}
@@ -98,6 +125,12 @@ footer p{font-size:11.5px;color:var(--text-dim)}
   .locked-copy{color:#3D5A72}
   .section h2{border-color:#D6E4EA}
   .finding-body p, .finding-evidence{color:#3D5A72}
+  .dim-name,.dim-score{color:#3D5A72}
+  .dim-bar{background:#E9EEF1}
+  .wins{background:#F7F6F2;border-left-color:#3FA66B}
+  .wins li{color:#3D5A72}
+  .incoherencias{background:#FDF3EC;border-color:#E2672B}
+  .incoherencias .intro,.incoherencias li{color:#3D5A72}
   .plan-item{background:#F7F6F2;border-color:#D6E4EA}
   .upsell{display:none}
   .print-only{display:flex;gap:20px;align-items:center;margin-top:40px;padding-top:24px;border-top:1px solid #D6E4EA}
@@ -133,7 +166,7 @@ footer p{font-size:11.5px;color:var(--text-dim)}
       <div class="score-card">
         <div class="label">Nota digital</div>
         <div class="value">32<span>/100</span></div>
-        <div class="desc">Presencia y visibilidad frente a tu competencia</div>
+        <div class="desc">Crítico — Presencia y visibilidad frente a tu competencia</div>
       </div>
       <div class="score-card locked">
         <div class="label">Madurez tecnológica</div>
@@ -143,31 +176,204 @@ footer p{font-size:11.5px;color:var(--text-dim)}
     </div>
 
     <div class="section">
+      <h2>Desglose por dimensión</h2>
+      <div class="dims">
+        <div class="dim-row">
+          <span class="dim-name">Web y UX</span>
+          <span class="dim-score">45/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill mid" style="width:45%"></div></div>
+        </div>
+        <div class="dim-row">
+          <span class="dim-name">Oferta y precios</span>
+          <span class="dim-score">40/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill mid" style="width:40%"></div></div>
+        </div>
+        <div class="dim-row">
+          <span class="dim-name">Copy y comunicación</span>
+          <span class="dim-score">50/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill mid" style="width:50%"></div></div>
+        </div>
+        <div class="dim-row">
+          <span class="dim-name">Recorrido del cliente (parte visible)</span>
+          <span class="dim-score">38/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill low" style="width:38%"></div></div>
+        </div>
+        <div class="dim-row">
+          <span class="dim-name">Redes sociales</span>
+          <span class="dim-score">25/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill low" style="width:25%"></div></div>
+        </div>
+        <div class="dim-row">
+          <span class="dim-name">Anuncios (Meta Ads)</span>
+          <span class="dim-score">15/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill low" style="width:15%"></div></div>
+        </div>
+        <div class="dim-row">
+          <span class="dim-name">Google Business / Maps</span>
+          <span class="dim-score">10/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill low" style="width:10%"></div></div>
+        </div>
+        <div class="dim-row">
+          <span class="dim-name">Reputación</span>
+          <span class="dim-score">15/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill low" style="width:15%"></div></div>
+        </div>
+        <div class="dim-row">
+          <span class="dim-name">Coherencia de marca</span>
+          <span class="dim-score">20/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill low" style="width:20%"></div></div>
+        </div>
+        <div class="dim-row">
+          <span class="dim-name">SEO básico</span>
+          <span class="dim-score">30/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill low" style="width:30%"></div></div>
+        </div>
+        <div class="dim-row">
+          <span class="dim-name">Contenido</span>
+          <span class="dim-score">25/100</span>
+          <div class="dim-bar"><div class="dim-bar-fill low" style="width:25%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section wins">
+      <h2 style="border:none;padding:0;margin-bottom:10px">Lo que ya funciona bien</h2>
+      <ul>
+        <li>Propuesta de valor clara y diferenciada en el hero de la web y en Instagram: "Trufa de verdad. Sin aromas." — no es un mensaje genérico.</li>
+        <li>El carrito y el proceso de pago de la tienda (Shopify) funcionan correctamente, con varios medios de pago (Amex, Apple Pay, Google Pay, Klarna, PayPal, Visa...).</li>
+        <li>Newsletter con incentivo real para suscribirse: "recetas exclusivas" y "secretos mejor guardados" de la trufa negra.</li>
+        <li>Precios visibles en todas las fichas de producto — no hay que preguntar.</li>
+        <li>Catálogo amplio: 25 referencias entre producto fresco, elaborados, utillaje y experiencias.</li>
+        <li>El recorrido de compra de un producto físico funciona de principio a fin: descubrir, ver la web, añadir al carrito y pagar.</li>
+        <li>2.750 seguidores reales en Instagram — una audiencia ya construida.</li>
+        <li>El enlace en la bio de Instagram lleva directo a la tienda (/collections/all), no a una home genérica: buena práctica poco habitual.</li>
+        <li>robots.txt correcto y sitemap.xml declarado — la parte técnica del SEO está bien resuelta.</li>
+        <li>Marca con historia real y verificable: la familia Blasco cultiva la trufa desde 1998, un activo que el copy de venta todavía no explota del todo.</li>
+        <li>Presencia mediática y en directorios del sector: mención en un artículo de Aragón Digital sobre la trufa de Teruel y ficha propia en el directorio de turismo Mycotour.es.</li>
+      </ul>
+    </div>
+
+    <div class="section">
       <h2>Lo que hemos encontrado (por fuera)</h2>
       <div class="finding">
         <span class="finding-num">01</span>
         <div class="finding-body">
-          <strong>"Reserva tu Experiencia Ahora" no deja reservar nada</strong>
-          <p>La página de tu web pensada para vender la experiencia de trufiturismo tiene el título de una llamada a la acción, pero no hay formulario, calendario ni precio: quien llega interesado no tiene forma de dar el siguiente paso.</p>
-          <div class="finding-evidence">Evidencia: entrufados.es/pages/reserva-tu-experiencia-ahora — sin formulario, calendario ni precio (23/08/2026)</div>
+          <strong>El producto que da nombre a la marca está fuera de temporada</strong>
+          <p>La trufa negra fresca —lo que da nombre al negocio— aparece marcada como fuera de temporada, mientras el resto del catálogo sigue a la venta con normalidad.</p>
+          <div class="finding-evidence">Evidencia: entrufados.es/collections/all — "Fuera de Temporada" (23/08/2026)</div>
         </div>
       </div>
       <div class="finding">
         <span class="finding-num">02</span>
         <div class="finding-body">
-          <strong>Redes paradas desde hace unos 7 meses</strong>
-          <p>Tienes 2.750 seguidores en Instagram — una audiencia real — pero la última publicación es del 27 de enero, con el mismo contenido replicado en Facebook el mismo día. Desde entonces, silencio en las dos.</p>
-          <div class="finding-evidence">Evidencia: instagram.com/entrufadosbytrufamas y facebook.com/EntrufadosbyTrufamas — última publicación 27/01, sin actividad posterior (23/08/2026)</div>
+          <strong>"Reserva tu Experiencia Ahora" no deja reservar nada</strong>
+          <p>El título promete una acción inmediata, pero la página no tiene formulario, calendario, precio ni instrucciones: quien llega interesado no tiene forma de dar el siguiente paso.</p>
+          <div class="finding-evidence">Evidencia: entrufados.es/pages/reserva-tu-experiencia-ahora (23/08/2026)</div>
         </div>
       </div>
       <div class="finding">
         <span class="finding-num">03</span>
         <div class="finding-body">
-          <strong>Sin ficha de Google y cero reseñas públicas</strong>
-          <p>No se ha encontrado ficha de Google Business para tu negocio, y en ningún canal revisado hay una sola reseña de un cliente. Para un negocio con local físico y experiencias presenciales, es una de las primeras cosas que se buscan antes de decidir.</p>
-          <div class="finding-evidence">Evidencia: búsqueda en Google Maps sin resultado · facebook.com/EntrufadosbyTrufamas "Aún sin calificación (0 opiniones)" (23/08/2026)</div>
+          <strong>Sin testimonios de clientes en ninguna página</strong>
+          <p>No hay ni un testimonio, valoración o caso de cliente visible en la web, ni en el catálogo ni en las páginas de contacto.</p>
+          <div class="finding-evidence">Evidencia: revisión de home, catálogo y páginas de contacto de entrufados.es (23/08/2026)</div>
         </div>
       </div>
+      <div class="finding">
+        <span class="finding-num">04</span>
+        <div class="finding-body">
+          <strong>El blog lleva más de dos años parado</strong>
+          <p>"El Secreto de la Carrasca" no publica nada desde hace más de dos años: da la sensación de un proyecto abandonado a quien lo encuentra.</p>
+          <div class="finding-evidence">Evidencia: último artículo publicado el 29/06/2024 (WebFetch 23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">05</span>
+        <div class="finding-body">
+          <strong>Catálogo sin producto estrella</strong>
+          <p>Las 25 referencias mezclan producto fresco, elaborados, utillaje y experiencias sin ninguna jerarquía visible que oriente a quien no sabe qué elegir.</p>
+          <div class="finding-evidence">Evidencia: entrufados.es/collections/all, 25 productos listados (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">06</span>
+        <div class="finding-body">
+          <strong>Un precio "rebajado" que en realidad sube</strong>
+          <p>El gin BTG se muestra con un tachado de precio que pasa de 69,95€ a 96,00€ — el formato visual de una oferta, pero al revés. Genera desconfianza en quien compara precios.</p>
+          <div class="finding-evidence">Evidencia: entrufados.es/collections/all — "€96,00 / €69,95" (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">07</span>
+        <div class="finding-body">
+          <strong>El tono de marca cambia según el canal</strong>
+          <p>Facebook habla en clave histórica y familiar ("desde 1998"); la web e Instagram hablan de producto y experiencia gourmet. Quien sigue los dos canales recibe dos promesas de marca distintas.</p>
+          <div class="finding-evidence">Evidencia: facebook.com/EntrufadosbyTrufamas e instagram.com/entrufadosbytrufamas (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">08</span>
+        <div class="finding-body">
+          <strong>Dos negocios distintos, un solo recorrido a medias</strong>
+          <p>El recorrido para comprar un producto físico funciona de principio a fin; el de la experiencia de trufiturismo no existe como tal — y la web no los separa en la navegación, así que se pisan entre sí.</p>
+          <div class="finding-evidence">Evidencia: navegación completa de entrufados.es (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">09</span>
+        <div class="finding-body">
+          <strong>Redes paradas desde hace unos 7 meses</strong>
+          <p>Tienes 2.750 seguidores en Instagram, pero la última publicación es del 27 de enero, con solo 5 "me gusta". El mismo contenido se publicó el mismo día en Facebook (59 seguidores, 2 reacciones) y tampoco ha habido nada después.</p>
+          <div class="finding-evidence">Evidencia: instagram.com/entrufadosbytrufamas y facebook.com/EntrufadosbyTrufamas (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">10</span>
+        <div class="finding-body">
+          <strong>Cero anuncios activos en Meta</strong>
+          <p>Se ha comprobado con dos variantes del nombre del negocio ("Entrufados" y "Trufamas") en la Biblioteca de Anuncios de Meta: el sistema reconoce al anunciante, así que no es un problema de nombre — simplemente no hay ninguna campaña activa hoy.</p>
+          <div class="finding-evidence">Evidencia: facebook.com/ads/library, búsquedas "Entrufados" y "Trufamas" (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">11</span>
+        <div class="finding-body">
+          <strong>Sin ficha de Google Business</strong>
+          <p>No se ha localizado ninguna ficha de Google Business Profile para el negocio en Albentosa, pese a tener local físico y ofrecer experiencias presenciales. Quien busca en Google o Maps no encuentra horario, fotos ni cómo llegar.</p>
+          <div class="finding-evidence">Evidencia: búsquedas con varias combinaciones del nombre (WebSearch, 23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">12</span>
+        <div class="finding-body">
+          <strong>Cero reseñas públicas en cualquier canal</strong>
+          <p>Ni en Facebook, ni en Google (no hay ficha), ni en Trustpilot ni en ningún otro agregador aparece una sola reseña de un cliente real.</p>
+          <div class="finding-evidence">Evidencia: facebook.com/EntrufadosbyTrufamas — "Aún sin calificación (0 opiniones)" (23/08/2026)</div>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="finding-num">13</span>
+        <div class="finding-body">
+          <strong>No aparece en Google para su búsqueda comercial más directa</strong>
+          <p>Al buscar "comprar trufa negra fresca Teruel online" —justo lo que vendes— entrufados.es no aparece entre los primeros resultados, mientras que 9 competidores directos sí.</p>
+          <div class="finding-evidence">Evidencia: WebSearch "comprar trufa negra fresca Teruel online" (23/08/2026) — Trufato, Truffal Shop, Truficas, Pura Trufa, Trufas Gorriz y otros</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section incoherencias">
+      <h2><span class="flag">⚠️</span> Cosas que no cuadran</h2>
+      <p class="intro">Detalles que, vistos desde fuera, generan dudas a quien te está conociendo por primera vez.</p>
+      <ul>
+        <li>Tres números de teléfono distintos según la fuente: 902 023 217 (web) / 603 84 20 11 (Facebook) / +34 615 613 366 (Mycotour.es).</li>
+        <li>Email de contacto en Gmail personal (hnosblasco@gmail.com) en vez del dominio propio (@entrufados.es).</li>
+        <li>Dos códigos postales distintos para la misma dirección: 44477 (aviso legal) frente a 44777 (Mycotour.es).</li>
+        <li>CIF sin rellenar en el aviso legal ("CIF.: 000000000"), documento sin actualizar desde diciembre de 2022.</li>
+        <li>La web anuncia "Atención por WhatsApp" pero ningún número de WhatsApp aparece publicado en ningún canal.</li>
+        <li>La página "Reserva tu Experiencia Ahora" no tiene ninguna manera real de reservar.</li>
+        <li>El producto que da nombre a la marca —la trufa negra fresca— está fuera de stock/temporada mientras el resto del catálogo sigue a la venta.</li>
+        <li>Cero anuncios activos y cero reseñas públicas, pese a tener una audiencia real de 2.750 seguidores en Instagram.</li>
+      </ul>
     </div>
 
     <div class="section locked-section">
