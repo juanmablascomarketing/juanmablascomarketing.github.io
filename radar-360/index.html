@@ -192,7 +192,20 @@ body::before{
   text-decoration:none;white-space:nowrap;transition:background .2s;
 }
 .nav-cta:hover{background:var(--accent-2)}
-@media(max-width:860px){.nav-links{display:none}}
+.nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.nav-burger span{width:22px;height:2px;background:var(--text);border-radius:2px;transition:.25s}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-burger.open span:nth-child(2){opacity:0}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;flex-direction:column;background:var(--surface);border-top:1px solid var(--border);padding:8px 24px 18px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:var(--text-mid);text-decoration:none;font-size:14.5px;padding:12px 0;border-bottom:1px solid var(--border)}
+.mobile-menu a:last-child{border-bottom:none}
+@media(max-width:860px){
+  .nav-links{display:none}
+  .nav-cta{display:none}
+  .nav-burger{display:flex}
+}
 
 /* ---------- kicker / eyebrow ---------- */
 .kicker{
@@ -401,6 +414,13 @@ details[open] summary::after{transform:rotate(45deg)}
 .cta-final h2{font-family:var(--serif);font-size:clamp(26px,3.6vw,38px);font-weight:600;margin-bottom:16px;letter-spacing:-.3px}
 .cta-final p{color:var(--text-mid);font-size:15.5px;max-width:52ch;margin:0 auto 34px}
 
+.cta-split{display:grid;grid-template-columns:1fr 1fr;gap:20px;text-align:left;max-width:780px;margin:0 auto}
+@media(max-width:720px){.cta-split{grid-template-columns:1fr}}
+.cta-option{background:var(--surface-2);border:1px solid var(--border-strong);border-radius:12px;padding:24px}
+.cta-option-accent{border-color:var(--accent);background:linear-gradient(160deg,var(--accent-soft),var(--surface-2))}
+.cta-option-tag{font-family:var(--mono);font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
+.cta-option-note{font-family:var(--mono);font-size:11px;color:var(--text-dim);margin-top:12px;line-height:1.5}
+
 /* ---------- footer ---------- */
 footer{border-top:1px solid var(--border);padding:44px 0}
 .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
@@ -432,7 +452,18 @@ footer{border-top:1px solid var(--border);padding:44px 0}
       <li><a href="#sobre-mi">Sobre mí</a></li>
       <li><a href="#faq">Preguntas</a></li>
     </ul>
-    <a href="#cta" class="nav-cta">Pide tu Radar 360 →</a>
+    <a href="#cta" class="nav-cta" style="margin-left:auto">Pide tu Radar 360 →</a>
+    <button class="nav-burger" id="burger" aria-label="Menú"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/">← jbmarketing</a>
+    <a href="#como-funciona">Cómo funciona</a>
+    <a href="#lo-que-vemos">Lo que vemos</a>
+    <a href="#metodo">Método</a>
+    <a href="#encaje">Encaje</a>
+    <a href="#sobre-mi">Sobre mí</a>
+    <a href="#faq">Preguntas</a>
+    <a href="#cta" style="color:var(--accent);font-weight:600">Pide tu Radar 360 →</a>
   </div>
 </nav>
 
@@ -728,22 +759,28 @@ footer{border-top:1px solid var(--border);padding:44px 0}
     <div class="cta-final reveal">
       <div class="kicker" style="justify-content:center">Empieza por aquí</div>
       <h2>¿Vemos qué se te está escapando?</h2>
-      <p>Dos minutos para contarnos cómo te encuentran hoy. En menos de 48h tienes el diagnóstico, con pruebas, no con opiniones.</p>
-      <form class="mini-form" id="ctaForm">
-        <input type="text" id="ctaNombre" placeholder="Nombre de tu negocio" required>
-        <input type="tel" id="ctaTelefono" placeholder="WhatsApp o teléfono" required>
-        <button type="submit" class="btn-primary" style="justify-content:center;border:none;cursor:pointer;font-family:inherit">Pide tu Radar 360 →</button>
-      </form>
-      <p style="font-family:var(--mono);font-size:11.5px;color:var(--text-dim);margin-top:14px">Al enviarlo se abre WhatsApp con tus datos ya escritos — solo confirmas y lo mandas.</p>
+      <p style="margin-bottom:36px">Dos caminos, tú eliges cuál. Los dos llegan al mismo sitio: tu Radar 360 en menos de 48h.</p>
 
-      <div style="margin-top:36px;padding-top:32px;border-top:1px solid var(--border-strong);max-width:420px;margin-left:auto;margin-right:auto">
-        <p style="font-size:14px;color:var(--text-mid);margin-bottom:16px">¿Ya lo tienes claro? No hace falta ni que hables con nosotros primero.</p>
-        <label id="consentWrap" style="display:flex;gap:9px;align-items:flex-start;text-align:left;font-size:12px;color:var(--text-dim);margin-bottom:16px;cursor:pointer;border-radius:6px;padding:6px;margin-left:-6px;margin-right:-6px;transition:box-shadow .3s">
-          <input type="checkbox" id="withdrawalConsent" style="margin-top:2px;flex-shrink:0;width:15px;height:15px;accent-color:var(--accent)">
-          <span>He leído y acepto que el servicio comienza a ejecutarse de inmediato al confirmar el pago, y renuncio a mi derecho de desistimiento de 14 días conforme al <a href="https://jbmarketing.es/legal/terminos/#desistimiento" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">artículo 103 de la Ley de Consumidores</a>.</span>
-        </label>
-        <a href="https://buy.stripe.com/test_7sY14o6Mp6nn2v3dZF57W00" target="_blank" rel="noopener" id="payNowBtn" class="btn-primary" style="width:100%;justify-content:center">Contratar mi Radar 360 ya · 60€ →</a>
-        <p style="font-family:var(--mono);font-size:11px;color:var(--text-dim);margin-top:12px">Pago seguro con Stripe. Sin esperar respuesta de nadie — tu informe llega en menos de 48h.</p>
+      <div class="cta-split">
+        <div class="cta-option">
+          <div class="cta-option-tag">Prefiero hablar primero</div>
+          <form class="mini-form" id="ctaForm" style="max-width:none">
+            <input type="text" id="ctaNombre" placeholder="Nombre de tu negocio" required>
+            <input type="tel" id="ctaTelefono" placeholder="WhatsApp o teléfono" required>
+            <button type="submit" class="btn-primary" style="width:100%;justify-content:center;border:none;cursor:pointer;font-family:inherit">Pide tu Radar 360 →</button>
+          </form>
+          <p class="cta-option-note">Se abre WhatsApp con tus datos ya escritos — solo confirmas y lo mandas.</p>
+        </div>
+
+        <div class="cta-option cta-option-accent">
+          <div class="cta-option-tag">Ya lo tengo claro</div>
+          <label id="consentWrap" style="display:flex;gap:9px;align-items:flex-start;text-align:left;font-size:12px;color:var(--text-dim);margin-bottom:14px;cursor:pointer;border-radius:6px;padding:6px;margin-left:-6px;margin-right:-6px;transition:box-shadow .3s">
+            <input type="checkbox" id="withdrawalConsent" style="margin-top:2px;flex-shrink:0;width:15px;height:15px;accent-color:var(--accent)">
+            <span>He leído y acepto que el servicio comienza a ejecutarse de inmediato al confirmar el pago, y renuncio a mi derecho de desistimiento de 14 días conforme al <a href="https://jbmarketing.es/legal/terminos/#desistimiento" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">artículo 103 de la Ley de Consumidores</a>.</span>
+          </label>
+          <a href="https://buy.stripe.com/test_7sY14o6Mp6nn2v3dZF57W00" target="_blank" rel="noopener" id="payNowBtn" class="btn-primary" style="width:100%;justify-content:center">Contratar ya · 60€ →</a>
+          <p class="cta-option-note">Pago seguro con Stripe. Tu informe llega en menos de 48h, sin esperar respuesta de nadie.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -767,6 +804,13 @@ footer{border-top:1px solid var(--border);padding:44px 0}
 <a href="https://buy.stripe.com/test_7sY14o6Mp6nn2v3dZF57W00" target="_blank" rel="noopener" id="floatCta" class="btn-primary" style="position:fixed;bottom:24px;left:50%;z-index:60;box-shadow:0 12px 30px rgba(0,0,0,.45);opacity:0;transform:translate(-50%,12px);pointer-events:none;transition:opacity .3s,transform .3s">Pide tu Radar 360 · 60€ →</a>
 
 <script>
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+if(burger && mobileMenu){
+  burger.addEventListener('click', () => { burger.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { burger.classList.remove('open'); mobileMenu.classList.remove('open'); }));
+}
+
 const observer = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); observer.unobserve(e.target); } });
 },{threshold:.12});
