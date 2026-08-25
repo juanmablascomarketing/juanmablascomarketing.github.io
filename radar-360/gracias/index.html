@@ -1,1 +1,146 @@
-1
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gracias — tu Radar 360 ya está en marcha</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://jbmarketing.es/radar-360/gracias/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#040D1A; --surface:#06111F; --surface-2:#0A1B2E;
+  --border:#0F2540; --border-strong:#152E4A;
+  --text:#FFFFFF; --text-mid:#8FAABF; --text-dim:#4A6A82;
+  --accent:#1EC6E0; --accent-2:#0FA8C0; --accent-soft:rgba(30,198,224,.14);
+  --serif:'Fraunces',serif; --sans:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;align-items:center}
+a{color:inherit}
+.wrap{max-width:560px;margin:0 auto;padding:48px 24px;width:100%}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+
+.confirm{text-align:center;margin-bottom:36px}
+.check-icon{
+  width:52px;height:52px;border-radius:50%;background:var(--accent-soft);border:1.5px solid var(--accent);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:24px;color:var(--accent);
+}
+.confirm .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+.confirm h1{font-family:var(--serif);font-weight:600;font-size:clamp(24px,5vw,30px);line-height:1.2;margin-bottom:12px}
+.confirm p{color:var(--text-mid);font-size:14.5px;max-width:40ch;margin:0 auto}
+
+.divider{height:1px;background:var(--border);margin:36px 0}
+
+.offer{
+  background:linear-gradient(160deg,var(--accent-soft),var(--surface));
+  border:1.5px solid var(--accent);border-radius:16px;padding:32px 26px;text-align:center;
+}
+.offer .badge{
+  display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;font-weight:600;
+  color:#03080F;background:var(--accent);padding:4px 12px;border-radius:20px;text-transform:uppercase;
+  letter-spacing:.05em;margin-bottom:16px;
+}
+.offer h2{font-family:var(--serif);font-size:24px;font-weight:600;margin-bottom:14px;line-height:1.25}
+.offer .price-row{display:flex;align-items:baseline;justify-content:center;gap:12px;margin-bottom:18px}
+.offer .price-old{font-family:var(--mono);font-size:16px;color:var(--text-dim);text-decoration:line-through}
+.offer .price-new{font-family:var(--serif);font-size:36px;font-weight:600;color:var(--accent)}
+.offer .desc{color:var(--text-mid);font-size:14px;margin-bottom:22px;max-width:42ch;margin-left:auto;margin-right:auto}
+
+.includes{list-style:none;text-align:left;display:flex;flex-direction:column;gap:9px;margin-bottom:24px;max-width:380px;margin-left:auto;margin-right:auto}
+.includes li{display:flex;gap:10px;font-size:13.5px;color:var(--text-mid);align-items:flex-start}
+.includes li::before{content:'✓';color:var(--accent);font-weight:700;flex-shrink:0}
+
+.expiry{font-family:var(--mono);font-size:11px;color:var(--text-dim);margin-bottom:20px}
+.expiry strong{color:#f0925c}
+
+label#consentWrap{display:flex;gap:9px;align-items:flex-start;text-align:left;font-size:11.5px;color:var(--text-dim);margin-bottom:18px;cursor:pointer;max-width:380px;margin-left:auto;margin-right:auto;border-radius:6px;padding:6px;transition:box-shadow .3s}
+label#consentWrap a{color:var(--accent);text-decoration:underline}
+
+.btn-primary{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:380px;
+  background:var(--accent);color:#03080F;font-family:var(--sans);font-weight:700;font-size:16px;
+  padding:16px;border-radius:8px;border:none;cursor:pointer;text-decoration:none;transition:background .2s;
+}
+.btn-primary:hover{background:var(--accent-2)}
+
+.skip{text-align:center;margin-top:22px}
+.skip a{font-size:13px;color:var(--text-dim);text-decoration:underline}
+
+footer{text-align:center;padding:28px 0 0}
+footer p{font-size:11.5px;color:var(--text-dim)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="confirm reveal">
+    <div class="check-icon">✓</div>
+    <div class="kicker">Pago confirmado</div>
+    <h1>Ya está. Tu Radar 360 se está preparando.</h1>
+    <p>En menos de 48h tienes tu informe. Te avisamos por WhatsApp en cuanto esté listo.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="offer reveal">
+    <span class="badge">Solo en esta pantalla</span>
+    <h2>¿Vamos a por el análisis completo, ya que estás?</h2>
+    <div class="price-row">
+      <span class="price-old">150€</span>
+      <span class="price-new">90€</span>
+    </div>
+    <p class="desc">Tus 60€ ya pagados cuentan como parte del PRO. Solo aquí, ahora mismo, la diferencia son 90€ — no vuelve a repetirse este precio.</p>
+
+    <ul class="includes">
+      <li>Todo lo del Radar 360 que ya has pedido — no se repite nada</li>
+      <li>Formulario sobre cómo funciona tu negocio por dentro</li>
+      <li>Cruce completo de ambos análisis, con mapas del recorrido de tu cliente</li>
+      <li>Plan de acción priorizado, listo para implementar</li>
+    </ul>
+
+    <div class="expiry">Esta oferta desaparece en cuanto salgas de esta pantalla — <strong>después, 150€.</strong></div>
+
+    <label id="consentWrap">
+      <input type="checkbox" id="withdrawalConsent" style="margin-top:2px;flex-shrink:0;width:15px;height:15px;accent-color:var(--accent)">
+      <span>He leído y acepto que el servicio comienza a ejecutarse de inmediato al confirmar el pago, y renuncio a mi derecho de desistimiento de 14 días conforme al <a href="https://jbmarketing.es/legal/terminos/#desistimiento" target="_blank" rel="noopener">artículo 103 de la Ley de Consumidores</a>.</span>
+    </label>
+
+    <a href="https://buy.stripe.com/test_5kQfZifiV5jjc5D2gX57W02" target="_blank" rel="noopener" id="payNowBtn" class="btn-primary">Sí, quiero el PRO ahora — 90€ →</a>
+
+    <div class="skip"><a href="https://jbmarketing.es/radar-360/">No, gracias — con el Radar 360 me vale por ahora</a></div>
+  </div>
+
+  <footer>
+    <p>Un servicio de JBMarketing · <a href="https://jbmarketing.es/legal/terminos/">Términos</a> · <a href="https://jbmarketing.es/legal/privacidad/">Privacidad</a></p>
+  </footer>
+
+</div>
+
+<script>
+function guardPaymentClick(e){
+  const consent = document.getElementById('withdrawalConsent');
+  const wrap = document.getElementById('consentWrap');
+  if(consent && !consent.checked){
+    e.preventDefault();
+    wrap.scrollIntoView({behavior:'smooth', block:'center'});
+    wrap.style.boxShadow = '0 0 0 2px var(--accent)';
+    setTimeout(()=>{ wrap.style.boxShadow = 'none'; }, 1800);
+  }
+}
+const payNowBtn = document.getElementById('payNowBtn');
+if(payNowBtn) payNowBtn.addEventListener('click', guardPaymentClick);
+
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); observer.unobserve(e.target); } });
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+
+</body>
+</html>
+
