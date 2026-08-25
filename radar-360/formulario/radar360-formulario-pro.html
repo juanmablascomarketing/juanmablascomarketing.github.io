@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cómo trabajáis por dentro — Radar 360 PRO</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#040D1A; --surface:#06111F; --surface-2:#0A1B2E;
+  --border:#0F2540; --border-strong:#152E4A;
+  --text:#FFFFFF; --text-mid:#8FAABF; --text-dim:#4A6A82;
+  --accent:#1EC6E0; --accent-2:#0FA8C0; --accent-soft:rgba(30,198,224,.14);
+  --serif:'Fraunces',serif; --sans:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+main{max-width:720px;margin:0 auto;padding:32px 24px 100px}
+
+.barra{
+  position:sticky;top:0;z-index:20;background:rgba(4,13,26,.92);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);padding:14px 0;margin-bottom:8px;
+}
+.barra-inner{max-width:720px;margin:0 auto;padding:0 24px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.progress-wrap{flex:1;min-width:140px}
+.progress-label{font-family:var(--mono);font-size:10.5px;color:var(--text-dim);margin-bottom:5px}
+.progress-bar{height:5px;background:var(--surface-2);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:var(--accent);border-radius:3px;width:0%;transition:width .3s}
+.btn-sm{
+  font-family:var(--mono);font-size:11.5px;padding:8px 13px;border-radius:6px;cursor:pointer;
+  border:1px solid var(--border-strong);background:var(--surface-2);color:var(--text-mid);
+}
+.btn-sm:hover{border-color:var(--accent);color:var(--text)}
+
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(24px,5vw,30px);margin:20px 0 6px}
+.subtitulo{font-family:var(--mono);font-size:12px;color:var(--text-dim);margin-bottom:24px}
+
+.intro p{color:var(--text-mid);font-size:14.5px;margin-bottom:12px}
+.intro strong{color:var(--text)}
+
+.avisos{
+  background:var(--surface);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;
+  padding:18px 20px;margin:22px 0 8px;
+}
+.avisos strong{display:block;margin-bottom:10px;font-size:14px}
+.avisos ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.avisos li{font-size:13px;color:var(--text-mid);line-height:1.55;padding-left:18px;position:relative}
+.avisos li::before{content:'·';position:absolute;left:0;color:var(--accent);font-weight:700}
+
+h2{
+  font-family:var(--serif);font-size:19px;font-weight:600;margin:44px 0 4px;
+  padding-bottom:10px;border-bottom:1px solid var(--border);
+}
+h2 .num{color:var(--accent);font-family:var(--mono);font-size:13px;font-weight:500}
+.nota-bloque{color:var(--text-dim);font-style:italic;font-size:13px;margin:8px 0 0}
+
+.pregunta{margin:22px 0 0}
+.pregunta label{display:block;font-weight:600;font-size:14.5px;margin-bottom:7px}
+.pregunta .cod{color:var(--accent);font-family:var(--mono);font-weight:500}
+.pregunta .pista{display:block;font-weight:400;color:var(--text-dim);font-size:12.5px;margin-top:4px}
+
+textarea{
+  width:100%;min-height:60px;padding:11px 13px;font-family:var(--sans);font-size:14px;line-height:1.5;
+  color:var(--text);background:var(--surface-2);border:1px solid var(--border-strong);border-radius:7px;
+  resize:vertical;
+}
+textarea::placeholder{color:var(--text-dim)}
+textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+
+.cierre{margin-top:52px;padding-top:26px;border-top:1px solid var(--border)}
+.cierre p{color:var(--text-mid);font-size:13.5px;margin-bottom:10px}
+
+.envio{
+  background:linear-gradient(160deg,var(--accent-soft),var(--surface));border:1.5px solid var(--accent);
+  border-radius:14px;padding:26px;margin-top:24px;text-align:center;
+}
+.envio h3{font-family:var(--serif);font-size:19px;font-weight:600;margin-bottom:8px}
+.envio p{color:var(--text-mid);font-size:13.5px;margin-bottom:18px}
+.btn-primary{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:340px;
+  background:var(--accent);color:#03080F;font-family:var(--sans);font-weight:700;font-size:15.5px;
+  padding:15px;border-radius:8px;border:none;cursor:pointer;
+}
+.btn-primary:hover{background:var(--accent-2)}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed}
+
+.backup{margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.estado{font-family:var(--mono);font-size:11.5px;color:var(--text-dim);margin-top:12px;min-height:16px}
+
+.enviado #formulario, .enviado .envio-inicial{display:none}
+.confirmacion{display:none;text-align:center;padding:60px 0}
+.enviado .confirmacion{display:block}
+.confirmacion .check{
+  width:56px;height:56px;border-radius:50%;background:var(--accent-soft);border:1.5px solid var(--accent);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:26px;color:var(--accent);
+}
+.confirmacion h2{border:none;padding:0;margin:0 0 10px}
+.confirmacion p{color:var(--text-mid);font-size:14.5px}
+
+@media print{
+  .barra,.no-imprimir{display:none!important}
+  body{background:#fff;color:#0A1626}
+  textarea{background:#fff;border:1px solid #999}
+}
+</style>
+</head>
+<body>
+
+<div class="barra no-imprimir">
+  <div class="barra-inner">
+    <div class="progress-wrap">
+      <div class="progress-label" id="progressLabel">0 de 36 contestadas</div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+    <button type="button" class="btn-sm" id="btn-copiar">Copiar respuestas</button>
+    <button type="button" class="btn-sm" id="btn-imprimir">Guardar en PDF</button>
+  </div>
+</div>
+
+<main>
+
+  <div class="envio-inicial">
+    <h1>Cómo trabajáis por dentro</h1>
+    <div class="subtitulo">Radar 360 PRO · 36 preguntas · unos 10 minutos</div>
+
+    <div class="intro">
+      <p>Este cuestionario sirve para entender cómo funciona vuestro negocio en el día a día: por dónde entran los clientes, quién hace cada cosa y con qué herramientas. Con vuestras respuestas preparamos un informe con <strong>dónde se está yendo el tiempo</strong> y <strong>qué se puede automatizar</strong>, en orden de lo que más compensa.</p>
+      <p><strong>Se contesta en unos 10 minutos.</strong> Contesta con tus palabras, como si nos lo estuvieras contando por teléfono. No hace falta que sepas nada de tecnología.</p>
+    </div>
+
+    <div class="avisos">
+      <strong>Tres cosas antes de empezar</strong>
+      <ul>
+        <li><strong>No contestes lo que no sepas.</strong> Escribe "no lo sé" y ya está. Es mejor un hueco sincero que un dato inventado: el informe marca lo que falta.</li>
+        <li><strong>Los números aproximados valen.</strong> "Unas 30 llamadas a la semana" es suficiente. No busques nada en ningún sitio.</li>
+        <li><strong>No nos mandes datos de tus clientes.</strong> Ni listados, ni fichas, ni facturas, ni contraseñas, ni accesos a tus programas. Aquí solo hablamos de <strong>herramientas y procesos</strong>. Si nos llega algo de eso, te lo devolvemos sin abrirlo.</li>
+      </ul>
+    </div>
+  </div>
+
+  <form id="formulario" action="https://formspree.io/f/TU_ID_DE_FORMSPREE_AQUI" method="POST">
+    <input type="hidden" name="_subject" value="Formulario Radar 360 PRO — nueva respuesta">
+
+    <h2><span class="num">Bloque 1</span> · El negocio</h2>
+    <div class="pregunta"><label for="p1"><span class="cod">P1.</span> Nombre del negocio</label><textarea id="p1" name="P1_Nombre_del_negocio"></textarea></div>
+    <div class="pregunta"><label for="p2"><span class="cod">P2.</span> A qué os dedicáis, en una frase</label><textarea id="p2" name="P2_A_que_os_dedicais"></textarea></div>
+    <div class="pregunta"><label for="p3"><span class="cod">P3.</span> Ciudad</label><textarea id="p3" name="P3_Ciudad"></textarea></div>
+    <div class="pregunta"><label for="p4"><span class="cod">P4.</span> ¿Cuántas personas trabajáis y qué hace cada una?<span class="pista">Por ejemplo: "3: yo atiendo y hago presupuestos, mi socio produce, y una persona a media jornada en recepción".</span></label><textarea id="p4" name="P4_Personas_y_roles"></textarea></div>
+    <div class="pregunta"><label for="p5"><span class="cod">P5.</span> Horario de atención al público</label><textarea id="p5" name="P5_Horario"></textarea></div>
+    <div class="pregunta"><label for="p6"><span class="cod">P6.</span> ¿A cuántos clientes atendéis a la semana, más o menos?</label><textarea id="p6" name="P6_Clientes_semana"></textarea></div>
+
+    <h2><span class="num">Bloque 2</span> · Cómo os llegan los clientes</h2>
+    <div class="pregunta"><label for="p7"><span class="cod">P7.</span> ¿Por dónde os contactan? Ordénalo de más a menos<span class="pista">Teléfono, WhatsApp, Instagram, formulario de la web, email, gente que entra por la puerta, otros.</span></label><textarea id="p7" name="P7_Canales_contacto"></textarea></div>
+    <div class="pregunta"><label for="p8"><span class="cod">P8.</span> ¿Quién responde a esas llamadas y mensajes, y desde qué dispositivo?<span class="pista">Por ejemplo: "la recepcionista, desde su móvil personal" o "un móvil de empresa en el mostrador".</span></label><textarea id="p8" name="P8_Quien_responde"></textarea></div>
+    <div class="pregunta"><label for="p9"><span class="cod">P9.</span> ¿Cuánto se tarda normalmente en contestar un mensaje?</label><textarea id="p9" name="P9_Tiempo_respuesta"></textarea></div>
+    <div class="pregunta"><label for="p10"><span class="cod">P10.</span> ¿Qué pasa con las llamadas y mensajes que llegan fuera de horario o cuando estáis ocupados? ¿Sabéis cuántos se quedan sin contestar?</label><textarea id="p10" name="P10_Fuera_horario"></textarea></div>
+    <div class="pregunta"><label for="p11"><span class="cod">P11.</span> ¿Cuántas consultas de clientes nuevos entran a la semana, más o menos?</label><textarea id="p11" name="P11_Consultas_nuevas"></textarea></div>
+
+    <h2><span class="num">Bloque 3</span> · Agenda y citas</h2>
+    <p class="nota-bloque">Si en tu negocio no se trabaja con cita previa, salta este bloque entero y escribe "no trabajamos con cita" en la P12.</p>
+    <div class="pregunta"><label for="p12"><span class="cod">P12.</span> ¿Dónde apuntáis las citas?<span class="pista">Agenda de papel, Excel, Google Calendar, un programa concreto: dime cuál.</span></label><textarea id="p12" name="P12_Donde_citas"></textarea></div>
+    <div class="pregunta"><label for="p13"><span class="cod">P13.</span> ¿Quién las apunta, y desde dónde se puede consultar la agenda?</label><textarea id="p13" name="P13_Quien_apunta"></textarea></div>
+    <div class="pregunta"><label for="p14"><span class="cod">P14.</span> ¿Puede el cliente reservar él solo por internet, sin llamar?</label><textarea id="p14" name="P14_Reserva_online"></textarea></div>
+    <div class="pregunta"><label for="p15"><span class="cod">P15.</span> ¿Cómo le recordáis la cita al cliente? ¿Quién lo hace, y cuánto tiempo se le va a la semana en eso?</label><textarea id="p15" name="P15_Recordatorio_citas"></textarea></div>
+    <div class="pregunta"><label for="p16"><span class="cod">P16.</span> ¿Cuántas citas se pierden porque el cliente no aparece o cancela a última hora? ¿Cuánto factura de media una cita?</label><textarea id="p16" name="P16_Citas_perdidas"></textarea></div>
+
+    <h2><span class="num">Bloque 4</span> · Presupuestos, cobro y facturación</h2>
+    <div class="pregunta"><label for="p17"><span class="cod">P17.</span> ¿Cómo preparáis un presupuesto y cómo se lo hacéis llegar al cliente?</label><textarea id="p17" name="P17_Presupuesto"></textarea></div>
+    <div class="pregunta"><label for="p18"><span class="cod">P18.</span> ¿Cuántos presupuestos mandáis al mes, y cuántos acaban en trabajo?</label><textarea id="p18" name="P18_Ratio_presupuestos"></textarea></div>
+    <div class="pregunta"><label for="p19"><span class="cod">P19.</span> ¿Cómo cobráis?<span class="pista">Efectivo, tarjeta, transferencia, pago por internet, financiación…</span></label><textarea id="p19" name="P19_Como_cobrais"></textarea></div>
+    <div class="pregunta"><label for="p20"><span class="cod">P20.</span> ¿Quién hace las facturas y con qué programa? ¿Cuánto tiempo al mes os lleva?</label><textarea id="p20" name="P20_Facturacion"></textarea></div>
+    <div class="pregunta"><label for="p21"><span class="cod">P21.</span> ¿Tenéis impagos, o pagos pendientes que se os olvida reclamar?</label><textarea id="p21" name="P21_Impagos"></textarea></div>
+
+    <h2><span class="num">Bloque 5</span> · Después de la venta</h2>
+    <div class="pregunta"><label for="p22"><span class="cod">P22.</span> Cuando un cliente termina, ¿qué pasa? ¿Volvéis a hablar con él?</label><textarea id="p22" name="P22_Post_venta"></textarea></div>
+    <div class="pregunta"><label for="p23"><span class="cod">P23.</span> ¿Pedís reseñas? Si sí, ¿cómo? ¿Cuántas tenéis ahora mismo y con qué nota?</label><textarea id="p23" name="P23_Resenas"></textarea></div>
+    <div class="pregunta"><label for="p24"><span class="cod">P24.</span> ¿Vuestros clientes deberían volver cada cierto tiempo? ¿Cómo les avisáis de que les toca?</label><textarea id="p24" name="P24_Recurrencia"></textarea></div>
+    <div class="pregunta"><label for="p25"><span class="cod">P25.</span> ¿Mandáis alguna comunicación cada cierto tiempo (novedades, ofertas, recordatorios)? ¿Con qué herramienta?</label><textarea id="p25" name="P25_Comunicaciones"></textarea></div>
+
+    <h2><span class="num">Bloque 6</span> · Herramientas y datos</h2>
+    <div class="pregunta"><label for="p26"><span class="cod">P26.</span> Lista de programas y aplicaciones que pagáis<span class="pista">De cada uno: nombre, para qué lo usáis y cuánto cuesta al mes, si lo sabes.</span></label><textarea id="p26" name="P26_Programas"></textarea></div>
+    <div class="pregunta"><label for="p27"><span class="cod">P27.</span> ¿Dónde está la información de vuestros clientes?<span class="pista">Un programa, un Excel, la agenda de papel, el móvil de alguien, varias cosas a la vez.</span></label><textarea id="p27" name="P27_Info_clientes"></textarea></div>
+    <div class="pregunta"><label for="p28"><span class="cod">P28.</span> ¿Hay copia de seguridad de eso? ¿Quién la hace y cada cuánto?</label><textarea id="p28" name="P28_Backup"></textarea></div>
+    <div class="pregunta"><label for="p29"><span class="cod">P29.</span> ¿Quién tiene acceso a esa información? Si mañana esa persona no viene, ¿el negocio puede seguir funcionando?</label><textarea id="p29" name="P29_Dependencia"></textarea></div>
+    <div class="pregunta"><label for="p30"><span class="cod">P30.</span> ¿Qué números miráis cada mes para saber si el negocio va bien?</label><textarea id="p30" name="P30_Metricas"></textarea></div>
+
+    <h2><span class="num">Bloque 7</span> · Tiempo, IA y objetivos</h2>
+    <div class="pregunta"><label for="p31"><span class="cod">P31.</span> Las 3 tareas repetitivas que más tiempo os comen<span class="pista">De cada una, dime cuánto tiempo a la semana, aunque sea a ojo.</span></label><textarea id="p31" name="P31_Tareas_repetitivas"></textarea></div>
+    <div class="pregunta"><label for="p32"><span class="cod">P32.</span> ¿Cuánto cuesta más o menos una hora de trabajo de la persona que hace esas tareas?<span class="pista">Aproximado. Si prefieres no decirlo, no pasa nada.</span></label><textarea id="p32" name="P32_Coste_hora"></textarea></div>
+    <div class="pregunta"><label for="p33"><span class="cod">P33.</span> ¿Habéis probado alguna herramienta de inteligencia artificial o de automatización? ¿Qué pasó?</label><textarea id="p33" name="P33_Experiencia_IA"></textarea></div>
+    <div class="pregunta"><label for="p34"><span class="cod">P34.</span> ¿Qué os preocuparía de usar inteligencia artificial con vuestros clientes?</label><textarea id="p34" name="P34_Preocupaciones_IA"></textarea></div>
+    <div class="pregunta"><label for="p35"><span class="cod">P35.</span> Si pudieras arreglar una sola cosa del día a día, ¿cuál sería?</label><textarea id="p35" name="P35_Una_cosa"></textarea></div>
+    <div class="pregunta"><label for="p36"><span class="cod">P36.</span> ¿Qué presupuesto tienes en mente para montarlo? ¿Y para el mantenimiento mensual?</label><textarea id="p36" name="P36_Presupuesto"></textarea></div>
+
+    <div class="cierre">
+      <p>Con esto tenemos suficiente para preparar el informe. Si algo se ha quedado a medias, envíalo igualmente: se trabaja con lo que haya y lo que falte quedará señalado como pendiente en el informe.</p>
+
+      <div class="envio">
+        <h3>Ya está — envíalo</h3>
+        <p>Nos llega directamente. En cuanto lo tengamos, nos ponemos con el análisis completo.</p>
+        <button type="submit" class="btn-primary" id="btnEnviar">Enviar mis respuestas →</button>
+        <div class="backup no-imprimir">
+          <button type="button" class="btn-sm" id="btn-copiar-2">Copiar por si acaso</button>
+        </div>
+        <div class="estado" id="estado"></div>
+      </div>
+    </div>
+  </form>
+
+  <div class="confirmacion">
+    <div class="check">✓</div>
+    <h2>Recibido, gracias.</h2>
+    <p>Nos ponemos con el análisis completo. Te avisamos por WhatsApp en cuanto tengamos tu informe con todo cruzado.</p>
+  </div>
+
+</main>
+
+<script>
+(function () {
+  var CLAVE = "radar360-formulario-pro";
+  var form = document.getElementById("formulario");
+  var areas = Array.prototype.slice.call(document.querySelectorAll("textarea"));
+  var estado = document.getElementById("estado");
+  var progressFill = document.getElementById("progressFill");
+  var progressLabel = document.getElementById("progressLabel");
+
+  function crecer(area) {
+    area.style.height = "auto";
+    area.style.height = Math.max(area.scrollHeight, 60) + "px";
+  }
+
+  function actualizarProgreso() {
+    var contestadas = areas.filter(function (a) { return a.value.trim().length > 0; }).length;
+    var pct = Math.round((contestadas / areas.length) * 100);
+    progressFill.style.width = pct + "%";
+    progressLabel.textContent = contestadas + " de " + areas.length + " contestadas";
+  }
+
+  try {
+    var guardado = JSON.parse(localStorage.getItem(CLAVE) || "{}");
+    areas.forEach(function (a) { if (guardado[a.name]) a.value = guardado[a.name]; });
+  } catch (e) {}
+
+  var temporizador = null;
+  function guardar() {
+    if (temporizador) clearTimeout(temporizador);
+    temporizador = setTimeout(function () {
+      var datos = {};
+      areas.forEach(function (a) { datos[a.name] = a.value; });
+      try { localStorage.setItem(CLAVE, JSON.stringify(datos)); } catch (e) {}
+    }, 400);
+  }
+
+  areas.forEach(function (area) {
+    crecer(area);
+    area.addEventListener("input", function () { crecer(area); guardar(); actualizarProgreso(); });
+  });
+  actualizarProgreso();
+
+  function textoPlano() {
+    var lineas = ["Cómo trabajáis por dentro — Radar 360 PRO", ""];
+    areas.forEach(function (area) {
+      var etiqueta = area.parentNode.querySelector("label");
+      var pregunta = etiqueta ? etiqueta.textContent.replace(/\s+/g, " ").trim() : area.name;
+      lineas.push("** " + pregunta + " **");
+      lineas.push(area.value.trim() ? area.value.trim() : "(sin contestar)");
+      lineas.push("");
+    });
+    return lineas.join("\n");
+  }
+
+  function copiar(mensajeEl) {
+    var texto = textoPlano();
+    function aviso(ok) {
+      mensajeEl.textContent = ok ? "Copiado. Pégalo donde prefieras." : "No se pudo copiar: selecciona el texto a mano.";
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(texto).then(function () { aviso(true); }, function () { aviso(false); });
+    } else {
+      var tmp = document.createElement("textarea");
+      tmp.value = texto; document.body.appendChild(tmp); tmp.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(tmp);
+      aviso(ok);
+    }
+  }
+
+  document.getElementById("btn-copiar").addEventListener("click", function () { copiar(estado); });
+  document.getElementById("btn-copiar-2").addEventListener("click", function () { copiar(estado); });
+  document.getElementById("btn-imprimir").addEventListener("click", function () { window.print(); });
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var btn = document.getElementById("btnEnviar");
+    btn.disabled = true;
+    btn.textContent = "Enviando…";
+    fetch(form.action, {
+      method: "POST",
+      body: new FormData(form),
+      headers: { "Accept": "application/json" }
+    }).then(function (r) {
+      if (r.ok) {
+        try { localStorage.removeItem(CLAVE); } catch (e) {}
+        document.body.classList.add("enviado");
+        window.scrollTo(0, 0);
+      } else {
+        btn.disabled = false;
+        btn.textContent = "Enviar mis respuestas →";
+        estado.textContent = "Algo ha fallado. Prueba otra vez, o usa 'Copiar por si acaso' y mándalo por WhatsApp.";
+      }
+    }).catch(function () {
+      btn.disabled = false;
+      btn.textContent = "Enviar mis respuestas →";
+      estado.textContent = "Sin conexión. Usa 'Copiar por si acaso' y mándalo por WhatsApp mientras tanto.";
+    });
+  });
+})();
+</script>
+</body>
+</html>
