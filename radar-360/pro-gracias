@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gracias — tu Radar 360 PRO ya está en marcha</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://jbmarketing.es/radar-360/pro-gracias">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#040D1A; --surface:#06111F; --surface-2:#0A1B2E;
+  --border:#0F2540; --border-strong:#152E4A;
+  --text:#FFFFFF; --text-mid:#8FAABF; --text-dim:#4A6A82;
+  --accent:#1EC6E0; --accent-2:#0FA8C0; --accent-soft:rgba(30,198,224,.14);
+  --serif:'Fraunces',serif; --sans:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;align-items:center}
+a{color:inherit}
+.wrap{max-width:540px;margin:0 auto;padding:48px 24px;width:100%}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+
+.confirm{text-align:center;margin-bottom:32px}
+.check-icon{
+  width:56px;height:56px;border-radius:50%;background:var(--accent-soft);border:1.5px solid var(--accent);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:26px;color:var(--accent);
+}
+.confirm .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+.confirm h1{font-family:var(--serif);font-weight:600;font-size:clamp(24px,5vw,30px);line-height:1.2;margin-bottom:12px}
+.confirm p{color:var(--text-mid);font-size:14.5px;max-width:42ch;margin:0 auto}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px 26px;margin-bottom:20px}
+.card h2{font-family:var(--serif);font-size:19px;font-weight:600;margin-bottom:16px}
+
+.steps{list-style:none;display:flex;flex-direction:column;gap:16px}
+.step{display:flex;gap:14px}
+.step-num{
+  font-family:var(--mono);font-size:12px;font-weight:600;color:var(--accent);
+  width:26px;height:26px;border-radius:50%;border:1px solid var(--accent);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.step-body strong{display:block;font-size:14.5px;margin-bottom:2px}
+.step-body p{font-size:13px;color:var(--text-mid)}
+.step.done .step-num{background:var(--accent);color:#03080F;border-color:var(--accent)}
+.step.done .step-body strong{color:var(--text-dim);text-decoration:line-through;text-decoration-color:var(--text-dim)}
+
+.whatsapp-card{
+  background:linear-gradient(160deg,var(--accent-soft),var(--surface));border:1.5px solid var(--accent);
+  border-radius:14px;padding:24px;text-align:center;
+}
+.whatsapp-card h2{font-family:var(--serif);font-size:19px;font-weight:600;margin-bottom:8px}
+.whatsapp-card p{font-size:13.5px;color:var(--text-mid);margin-bottom:18px;max-width:38ch;margin-left:auto;margin-right:auto}
+
+.btn-primary{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  background:var(--accent);color:#03080F;font-family:var(--sans);font-weight:700;font-size:15px;
+  padding:15px;border-radius:8px;border:none;cursor:pointer;text-decoration:none;transition:background .2s;
+}
+.btn-primary:hover{background:var(--accent-2)}
+
+.wait-note{text-align:center;margin-top:16px}
+.wait-note p{font-size:12px;color:var(--text-dim)}
+
+footer{text-align:center;padding:28px 0 0}
+footer p{font-size:11.5px;color:var(--text-dim)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="confirm reveal">
+    <div class="check-icon">✓</div>
+    <div class="kicker">Pago confirmado</div>
+    <h1>Tu Radar 360 PRO ya está en marcha.</h1>
+    <p>Nos falta una cosa antes de poder cruzar el análisis completo: conocer tu negocio por dentro.</p>
+  </div>
+
+  <div class="card reveal">
+    <h2>Qué pasa ahora</h2>
+    <ul class="steps">
+      <li class="step done">
+        <span class="step-num">✓</span>
+        <div class="step-body"><strong>Pago confirmado</strong><p>Ya está hecho, sin nada más que hacer aquí.</p></div>
+      </li>
+      <li class="step">
+        <span class="step-num">2</span>
+        <div class="step-body"><strong>Nos cuentas cómo funciona tu negocio</strong><p>Un formulario corto sobre tu operativa, equipo y procesos — lo rellenas tú directamente, a tu ritmo.</p></div>
+      </li>
+      <li class="step">
+        <span class="step-num">3</span>
+        <div class="step-body"><strong>Cruzamos ambos análisis</strong><p>Lo que ya sabemos desde fuera, con lo que nos cuentes desde dentro.</p></div>
+      </li>
+      <li class="step">
+        <span class="step-num">4</span>
+        <div class="step-body"><strong>Recibes tu informe completo</strong><p>Con plan de acción priorizado, listo para implementar.</p></div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="whatsapp-card reveal">
+    <h2>¿Lo hacemos ya?</h2>
+    <p>Diez minutos y lo tienes resuelto — el formulario es autoexplicativo, contesta con tus palabras.</p>
+    <a href="https://jbmarketing.es/radar-360/formulario/radar360-formulario-pro.html" class="btn-primary">Rellenar el formulario ahora →</a>
+    <div class="wait-note"><p>¿Prefieres que lo hagamos hablando? <a href="https://wa.me/34615613366?text=Hola%2C%20acabo%20de%20pagar%20el%20Radar%20360%20PRO%20y%20prefiero%20completar%20el%20formulario%20por%20aqu%C3%AD." target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">Escríbenos por WhatsApp</a>, o simplemente espera — te contactamos igual en menos de 24h.</p></div>
+  </div>
+
+  <footer>
+    <p>Un servicio de JBMarketing · <a href="https://jbmarketing.es/legal/terminos/">Términos</a> · <a href="https://jbmarketing.es/legal/privacidad/">Privacidad</a></p>
+  </footer>
+
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); observer.unobserve(e.target); } });
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+
+</body>
+</html>
