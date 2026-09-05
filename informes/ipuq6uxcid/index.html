@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu informe Radar 360 PRO</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#040D1A; --surface:#06111F; --surface-2:#0A1B2E;
+  --border:#0F2540; --border-strong:#152E4A;
+  --text:#FFFFFF; --text-mid:#8FAABF; --text-dim:#4A6A82;
+  --accent:#1EC6E0; --accent-2:#0FA8C0; --accent-soft:rgba(30,198,224,.14);
+  --serif:'Fraunces',serif; --sans:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+  --ok:#3FA66B; --ok-soft:rgba(63,166,107,.14);
+  --warn:#E2672B; --warn-soft:rgba(226,103,43,.14);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15.5px;line-height:1.6}
+a{color:inherit}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px}
+
+.actionbar{position:sticky;top:0;z-index:50;background:rgba(4,13,26,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:14px 0}
+.actionbar .wrap{display:flex;justify-content:space-between;align-items:center;max-width:820px}
+.logo{font-family:var(--serif);font-weight:600;font-size:16px}
+.logo span{color:var(--accent)}
+.btn-pdf{
+  font-family:var(--sans);font-weight:600;font-size:13.5px;background:var(--accent);color:#03080F;
+  padding:10px 18px;border-radius:6px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:7px;
+}
+.btn-pdf:hover{background:var(--accent-2)}
+
+.doc{padding:44px 0 80px}
+.doc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:36px;padding-bottom:28px;border-bottom:1px solid var(--border)}
+.doc-head .kicker{font-family:var(--mono);font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.doc-head h1{font-family:var(--serif);font-size:26px;font-weight:600}
+.doc-head .meta{font-size:13px;color:var(--text-dim);margin-top:6px}
+.pro-badge{font-family:var(--mono);font-size:10.5px;color:#03080F;background:var(--accent);padding:4px 12px;border-radius:20px;font-weight:700;letter-spacing:.04em}
+
+.nav-index{border:1px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:32px}
+.nav-index span{font-family:var(--mono);font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:8px}
+.nav-index ol{margin:0;padding-left:18px;columns:2;column-gap:24px}
+.nav-index li{font-size:12.5px;color:var(--text-mid);margin-bottom:4px}
+.nav-index a{text-decoration:none}
+.nav-index a:hover{color:var(--accent)}
+
+.scores{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.score-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px}
+.score-card .label{font-family:var(--mono);font-size:10.5px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.score-card .value{font-family:var(--serif);font-size:38px;font-weight:600;color:var(--accent);line-height:1}
+.score-card .value span{font-size:16px;color:var(--text-dim);font-weight:400}
+.score-card .desc{font-size:12.5px;color:var(--text-mid);margin-top:6px}
+
+.subscores{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:40px}
+.subscore{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.subscore .label{font-family:var(--mono);font-size:9.5px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.subscore .value{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--text)}
+.subscore .value span{font-size:12px;color:var(--text-dim);font-weight:400}
+.subscore .value.nodata{color:var(--text-dim);font-size:16px}
+
+.section{margin-bottom:36px}
+.section h2{font-family:var(--serif);font-size:19px;font-weight:600;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.section .lead{font-size:13.5px;color:var(--text-mid);margin-bottom:16px;line-height:1.6}
+.section p.body{font-size:13.5px;color:var(--text-mid);margin-bottom:12px}
+.section p.body strong{color:var(--text)}
+
+.dims{display:flex;flex-direction:column;gap:9px}
+.dim-row{display:grid;grid-template-columns:1fr auto 90px;gap:12px;align-items:center}
+.dim-name{font-size:13px;color:var(--text-mid)}
+.dim-score{font-family:var(--mono);font-size:12px;color:var(--text-dim);text-align:right}
+.dim-bar{height:5px;background:var(--surface-2);border-radius:3px;overflow:hidden}
+.dim-bar-fill{height:100%;background:var(--accent);border-radius:3px}
+.dim-bar-fill.low{background:#E2672B}
+.dim-bar-fill.mid{background:#D9B23C}
+
+.wins{background:var(--surface);border-left:3px solid #3FA66B;border-radius:0 10px 10px 0;padding:18px 20px}
+.wins ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.wins li{font-size:13.5px;color:var(--text-mid);line-height:1.5;padding-left:20px;position:relative}
+.wins li::before{content:'\2713';position:absolute;left:0;color:#3FA66B;font-weight:700}
+
+.finding{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.finding:last-child{border-bottom:none}
+.finding-num{font-family:var(--mono);font-size:12px;color:var(--accent);flex-shrink:0;padding-top:2px}
+.finding-body strong{display:block;font-size:14.5px;margin-bottom:3px}
+.finding-body p{font-size:13.5px;color:var(--text-mid);line-height:1.55}
+.finding-evidence{font-family:var(--mono);font-size:11px;color:var(--text-dim);margin-top:5px;font-style:italic}
+
+.incoherencias{background:linear-gradient(160deg,rgba(226,103,43,.10),var(--surface));border:1px solid rgba(226,103,43,.35);border-radius:12px;padding:22px 24px}
+.incoherencias h2{border-bottom:none;padding-bottom:0;display:flex;align-items:center;gap:10px}
+.incoherencias .flag{font-size:11px}
+.incoherencias .intro{font-size:13px;color:var(--text-mid);margin-bottom:16px}
+.incoherencias ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.incoherencias li{font-size:13.5px;color:var(--text-mid);line-height:1.5;padding-left:22px;position:relative}
+.incoherencias li::before{content:'\26A0';position:absolute;left:0;color:#f0925c}
+
+.cruces{background:linear-gradient(160deg,var(--accent-soft),var(--surface));border:1.5px solid var(--accent);border-radius:12px;padding:24px 26px}
+.cruces h2{border-bottom:none;padding-bottom:0}
+.cruce{padding:16px 0;border-bottom:1px solid rgba(30,198,224,.18)}
+.cruce:last-child{border-bottom:none;padding-bottom:0}
+.cruce-tag{display:inline-block;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.04em;background:var(--accent);color:#03080F;padding:2px 9px;border-radius:20px;font-weight:700;margin-bottom:8px}
+.cruce strong{display:block;font-size:14.5px;margin-bottom:6px}
+.cruce-cita{display:flex;gap:8px;font-size:12.5px;color:var(--text-mid);margin-bottom:4px;align-items:flex-start}
+.cruce-cita .tag{font-family:var(--mono);font-size:9.5px;color:var(--text-dim);flex-shrink:0;padding-top:2px;min-width:52px}
+.cruce-perdida{font-size:13px;color:var(--text);margin-top:8px;padding-top:8px;border-top:1px dashed var(--border-strong)}
+.cruce-op{font-family:var(--mono);font-size:11px;color:var(--accent);margin-top:4px}
+
+.madurez-row{display:grid;grid-template-columns:1fr auto 90px;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.madurez-row:last-child{border-bottom:none}
+.madurez-name{font-size:13.5px;font-weight:600}
+.madurez-nivel{font-family:var(--mono);font-size:12px;color:var(--text-dim);text-align:right}
+.madurez-cita{font-size:12.5px;color:var(--text-mid);margin-top:4px;font-style:italic}
+.madurez-falta{font-size:12.5px;color:var(--accent);margin-top:4px}
+.madurez-bar{height:5px;background:var(--surface-2);border-radius:3px;overflow:hidden}
+.madurez-bar-fill{height:100%;border-radius:3px}
+
+table.stack{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+table.stack th{font-family:var(--mono);font-size:10px;text-transform:uppercase;color:var(--text-dim);text-align:left;padding:8px 10px;border-bottom:1px solid var(--border)}
+table.stack td{padding:10px;border-bottom:1px solid rgba(255,255,255,.05);color:var(--text-mid);vertical-align:top}
+table.stack tr:last-child td{border-bottom:none}
+.verdict{font-family:var(--mono);font-size:10.5px;padding:2px 8px;border-radius:20px;font-weight:700;white-space:nowrap}
+.verdict.queda{background:var(--ok-soft);color:var(--ok)}
+.verdict.revisar{background:var(--warn-soft);color:#f0925c}
+
+.riesgo{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.riesgo:last-child{border-bottom:none}
+.sev{font-family:var(--mono);font-size:10px;text-transform:uppercase;padding:2px 9px;border-radius:20px;font-weight:700;margin-right:8px}
+.sev.alto{background:rgba(192,57,43,.18);color:#e0685c}
+.sev.medio{background:var(--warn-soft);color:#f0925c}
+.sev.bajo{background:rgba(255,255,255,.06);color:var(--text-dim)}
+.riesgo p{font-size:13.5px;color:var(--text-mid);margin-top:6px}
+
+.plan-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:10px;display:flex;gap:14px;align-items:flex-start}
+.plan-num{font-family:var(--mono);font-size:12px;color:var(--accent);flex-shrink:0;padding-top:2px}
+.plan-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.tag{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;padding:2px 8px;border-radius:20px;font-weight:700}
+.tag.cruce{background:var(--accent-soft);color:var(--accent)}
+.tag.fuera{background:rgba(217,178,60,.15);color:#d9b23c}
+.tag.dentro{background:rgba(63,166,107,.15);color:var(--ok)}
+.tag.alto{background:rgba(192,57,43,.18);color:#e0685c}
+.tag.medio{background:rgba(226,103,43,.15);color:#f0925c}
+.tag.bajo{background:rgba(255,255,255,.06);color:var(--text-dim)}
+.plan-body strong{display:block;font-size:14px;margin-bottom:3px}
+.plan-body p{font-size:13px;color:var(--text-mid)}
+
+.roadmap{display:flex;flex-direction:column;gap:12px}
+.roadmap-phase{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
+.roadmap-phase .fase{font-family:var(--mono);font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.roadmap-phase p{font-size:13.5px;color:var(--text-mid)}
+
+.no-auto{background:var(--surface);border-left:3px solid var(--text-dim);border-radius:0 10px 10px 0;padding:18px 20px}
+.no-auto ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.no-auto li{font-size:13.5px;color:var(--text-mid);line-height:1.5;padding-left:20px;position:relative}
+.no-auto li::before{content:'\2014';position:absolute;left:0;color:var(--text-dim)}
+
+.pendiente ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.pendiente li{font-size:13px;color:var(--text-mid);padding-left:16px;position:relative}
+.pendiente li::before{content:'\00B7';position:absolute;left:0}
+
+.metodologica{font-size:12.5px;color:var(--text-dim);line-height:1.7}
+.metodologica p{margin-bottom:8px}
+
+.closing{background:linear-gradient(160deg,var(--accent-soft),var(--surface));border:1.5px solid var(--accent);border-radius:14px;padding:26px;margin-top:44px;text-align:center}
+.closing h3{font-family:var(--serif);font-size:20px;font-weight:600;margin-bottom:8px}
+.closing p{font-size:13.5px;color:var(--text-mid);margin-bottom:10px;max-width:48ch;margin-left:auto;margin-right:auto}
+.other-links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.other-links a{font-size:12.5px;color:var(--text-dim);text-decoration:underline}
+
+footer{padding:30px 0;text-align:center;border-top:1px solid var(--border)}
+footer p{font-size:11.5px;color:var(--text-dim)}
+
+@media print{
+  body{background:#fff;color:#0A1626;font-size:12px}
+  .actionbar{display:none}
+  .doc{padding:0}
+  .score-card,.plan-item,.finding,.dim-row,.madurez-row,.incoherencias li,.wins li,.cruce,.riesgo{break-inside:avoid}
+  .score-card,.subscore{background:#F7F6F2;border-color:#D6E4EA}
+  .score-card .value{color:#0B93A8}
+  .nav-index{border-color:#B9CFDA}
+  .nav-index li{color:#3D5A72}
+  .section h2{border-color:#D6E4EA}
+  .finding-body p,.finding-evidence,.riesgo p,.plan-body p,.roadmap-phase p,.no-auto li,.metodologica,.pendiente li{color:#3D5A72}
+  .dim-name,.dim-score,.madurez-name,.madurez-nivel,.madurez-cita{color:#3D5A72}
+  .dim-bar,.madurez-bar{background:#E9EEF1}
+  .wins,.no-auto{background:#F7F6F2;border-left-color:#3FA66B}
+  .wins li,.no-auto li{color:#3D5A72}
+  .incoherencias{background:#FDF3EC;border-color:#E2672B}
+  .incoherencias .intro,.incoherencias li{color:#3D5A72}
+  .cruces{background:#EAF8FA;border-color:#0B93A8}
+  .cruce-cita,.cruce-perdida{color:#3D5A72}
+  .plan-item,.roadmap-phase{background:#F7F6F2;border-color:#D6E4EA}
+  table.stack td{color:#3D5A72}
+  .closing{display:none}
+  footer{border-color:#D6E4EA}
+  a{color:#0B93A8}
+}
+</style>
+</head>
+<body>
+
+<div class="actionbar">
+  <div class="wrap">
+    <div class="logo">Radar <span>360</span></div>
+    <button class="btn-pdf" onclick="window.print()">&#8595; Descargar en PDF</button>
+  </div>
+</div>
+
+<div class="doc">
+  <div class="wrap">
+
+    <div class="doc-head">
+      <div>
+        <div class="kicker">Informe Radar 360 <span class="pro-badge">PRO</span></div>
+        <h1>El Clau Ferretería</h1>
+        <div class="meta">Diagnóstico por fuera y cruce con tu formulario: 05/09/2026 &middot; Nules (Castelló) &middot; Alcance: auditoría completa</div>
+      </div>
+    </div>
+
+    <div class="nav-index">
+      <span>Contenido</span>
+      <ol>
+        <li><a href="#titulares">Titulares</a></li>
+        <li><a href="#resumen">Resumen ejecutivo</a></li>
+        <li><a href="#nocuadra">Lo que no cuadra</a></li>
+        <li><a href="#dimensiones">Desglose por dimensión</a></li>
+        <li><a href="#bien">Lo que ya funciona bien</a></li>
+        <li><a href="#hallazgos">Lo que hemos encontrado</a></li>
+        <li><a href="#incoherencias">Cosas que no cuadran (público)</a></li>
+        <li><a href="#pendiente">Pendiente de confirmar</a></li>
+        <li><a href="#madurez">Madurez tecnológica por área</a></li>
+        <li><a href="#tiempo">Dónde se va el tiempo</a></li>
+        <li><a href="#stack">Inventario de herramientas</a></li>
+        <li><a href="#riesgos">Riesgos</a></li>
+        <li><a href="#plan">Plan de acción priorizado</a></li>
+        <li><a href="#quickwins">Quick wins</a></li>
+        <li><a href="#roadmap">Hoja de ruta</a></li>
+        <li><a href="#noauto">Lo que no conviene automatizar</a></li>
+        <li><a href="#competencia">Competencia</a></li>
+        <li><a href="#metodo">Nota metodológica</a></li>
+      </ol>
+    </div>
+
+    <div class="section" id="titulares">
+      <div class="scores">
+        <div class="score-card">
+          <div class="label">Nota digital</div>
+          <div class="value">43<span>/100</span></div>
+          <div class="desc">Flojo &mdash; Presencia y visibilidad frente a tu competencia</div>
+        </div>
+        <div class="score-card">
+          <div class="label">Madurez tecnológica</div>
+          <div class="value">2,3<span>/5</span></div>
+          <div class="desc">Herramientas sueltas &mdash; Cómo funcionan tus procesos por dentro</div>
+        </div>
+      </div>
+
+      <div class="subscores">
+        <div class="subscore">
+          <div class="label">Horas/mes recuperables</div>
+          <div class="value nodata">Sin datos</div>
+        </div>
+        <div class="subscore">
+          <div class="label">Cruces detectados</div>
+          <div class="value">6</div>
+        </div>
+        <div class="subscore">
+          <div class="label">Riesgos (0 críticos)</div>
+          <div class="value">5<span> &middot; 2 medios</span></div>
+        </div>
+        <div class="subscore">
+          <div class="label">Reputación (Google)</div>
+          <div class="value">4,5<span> &middot; 224 opiniones</span></div>
+        </div>
+      </div>
+      <p class="lead">Las horas/mes recuperables aparecen como <strong>"sin datos"</strong> a propósito: el formulario dejó en blanco las tareas repetitivas (P31) y el coste por hora (P32). Para tener esa cifra hace falta medir una semana cuánto tiempo se va en pasar presupuestos por correo, recordar citas y teclear facturas &mdash; está en el plan de acción (punto 9).</p>
+    </div>
+
+    <div class="section" id="resumen">
+      <h2>Resumen ejecutivo</h2>
+      <p class="body">El Clau es un negocio <strong>fuerte por dentro y por la calle</strong>, y flojo por internet. En Google tienes <strong>4,5 estrellas con 224 opiniones</strong> &mdash; más que cualquier otra ferretería de Nules &mdash; y las reseñas repiten siempre lo mismo: buen precio, buen asesoramiento, mucha variedad, buen trato. Cierras <strong>el 95% de los presupuestos</strong> que haces (P18). El problema no es vender: es que ese prestigio real no se ve en ninguno de tus canales digitales y no hay nada montado para que un cliente que ya te compró vuelva sin que tenga que acordarse solo.</p>
+      <p class="body">Tu web funciona como un folleto: cuenta quién eres, pero su botón principal &mdash; "VISITA NUESTRA TIENDA" &mdash; y las 14 categorías de producto llevan a <strong>cadena88.com</strong>, el catálogo nacional de la red, donde El Clau no aparece por ningún sitio. Captas la visita y se la entregas a otro. Al mismo tiempo, en el formulario dices que tienes "reserva online" (P14) y ofreces "reparto a domicilio", pero desde fuera no hay forma de reservar ni pedir nada: solo teléfono, correo y mostrador.</p>
+      <p class="body">Si arreglas primero los cruces &mdash; pedir y mostrar reseñas, unificar el horario, poner un WhatsApp de verdad, redirigir la web a tu propia tienda y empezar a hablar con los clientes que ya tienes &mdash; conviertes un negocio que "va bien porque suele venir la gente" (P24) en uno que además crece cuando quiere. Casi todo son cosas de esta semana y de coste bajo.</p>
+    </div>
+
+    <div class="section cruces" id="nocuadra">
+      <h2>Dónde las dos mitades se contradicen</h2>
+      <p class="lead">Esto es lo que no se ve mirando solo la web o solo el formulario: hace falta cruzar las dos cosas. Son los hallazgos más caros de todo el informe, y van primero.</p>
+
+      <div class="cruce">
+        <span class="cruce-tag">Cruce 1</span>
+        <strong>Dices que tienes "reserva online" &mdash; por fuera no existe</strong>
+        <div class="cruce-cita"><span class="tag">Por dentro</span>"si" &mdash; ¿tenéis reserva online? (P14)</div>
+        <div class="cruce-cita"><span class="tag">Por fuera</span>Ni la web (elclauferreteria.com) ni la ficha de Google ofrecen ningún sistema de reserva, cita o pedido: solo teléfono, correo y un formulario de contacto genérico (05/09/2026)</div>
+        <div class="cruce-perdida">Quien quiere reservar algo o pedir cita para un servicio (cerrajería, montaje, copia de mando especial) no encuentra cómo. O llama en horario, o lo deja. Hay que aclarar primero qué es esa "reserva online" que marcaste, y luego ponerla donde el cliente la busca.</div>
+      </div>
+
+      <div class="cruce">
+        <span class="cruce-tag">Cruce 2</span>
+        <strong>224 reseñas de 4,5 estrellas que ni se piden ni se enseñan</strong>
+        <div class="cruce-cita"><span class="tag">Por fuera</span>4,5 &#9733; con 224 opiniones en Google (153 de 5 estrellas); pero cero testimonios en toda la web y "Todavía sin calificar (1 opinión)" en Facebook (05/09/2026)</div>
+        <div class="cruce-cita"><span class="tag">Por dentro</span>"no" &mdash; ¿pedís reseñas? (P23)</div>
+        <div class="cruce-perdida">Tu mejor activo &mdash; ser la ferretería con más reputación de Nules &mdash; es invisible en tus propios canales, y el goteo de reseñas depende de la suerte, no de un proceso. Es el arreglo más barato y más rentable de todo el informe: quien se plantea si ir a El Clau o a una gran superficie necesita ver esas 224 opiniones antes de decidir.</div>
+      </div>
+
+      <div class="cruce">
+        <span class="cruce-tag">Cruce 3</span>
+        <strong>El comercio local que manda su tráfico web a la cadena nacional</strong>
+        <div class="cruce-cita"><span class="tag">Por fuera</span>Los 35 enlaces de "TIENDA" y de las 14 categorías de elclauferreteria.com apuntan a cadena88.com/es (catálogo nacional), no a vuestra ficha de tienda (cadena88.com/es/store/elclauferreteria) ni a un pedido de Nules (05/09/2026)</div>
+        <div class="cruce-cita"><span class="tag">Por dentro</span>"web, telefono, gente al mostrador" &mdash; canales de contacto (P7); "a traves de la web cada cierto tiempo" &mdash; comunicaciones (P25)</div>
+        <div class="cruce-perdida">Una reseña vuestra dice literalmente que os eligen por "apoyar el comercio local en lugar de las grandes cadenas". Pero la web coge esa visita y la suelta en un catálogo genérico donde El Clau no existe, no se ve vuestro stock ni vuestro precio, y el pedido &mdash; si lo hay &mdash; no es del todo vuestro. La visita se paga con vuestra reputación y se regala.</div>
+      </div>
+
+      <div class="cruce">
+        <span class="cruce-tag">Cruce 4</span>
+        <strong>El horario: cada fuente dice uno distinto</strong>
+        <div class="cruce-cita"><span class="tag">Por dentro</span>"8:30-13:30 / 16:30-20:0" (P5, sin sábado)</div>
+        <div class="cruce-cita"><span class="tag">Por fuera</span>Web: Sáb 9:00-14:00. Ficha de Cadena88: "Lunes-viernes 08:30 a 13:30 h. 17:00 a 20:00 h. Sabado 08:30 a 14:00 h.". Directorio clicoleo: "L-V 08:30-14:00 y 15:00-18:00". Google abre la mañana del lunes a las 8:30 (05/09/2026)</div>
+        <div class="cruce-perdida">Al menos cuatro horarios distintos publicados. Quien mira el equivocado se planta ante la puerta cerrada &mdash; y esa persona, a veces, escribe una reseña de una estrella. Unificar el horario real en Google, la web y la ficha de Cadena88 es media hora de trabajo.</div>
+      </div>
+
+      <div class="cruce">
+        <span class="cruce-tag">Cruce 5</span>
+        <strong>"Suelen venir" &mdash; hasta que dejen de venir</strong>
+        <div class="cruce-cita"><span class="tag">Por dentro</span>"no hace falta, suelen venir" &mdash; ¿trabajáis la recurrencia? (P24); "depende" &mdash; post-venta (P22); comunicaciones solo "a traves de la web cada cierto tiempo" (P25)</div>
+        <div class="cruce-cita"><span class="tag">Por fuera</span>Sin newsletter, sin comunidad, sin remarketing configurado; los datos de cliente están centralizados (P27) pero no se usan para nada de esto</div>
+        <div class="cruce-perdida">El negocio vive de la inercia de una clientela fiel. Funciona &mdash; hasta que Cadena88 online, una gran superficie o un competidor con web capten a esos mismos clientes profesionales. Tienes los datos de quién compra; no hay nada que los convierta en una segunda, tercera y cuarta compra.</div>
+      </div>
+
+      <div class="cruce">
+        <span class="cruce-tag">Cruce 6</span>
+        <strong>"Reparto a domicilio" que solo funciona llamando</strong>
+        <div class="cruce-cita"><span class="tag">Por fuera</span>La web lista "REPARTO A DOMICILIO" como servicio y la ficha de Google muestra los atributos "Entrega a domicilio" y "Retiro en tienda" (05/09/2026)</div>
+        <div class="cruce-cita"><span class="tag">Por dentro</span>Canales: "web, telefono, gente al mostrador" (P7); atención fuera de horario: "se contestan al dia siguiente por orden de importancia" (P10)</div>
+        <div class="cruce-perdida">El servicio que te diferencia de una gran superficie &mdash; te lo llevo a casa &mdash; existe, pero solo se activa en horario y por teléfono. El profesional que a las 22:00 sabe lo que necesita para mañana no tiene dónde pedirlo. Un WhatsApp de empresa cierra ese hueco casi gratis.</div>
+      </div>
+    </div>
+
+    <div class="section" id="dimensiones">
+      <h2>Desglose por dimensión (por fuera)</h2>
+      <p class="lead">Nota digital <strong>43/100</strong> &mdash; media ponderada de las 11 dimensiones. Bandas: 0-39 crítico &middot; 40-59 flojo &middot; 60-74 aceptable &middot; 75-89 bueno &middot; 90-100 referencia.</p>
+      <div class="dims">
+        <div class="dim-row"><span class="dim-name">Web y UX</span><span class="dim-score">48/100</span><div class="dim-bar"><div class="dim-bar-fill mid" style="width:48%"></div></div></div>
+        <div class="dim-row"><span class="dim-name">Oferta y precios</span><span class="dim-score">45/100</span><div class="dim-bar"><div class="dim-bar-fill mid" style="width:45%"></div></div></div>
+        <div class="dim-row"><span class="dim-name">Copy y comunicación</span><span class="dim-score">40/100</span><div class="dim-bar"><div class="dim-bar-fill low" style="width:40%"></div></div></div>
+        <div class="dim-row"><span class="dim-name">Recorrido del cliente (parte visible)</span><span class="dim-score">38/100</span><div class="dim-bar"><div class="dim-bar-fill low" style="width:38%"></div></div></div>
+        <div class="dim-row"><span class="dim-name">Redes sociales</span><span class="dim-score">35/100</span><div class="dim-bar"><div class="dim-bar-fill low" style="width:35%"></div></div></div>
+        <div class="dim-row"><span class="dim-name">Anuncios (Meta Ads)</span><span class="dim-score">15/100</span><div class="dim-bar"><div class="dim-bar-fill low" style="width:15%"></div></div></div>
+        <div class="dim-row"><span class="dim-name">Google Business / Maps</span><span class="dim-score">72/100</span><div class="dim-bar"><div class="dim-bar-fill" style="width:72%"></div></div></div>
+        <div class="dim-row"><span class="dim-name">Reputación</span><span class="dim-score">70/100</span><div class="dim-bar"><div class="dim-bar-fill" style="width:70%"></div></div></div>
+        <div class="dim-row"><span class="dim-name">Coherencia de marca</span><span class="dim-score">35/100</span><div class="dim-bar"><div class="dim-bar-fill low" style="width:35%"></div></div></div>
+        <div class="dim-row"><span class="dim-name">SEO básico</span><span class="dim-score">42/100</span><div class="dim-bar"><div class="dim-bar-fill low" style="width:42%"></div></div></div>
+        <div class="dim-row"><span class="dim-name">Contenido</span><span class="dim-score">30/100</span><div class="dim-bar"><div class="dim-bar-fill low" style="width:30%"></div></div></div>
+      </div>
+      <p class="lead" style="margin-top:16px">Lo que tira de la nota hacia arriba es lo que ya está bien: la ficha de Google y la reputación. Lo que la hunde es lo que depende de la web y de las redes, donde hoy no hay casi nada tuyo.</p>
+    </div>
+
+    <div class="section wins" id="bien">
+      <h2 style="border:none;padding:0;margin-bottom:10px">Lo que ya funciona bien</h2>
+      <ul>
+        <li><strong>Reputación líder en tu municipio:</strong> 4,5 &#9733; con 224 opiniones en Google &mdash; por delante de todas las ferreterías de Nules (Casino Paricio 11 opiniones, VAS Nules 42, Camí La Mar 22, El Clau Avinguda 212).</li>
+        <li>Las reseñas coinciden en lo mismo &mdash; "buenos precios", "te asesoran de los productos que necesitas", "mucha variedad", "atención de 10" &mdash; eso es un patrón real, no opiniones sueltas.</li>
+        <li>Ficha de Google Business reclamada y verificada, con categoría correcta, fotos, código de ubicación (Plus Code), atributos de "Entrega a domicilio" y "Retiro en tienda", enlace corto propio (g.page/elclauferreterianules) y el propietario respondiendo a las reseñas.</li>
+        <li>La web tiene HTTPS, se ve bien en móvil y ya lleva <strong>Google Analytics instalado</strong> &mdash; la medición está puesta, solo falta mirarla.</li>
+        <li>El correo de contacto usa el dominio propio (elclaunules@elclauferreteria.com), no un Gmail personal.</li>
+        <li>El banner de cookies de la web tiene categorías configurables (funcional, analítica, publicidad) &mdash; la parte de RGPD de la web está bien resuelta.</li>
+        <li><strong>Dos personas</strong> tienen acceso a los sistemas y las claves (P29): no dependes de una sola persona para que el negocio funcione.</li>
+        <li>Copia de seguridad declarada (P28) y datos de cliente centralizados en un único programa (P27), no repartidos entre Excel y carpetas.</li>
+        <li>Facturación en un programa específico, con una secretaria dedicada a ello (P20).</li>
+        <li>Ratio de presupuestos altísimo: alrededor del 95% se cierran (P18). El cuello de botella no es convencer, es tener capacidad para hacer más.</li>
+        <li>Servicios que una gran superficie no da: cerrajería 24h, copia de mandos, duplicado de llaves, montajes y servicios, reparto a domicilio y asesoramiento profesional.</li>
+        <li>Instagram con los destacados ordenados por tema (Catálogo, Promociones, Blog, Higiene, Limpieza, Activa Nules) y el enlace de la bio llevando a la web.</li>
+        <li>Blog propio con artículos redactados (jardín, barbacoa, decoración), aunque lleva parado desde mayo.</li>
+        <li>Web mantenida por un proveedor local identificado (Pedro J. Mondragón), creada en marzo de 2020.</li>
+        <li>Presencia en los directorios que importan: Cadena88, clicoleo, QDQ, Páginas Amarillas, Cylex e infoisinfo.</li>
+      </ul>
+    </div>
+
+    <div class="section" id="hallazgos">
+      <h2>Lo que hemos encontrado (por fuera)</h2>
+      <div class="finding"><span class="finding-num">01</span><div class="finding-body"><strong>La web capta la visita y la manda a la cadena nacional</strong><p>El botón "VISITA NUESTRA TIENDA" y las 14 categorías de producto llevan a cadena88.com/es (catálogo nacional genérico), no a vuestra ficha de tienda en Cadena88 ni a un pedido de Nules. El visitante sale de vuestro sitio sin ver ni vuestro nombre, ni vuestro stock, ni vuestro precio.</p><div class="finding-evidence">Evidencia: 35 enlaces a cadena88.com en elclauferreteria.com; el "TIENDA" apunta a cadena88.com/es (05/09/2026)</div></div></div>
+      <div class="finding"><span class="finding-num">02</span><div class="finding-body"><strong>Ni un precio en toda la web propia</strong><p>La web no muestra ningún precio: todo el catálogo con precios está delegado en Cadena88. Para una ferretería con miles de referencias es en parte razonable, pero hoy no hay ni un rango, ni una promoción, ni un "desde X&euro;" que dé una pista a quien compara.</p><div class="finding-evidence">Evidencia: revisión de home, servicios y contacto de elclauferreteria.com (05/09/2026)</div></div></div>
+      <div class="finding"><span class="finding-num">03</span><div class="finding-body"><strong>Sin testimonios ni prueba social en la web</strong><p>Teniendo 224 opiniones de 4,5 estrellas en Google, no hay ni una sola valoración, número o testimonio visible en la web. El activo más fuerte del negocio no aparece donde el cliente decide.</p><div class="finding-evidence">Evidencia: web sin sección de opiniones; Google Maps "Ferreteria Ahis Abad El Clau - Cadena88", 4,5 (224) (05/09/2026)</div></div></div>
+      <div class="finding"><span class="finding-num">04</span><div class="finding-body"><strong>Ningún WhatsApp publicado, y el 100% de la atención es conversacional</strong><p>Atendéis por web, teléfono y mostrador (P7), respondéis en menos de una hora (P9) y el móvil del negocio contesta al día siguiente lo de fuera de horario (P10). Pero no hay ningún número de WhatsApp en la web ni en la ficha de Google: el canal más natural para "¿tenéis esto?" no existe.</p><div class="finding-evidence">Evidencia: sin enlaces wa.me ni api.whatsapp en elclauferreteria.com; ficha de Google sin botón de mensaje (05/09/2026)</div></div></div>
+      <div class="finding"><span class="finding-num">05</span><div class="finding-body"><strong>El copy habla del negocio, no del cliente &mdash; y con una errata</strong><p>El mensaje principal es "EL CLAU FERRETERIA, Todo lo que busca en ferrertería en general, bricolaje, suministro industrial y menaje para el hogar" (con "ferrert&eacute;ria" mal escrito). Es una lista de categorías, no una razón para elegiros. Nada de "40 años en Nules", "te asesoramos de verdad" ni "te lo llevamos a casa".</p><div class="finding-evidence">Evidencia: texto de cabecera y meta descripción de elclauferreteria.com (05/09/2026)</div></div></div>
+      <div class="finding"><span class="finding-num">06</span><div class="finding-body"><strong>Dos H1 en la portada</strong><p>La home marca como título principal a la vez "El Clau Ferretería" y "VISITA NUESTRA TIENDA ....". Tener dos titulares de primer nivel confunde a Google sobre de qué va la página y resta posicionamiento.</p><div class="finding-evidence">Evidencia: revisión del código de elclauferreteria.com, home &mdash; dos etiquetas &lt;h1&gt; (05/09/2026)</div></div></div>
+      <div class="finding"><span class="finding-num">07</span><div class="finding-body"><strong>El blog lleva parado desde mayo</strong><p>Tres artículos publicados entre el 20 de abril y el 12 de mayo de 2026, y nada después &mdash; casi cuatro meses. Los temas ("Cómo cuidar tu jardín", "El rey de la parrilla") son genéricos y no aprovechan lo que las reseñas dicen que hacéis mejor: asesorar.</p><div class="finding-evidence">Evidencia: elclauferreteria.com/blog &mdash; último post "12 de mayo de 2026" (05/09/2026)</div></div></div>
+      <div class="finding"><span class="finding-num">08</span><div class="finding-body"><strong>Facebook casi sin uso, con la valoración a cero</strong><p>751 seguidores en Facebook, pero la última publicación visible es del 24 de julio ("¡Que los mosquitos no te arruinen el verano!") y la página figura como "Todavía sin calificar (1 opinión)". Quien os busca en Facebook ve un negocio poco activo, muy distinto del de Google.</p><div class="finding-evidence">Evidencia: facebook.com/elclauferreterianules &mdash; post del 24 de julio, "1 opinión" (05/09/2026)</div></div></div>
+      <div class="finding"><span class="finding-num">09</span><div class="finding-body"><strong>Instagram pequeño y sin lectura de actividad</strong><p>@elclau_ferreteria tiene 505 seguidores y 340 seguidos (ratio bajo, típico de seguir para que te sigan). La bio es solo emojis. No se ha podido ver la rejilla de publicaciones (Instagram exige inicio de sesión), así que la frecuencia real queda pendiente de confirmar.</p><div class="finding-evidence">Evidencia: instagram.com/elclau_ferreteria &mdash; 505 seguidores, bio "&#129683;&#128298;&#128273;&#128272;&#128295;&#128296;&#9881;&#65039;" (05/09/2026)</div></div></div>
+      <div class="finding"><span class="finding-num">10</span><div class="finding-body"><strong>Cero anuncios en Meta, nunca</strong><p>Se ha comprobado la Biblioteca de Anuncios de Meta con "El Clau Ferreteria", "elclauferreteria" y "El Clau Nules": ningún anuncio, ni activo ni histórico. Para un negocio local con reputación y reparto a domicilio, una campaña de alcance en la comarca sería barata &mdash; pero primero hay que cerrar las fugas de dentro.</p><div class="finding-evidence">Evidencia: facebook.com/ads/library, país España, varias búsquedas (05/09/2026)</div></div></div>
+      <div class="finding"><span class="finding-num">11</span><div class="finding-body"><strong>El nombre del negocio cambia en cada canal</strong><p>"El Clau Ferretería" en la web, "FERRETERIA EL CLAU" en Instagram, "ferreteria el clau de nules" en Facebook y "Ferreteria Ahis Abad El Clau - Cadena88" en Google. Quien os busca no siempre sabe que es el mismo sitio.</p><div class="finding-evidence">Evidencia: web, Instagram, Facebook y Google Maps (05/09/2026)</div></div></div>
+      <div class="finding"><span class="finding-num">12</span><div class="finding-body"><strong>Posible ficha de Google duplicada</strong><p>Junto a vuestra ficha principal aparece "El Clau Avinguda, S.L." con 4,5 estrellas y 212 opiniones propias. Si es una segunda tienda vuestra, bien; si es una ficha vieja o repetida, está partiendo vuestras reseñas en dos y confunde a quien busca. Pendiente de confirmar qué es.</p><div class="finding-evidence">Evidencia: Google Maps, bloque "También se buscó" &mdash; "El Clau Avinguda, S.L. 4,5 (212)" (05/09/2026)</div></div></div>
+      <div class="finding"><span class="finding-num">13</span><div class="finding-body"><strong>La reputación se gestiona a veces en tono defensivo</strong><p>El propietario responde a las reseñas &mdash; bien &mdash; pero al menos una respuesta a una crítica es un reproche ("Mejor tenías que decir de unes meses atrás y con los tickets de caja que tenías hasta borrados y rotos!!!"). Quien lo lee, aunque la razón la tengáis vosotros, ve una discusión.</p><div class="finding-evidence">Evidencia: Google Maps, respuesta del propietario a una reseña editada "Hace 7 meses" (05/09/2026)</div></div></div>
+      <div class="finding"><span class="finding-num">14</span><div class="finding-body"><strong>No hay forma online de pedir un presupuesto</strong><p>Hacéis muchos presupuestos y cerráis el 95% (P18), y los mandáis por correo (P17). Pero desde fuera no hay un "pide presupuesto" con lo que necesitas: hay que llamar o escribir un correo en frío desde el formulario de contacto.</p><div class="finding-evidence">Evidencia: formulario de contacto genérico (nombre, email, asunto, mensaje) en elclauferreteria.com/contacto (05/09/2026)</div></div></div>
+    </div>
+
+    <div class="section incoherencias" id="incoherencias">
+      <h2><span class="flag">&#9888;&#65039;</span> Cosas que no cuadran (dentro de lo público)</h2>
+      <p class="intro">Detalles que, vistos desde fuera, generan dudas a quien te está conociendo por primera vez.</p>
+      <ul>
+        <li>Al menos cuatro horarios distintos publicados entre la web, la ficha de Cadena88, Google y los directorios (ver Cruce 4).</li>
+        <li>El nombre del negocio es diferente en cada canal: web, Instagram, Facebook y Google (hallazgo 11).</li>
+        <li>Os presentáis como comercio local frente a las grandes cadenas &mdash; una reseña vuestra lo dice literalmente &mdash; pero sois miembros de la red Cadena88 y la web empuja al catálogo nacional (Cruce 3).</li>
+        <li>Google tiene 224 opiniones y 4,5 estrellas; Facebook, "1 opinión" y sin calificar.</li>
+        <li>La dirección aparece como "Calle San Bartolomé" en la web y como "Carrer Sant Bartomeu" en Google &mdash; misma calle, dos idiomas, ninguna decisión.</li>
+        <li>Errata en el mensaje principal de la web: "ferrert&eacute;ria".</li>
+        <li>Doble H1 en la portada (hallazgo 06).</li>
+        <li>El blog estuvo activo hasta mayo y luego se paró cuatro meses.</li>
+        <li>La web no tiene precios ni WhatsApp, cuando toda vuestra atención es de trato directo y asesoramiento.</li>
+        <li>Solo miráis datos "bancarios" (P30) aunque la web ya recoge visitas con Google Analytics: la medición está, no se usa.</li>
+      </ul>
+    </div>
+
+    <div class="section pendiente" id="pendiente" style="opacity:.9">
+      <h2 style="font-size:16px">Pendiente de confirmar</h2>
+      <p class="lead" style="margin-bottom:10px">Esto no lo hemos podido comprobar con las herramientas de esta fase &mdash; te lo decimos igual, en vez de omitirlo.</p>
+      <ul>
+        <li>La frecuencia y la interacción reales de Instagram (la rejilla de publicaciones exige inicio de sesión).</li>
+        <li>Si "El Clau Avinguda, S.L." (otra ficha de Google, 4,5 &middot; 212 opiniones) es una segunda tienda vuestra, una razón social antigua o un negocio distinto.</li>
+        <li>El coste mensual real de las herramientas (P26 quedó en "no lo sé"): cuota de Cadena88, programa de facturación, programa de cliente, hosting de la web.</li>
+        <li>Qué es exactamente la "reserva online" que marcáis en P14 y dónde está.</li>
+        <li>Si hay píxel de Meta instalado o solo Google Analytics / Google Ads (se ha visto Analytics y una categoría de cookies de "anuncio publicitario").</li>
+        <li>El horario de sábado real, con cuatro versiones distintas publicadas.</li>
+        <li>El volumen de consultas por semana y de presupuestos por mes (P6, P11, P16 quedaron en "no lo sé").</li>
+        <li>Tiempo real que se va en tareas repetitivas y coste por hora (P31 y P32 en blanco).</li>
+      </ul>
+    </div>
+
+    <div class="section" id="madurez">
+      <h2>Madurez tecnológica por área</h2>
+      <p class="lead">Se puntúa cómo de digitalizado está el proceso, no si el negocio funciona bien &mdash; funciona. Madurez global: <strong>2,3 / 5 &middot; Herramientas sueltas</strong>, media de las 8 áreas. La mayoría de comercios locales están entre 1,5 y 2,5.</p>
+
+      <div class="madurez-row">
+        <div><div class="madurez-name">1. Captación y primer contacto</div>
+          <div class="madurez-cita">"web, telefono, gente al mostrador" (P7) &middot; "mostrador y secretaria" (P8) &middot; "depende, pero en menos de 1 hora" (P9) &middot; "no lo se" &mdash; consultas nuevas por semana (P11)</div>
+          <div class="madurez-falta">Para subir: un canal escrito de empresa (WhatsApp Business o buzón compartido) con respuesta automática fuera de horario, y contar cuántas consultas entran y cuántas se convierten.</div>
+        </div>
+        <span class="madurez-nivel">3/5</span>
+        <div class="madurez-bar"><div class="madurez-bar-fill" style="width:60%;background:#D9B23C"></div></div>
+      </div>
+      <div class="madurez-row">
+        <div><div class="madurez-name">2. Agenda y citas</div>
+          <div class="madurez-cita">"agenda" (P12) &middot; "yo mismo" apunta (P13) &middot; "si" reserva online (P14, sin rastro por fuera) &middot; recordatorios "telefono y correo electronico" a mano (P15) &middot; "no lo se" citas perdidas (P16)</div>
+          <div class="madurez-falta">Para subir: pasar la agenda a un calendario digital compartido y automatizar los recordatorios; y aclarar/activar de verdad la reserva online.</div>
+        </div>
+        <span class="madurez-nivel">2/5</span>
+        <div class="madurez-bar"><div class="madurez-bar-fill" style="width:40%;background:#E2672B"></div></div>
+      </div>
+      <div class="madurez-row">
+        <div><div class="madurez-name">3. Cobro y facturación</div>
+          <div class="madurez-cita">Presupuestos "se hace llegar por correo electronico" (P17) &middot; "depende si es empresa o particular" (P19) &middot; "secretaria, programa externo" (P20) &middot; "no" impagos (P21)</div>
+          <div class="madurez-falta">Para subir: que la factura salga directamente del punto de venta / del presupuesto, sin volver a teclear los datos cada vez.</div>
+        </div>
+        <span class="madurez-nivel">3/5</span>
+        <div class="madurez-bar"><div class="madurez-bar-fill" style="width:60%;background:#D9B23C"></div></div>
+      </div>
+      <div class="madurez-row">
+        <div><div class="madurez-name">4. Comunicación y seguimiento</div>
+          <div class="madurez-cita">"depende, hay veces que se hace seguimiento" (P22) &middot; "no" pedís reseñas (P23) &middot; "a traves de la web cada cierto tiempo" (P25)</div>
+          <div class="madurez-falta">Para subir: un mensaje sistemático tras cada compra o servicio &mdash; agradecer y pedir la reseña &mdash; en vez de hacerlo cuando alguien se acuerda.</div>
+        </div>
+        <span class="madurez-nivel">2/5</span>
+        <div class="madurez-bar"><div class="madurez-bar-fill" style="width:40%;background:#E2672B"></div></div>
+      </div>
+      <div class="madurez-row">
+        <div><div class="madurez-name">5. Datos y medición</div>
+          <div class="madurez-cita">"no lo se" qué programas se pagan (P26) &middot; "en nuestro programa" datos de cliente (P27) &middot; "bancarios" &mdash; únicos números que se miran (P30)</div>
+          <div class="madurez-falta">Para subir: revisar cada mes 3-4 números del negocio (ventas, nº de presupuestos y ratio de cierre, visitas web &mdash; ya hay Analytics &mdash;, reseñas nuevas).</div>
+        </div>
+        <span class="madurez-nivel">2/5</span>
+        <div class="madurez-bar"><div class="madurez-bar-fill" style="width:40%;background:#E2672B"></div></div>
+      </div>
+      <div class="madurez-row">
+        <div><div class="madurez-name">6. Retención y reactivación</div>
+          <div class="madurez-cita">"no hace falta, suelen venir" (P24) &middot; "depende" post-venta (P22) &middot; "a traves de la web cada cierto tiempo" (P25)</div>
+          <div class="madurez-falta">Para subir: una lista de quién compró y cuándo (sobre todo profesionales), con un par de comunicaciones al año y un aviso cuando un cliente habitual lleve tiempo sin aparecer.</div>
+        </div>
+        <span class="madurez-nivel">2/5</span>
+        <div class="madurez-bar"><div class="madurez-bar-fill" style="width:40%;background:#E2672B"></div></div>
+      </div>
+      <div class="madurez-row">
+        <div><div class="madurez-name">7. Seguridad, copias y RGPD</div>
+          <div class="madurez-cita">"si" copia de seguridad (P28) &middot; "la tengo yo y la secretaria" &mdash; accesos (P29) &middot; datos "en nuestro programa" (P27)</div>
+          <div class="madurez-falta">Para subir: probar una restauración de la copia, dejar los accesos documentados por persona y tener los consentimientos de clientes en orden.</div>
+        </div>
+        <span class="madurez-nivel">3/5</span>
+        <div class="madurez-bar"><div class="madurez-bar-fill" style="width:60%;background:#D9B23C"></div></div>
+      </div>
+      <div class="madurez-row">
+        <div><div class="madurez-name">8. IA y automatización actual</div>
+          <div class="madurez-cita">"no" experiencia con IA (P33) &middot; "no lo se" preocupaciones (P34)</div>
+          <div class="madurez-falta">Para subir: probar una automatización pequeña y controlada (recordatorios de cita, respuesta automática de WhatsApp fuera de horario) antes de nada más grande.</div>
+        </div>
+        <span class="madurez-nivel">1/5</span>
+        <div class="madurez-bar"><div class="madurez-bar-fill" style="width:20%;background:#c0392b"></div></div>
+      </div>
+    </div>
+
+    <div class="section" id="tiempo">
+      <h2>Dónde se va el tiempo</h2>
+      <p class="body">El formulario dejó <strong>en blanco</strong> las dos preguntas que dan esta cifra: qué tareas repetitivas se hacen (P31) y cuánto cuesta una hora de trabajo (P32). Sin esos datos, el informe <strong>no inventa un número</strong>. Lo que sí se puede señalar, por lo que cuentan otras respuestas, son las tareas que hoy se hacen a mano y se podrían automatizar:</p>
+      <table class="stack">
+        <thead><tr><th>Tarea manual declarada</th><th>De dónde sale</th><th>&iquest;Automatizable?</th></tr></thead>
+        <tbody>
+          <tr><td>Pasar presupuestos por correo electrónico, uno a uno</td><td>P17 &mdash; "se hace llegar por correo electronico"</td><td>Parcial &mdash; la parte mecánica sí, el criterio comercial no</td></tr>
+          <tr><td>Recordar las citas por teléfono y correo</td><td>P15 &mdash; "telefono y correo electronico"</td><td>Sí</td></tr>
+          <tr><td>Teclear cada factura en el programa externo</td><td>P20 &mdash; "secretaria, programa externo"</td><td>Sí, si se conecta con el punto de venta</td></tr>
+          <tr><td>Contestar al día siguiente los mensajes de fuera de horario</td><td>P10 &mdash; "se contestan al dia siguiente por orden de importancia"</td><td>Parcial &mdash; respuesta automática de recepción</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:12.5px;color:var(--text-dim);margin-top:10px">El punto 9 del plan de acción es medir una semana estas tareas para poder poner, por fin, una cifra de horas y de dinero al mes.</p>
+    </div>
+
+    <div class="section" id="stack">
+      <h2>Inventario de herramientas</h2>
+      <p class="body">P26 ("¿qué programas pagáis?") quedó en <strong>"no lo sé"</strong>, así que este inventario es parcial. Esto es lo que se deduce de otras respuestas y de lo público:</p>
+      <table class="stack">
+        <thead><tr><th>Herramienta</th><th>Para qué</th><th>Coste/mes</th><th>Veredicto</th></tr></thead>
+        <tbody>
+          <tr><td>Programa de facturación externo</td><td>Facturas, lo lleva la secretaria (P20)</td><td>Sin dato (P26)</td><td><span class="verdict queda">Se queda, conectar con el punto de venta</span></td></tr>
+          <tr><td>Programa de cliente / punto de venta</td><td>Datos de cliente centralizados (P27)</td><td>Sin dato (P26)</td><td><span class="verdict queda">Se queda</span></td></tr>
+          <tr><td>Web WordPress + hosting</td><td>Web informativa, mantenida por proveedor local</td><td>Sin dato</td><td><span class="verdict revisar">Se queda, reorientar los enlaces de "tienda"</span></td></tr>
+          <tr><td>Membresía red Cadena88</td><td>Catálogo, suministro, marca de grupo</td><td>Sin dato</td><td><span class="verdict queda">Se queda</span></td></tr>
+          <tr><td>Google Analytics</td><td>Medición de la web (instalado, no se consulta)</td><td>Gratis</td><td><span class="verdict queda">Se queda, empezar a mirarlo</span></td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:12.5px;color:var(--text-dim);margin-top:10px">Antes de decidir nada sobre el stack hace falta la lista real de programas y sus cuotas &mdash; es la primera pregunta de la llamada de seguimiento.</p>
+    </div>
+
+    <div class="section" id="riesgos">
+      <h2>Riesgos</h2>
+      <div class="riesgo">
+        <span class="sev medio">Medio</span><strong>Toda la venta online depende de un catálogo que no controláis</strong>
+        <p>Si un cliente quiere comprar por internet, se le manda a cadena88.com, donde El Clau no controla el precio, el stock ni la relación con ese cliente. No hay canal de venta online propio, ni siquiera un click &amp; collect con vuestro nombre.</p>
+      </div>
+      <div class="riesgo">
+        <span class="sev medio">Medio</span><strong>Decisiones a ciegas: solo se miran los números del banco</strong>
+        <p>P30: los únicos datos que se revisan son "bancarios". Sin un panel del negocio ni revisión de lo que ya recoge la web (Google Analytics está puesto), no se sabe qué campaña, qué producto o qué canal funciona.</p>
+      </div>
+      <div class="riesgo">
+        <span class="sev bajo">Bajo</span><strong>Copia de seguridad sin restauración probada y accesos sin documentar</strong>
+        <p>Hay copia (P28) y dos personas con las claves (P29), lo cual está bien &mdash; pero no consta que se haya probado recuperar los datos, ni que los accesos y consentimientos de cliente estén registrados por persona (P27).</p>
+      </div>
+      <div class="riesgo">
+        <span class="sev bajo">Bajo</span><strong>Posible ficha de Google duplicada</strong>
+        <p>"El Clau Avinguda, S.L." (4,5 &middot; 212 opiniones) puede estar repartiendo vuestras reseñas en dos fichas y confundiendo a quien busca. Hay que confirmar qué es y, si sobra, pedir que se fusione o se elimine.</p>
+      </div>
+      <div class="riesgo">
+        <span class="sev bajo">Bajo</span><strong>Reputación gestionada de forma reactiva y a veces a la defensiva</strong>
+        <p>Se responde a las reseñas, pero sin un criterio fijo y con alguna respuesta en tono de reproche. Una mala gestión de una crítica puntual puede hacer más daño que la crítica.</p>
+      </div>
+    </div>
+
+    <div class="section" id="plan">
+      <h2>Plan de acción priorizado</h2>
+      <p class="lead">Los cruces primero: son los que devuelven clientes o tiempo sin gastar más, casi siempre dejando de perder algo que ya tienes.</p>
+
+      <div class="plan-item"><span class="plan-num">1</span><div class="plan-body"><div class="plan-tags"><span class="tag cruce">Cruce</span><span class="tag alto">Impacto alto</span><span class="tag bajo">Esfuerzo bajo</span></div><strong>Pedir reseña de forma sistemática y enseñar las mejores</strong><p>Resuelve el Cruce 2. QR o enlace corto en el ticket y en el mostrador; las 4-5 mejores, en la home y en Facebook. Cero reseñas nuevas hoy porque nunca se piden (P23).</p></div></div>
+      <div class="plan-item"><span class="plan-num">2</span><div class="plan-body"><div class="plan-tags"><span class="tag cruce">Cruce</span><span class="tag alto">Impacto alto</span><span class="tag bajo">Esfuerzo bajo</span></div><strong>Unificar el horario real en Google, la web, Cadena88 y los directorios</strong><p>Resuelve el Cruce 4: hay cuatro horarios distintos publicados. Manda gente a la puerta cerrada.</p></div></div>
+      <div class="plan-item"><span class="plan-num">3</span><div class="plan-body"><div class="plan-tags"><span class="tag cruce">Cruce</span><span class="tag alto">Impacto alto</span><span class="tag bajo">Esfuerzo bajo</span></div><strong>Poner un WhatsApp Business visible en la web y en la ficha de Google</strong><p>Resuelve los Cruces 1 y 6: la atención real existe (P8, P9) y el reparto a domicilio también, pero el cliente no tiene un canal escrito para "¿tenéis esto?" o "¿me lo lleváis?".</p></div></div>
+      <div class="plan-item"><span class="plan-num">4</span><div class="plan-body"><div class="plan-tags"><span class="tag cruce">Cruce</span><span class="tag medio">Impacto medio</span><span class="tag bajo">Esfuerzo bajo</span></div><strong>Redirigir "TIENDA" a vuestra ficha de Cadena88, no al catálogo nacional</strong><p>Resuelve el Cruce 3. Que el botón lleve a cadena88.com/es/store/elclauferreteria (con vuestro nombre y stock) o a un catálogo propio destacado, no a la home genérica de la red.</p></div></div>
+      <div class="plan-item"><span class="plan-num">5</span><div class="plan-body"><div class="plan-tags"><span class="tag cruce">Cruce</span><span class="tag alto">Impacto alto</span><span class="tag medio">Esfuerzo medio</span></div><strong>Montar la base de "quién compró y cuándo" y dos comunicaciones al año</strong><p>Resuelve el Cruce 5. Sobre todo a los clientes profesionales. Tienes los datos (P27); falta usarlos antes de que se los lleve otro.</p></div></div>
+      <div class="plan-item"><span class="plan-num">6</span><div class="plan-body"><div class="plan-tags"><span class="tag fuera">Fuera</span><span class="tag medio">Impacto medio</span><span class="tag bajo">Esfuerzo bajo</span></div><strong>Unificar el nombre del negocio y resolver la ficha de Google duplicada</strong><p>Mismo nombre en web, Instagram, Facebook y Google; y confirmar qué es "El Clau Avinguda, S.L." para fusionar o eliminar si sobra.</p></div></div>
+      <div class="plan-item"><span class="plan-num">7</span><div class="plan-body"><div class="plan-tags"><span class="tag fuera">Fuera</span><span class="tag alto">Impacto alto</span><span class="tag bajo">Esfuerzo bajo</span></div><strong>Reescribir la cabecera de la web hablando al cliente</strong><p>Corregir la errata ("ferrert&eacute;ria"), quitar el segundo H1 y poner por qué El Clau y no una gran superficie: años en Nules, asesoramiento real, reparto a domicilio, "4,5&#9733; &middot; 224 opiniones".</p></div></div>
+      <div class="plan-item"><span class="plan-num">8</span><div class="plan-body"><div class="plan-tags"><span class="tag dentro">Dentro</span><span class="tag medio">Impacto medio</span><span class="tag bajo">Esfuerzo bajo</span></div><strong>Revisar 3-4 números del negocio cada mes</strong><p>Ventas, nº de presupuestos y ratio de cierre, visitas web (ya hay Analytics), reseñas nuevas. Hoy solo se miran los bancarios (P30).</p></div></div>
+      <div class="plan-item"><span class="plan-num">9</span><div class="plan-body"><div class="plan-tags"><span class="tag dentro">Dentro</span><span class="tag medio">Impacto medio</span><span class="tag bajo">Esfuerzo bajo</span></div><strong>Medir una semana el tiempo de las tareas manuales</strong><p>Presupuestos por correo, recordatorios de cita, tecleo de facturas. Es lo que falta para poner una cifra de horas y de dinero al mes (P31 y P32 quedaron en blanco).</p></div></div>
+      <div class="plan-item"><span class="plan-num">10</span><div class="plan-body"><div class="plan-tags"><span class="tag dentro">Dentro</span><span class="tag medio">Impacto medio</span><span class="tag medio">Esfuerzo medio</span></div><strong>Conectar la facturación con el punto de venta</strong><p>Para que la factura salga sola del presupuesto o del ticket, sin volver a teclear (P20). Una vez se sepa el volumen del punto 9.</p></div></div>
+      <div class="plan-item"><span class="plan-num">11</span><div class="plan-body"><div class="plan-tags"><span class="tag fuera">Fuera</span><span class="tag medio">Impacto medio</span><span class="tag medio">Esfuerzo medio</span></div><strong>Retomar blog e Instagram con el ángulo de "asesoramiento"</strong><p>Es lo que las reseñas dicen que hacéis mejor. "Cómo elegir la broca / el candado / la pintura para X", trucos de mantenimiento. Un post cada dos semanas.</p></div></div>
+      <div class="plan-item"><span class="plan-num">12</span><div class="plan-body"><div class="plan-tags"><span class="tag dentro">Dentro</span><span class="tag medio">Impacto medio</span><span class="tag bajo">Esfuerzo bajo</span></div><strong>Documentar accesos y probar una restauración de la copia</strong><p>Dejar claves y accesos por persona en un sitio seguro, y comprobar que la copia (P28) se puede recuperar de verdad.</p></div></div>
+      <div class="plan-item"><span class="plan-num">13</span><div class="plan-body"><div class="plan-tags"><span class="tag fuera">Fuera</span><span class="tag bajo">Impacto bajo</span><span class="tag bajo">Esfuerzo bajo</span></div><strong>Dejar la medición lista para una futura campaña local</strong><p>Confirmar/instalar el píxel de Meta y revisar la configuración de Google Ads, aunque no se hagan anuncios todavía, para no empezar a ciegas cuando se hagan.</p></div></div>
+    </div>
+
+    <div class="section" id="quickwins">
+      <h2>Quick wins &mdash; esta semana</h2>
+      <div class="wins" style="border-left-color:var(--accent)">
+        <ul>
+          <li>Preparar un QR o enlace corto de "déjanos tu opinión en Google" para el ticket y el mostrador, y empezar a pedirlo &mdash; menos de 30 minutos.</li>
+          <li>Corregir el horario en la web y en Google para que coincidan &mdash; menos de 1 hora.</li>
+          <li>Dar de alta el WhatsApp Business del negocio y ponerlo visible en la web y en la ficha de Google &mdash; menos de 1 hora.</li>
+          <li>Pedir al proveedor web que el botón "TIENDA" lleve a vuestra ficha de Cadena88, no al catálogo nacional &mdash; 1 correo.</li>
+          <li>Añadir a la home una línea "4,5&#9733; &middot; 224 opiniones en Google" enlazando a la ficha &mdash; menos de 30 minutos.</li>
+          <li>Corregir la errata "ferrert&eacute;ria" en la cabecera de la web &mdash; 5 minutos.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section" id="roadmap">
+      <h2>Hoja de ruta</h2>
+      <div class="roadmap">
+        <div class="roadmap-phase"><div class="fase">0-30 días</div><p>Reseñas sistemáticas y visibles &middot; horario unificado en todos los canales &middot; WhatsApp Business publicado &middot; prueba social y copy nuevo en la home &middot; nombre unificado y ficha de Google duplicada resuelta.</p></div>
+        <div class="roadmap-phase"><div class="fase">30-90 días</div><p>Botón de "tienda" y de "pide presupuesto / resérvalo y recógelo" apuntando a lo vuestro &middot; base de clientes y primera comunicación a profesionales &middot; revisión mensual de 3-4 números &middot; medición de tiempos de las tareas manuales.</p></div>
+        <div class="roadmap-phase"><div class="fase">90+ días</div><p>Conexión facturación &ndash; punto de venta &middot; contenido de asesoramiento sostenido en blog e Instagram &middot; medición lista y primera campaña local de alcance en la comarca, una vez cerradas las fugas anteriores.</p></div>
+      </div>
+      <p style="font-size:12.5px;color:var(--text-dim);margin-top:10px">Sin importes: el formulario dejó el presupuesto en blanco (P36) y los rangos de inversión se acuerdan aparte, con tu visto bueno.</p>
+    </div>
+
+    <div class="section no-auto" id="noauto">
+      <h2 style="border:none;padding:0;margin-bottom:10px">Lo que no conviene automatizar todavía</h2>
+      <ul>
+        <li>La atención y el asesoramiento en el mostrador: es justo lo que las 224 reseñas valoran ("te asesoran de los productos que necesitas", "atención de 10"). Una respuesta automática genérica destruiría el activo principal del negocio.</li>
+        <li>La respuesta a las reseñas: debe seguir siendo humana y revisada &mdash; y conviene quitarle el tono de reproche, no automatizarla.</li>
+        <li>Nada que toque datos de cliente hasta tener claro dónde viven, quién accede y con qué copia verificada (P27, P28, P29). P34 quedó en "no lo sé": antes de automatizar sobre datos, hay que definir esa preocupación.</li>
+        <li>Los presupuestos a empresa: llevan criterio comercial (P19: "depende si es empresa o particular", con un 95% de cierre). Se agiliza la parte mecánica &mdash; los datos, el envío &mdash;, no la decisión de qué ofrecer.</li>
+      </ul>
+    </div>
+
+    <div class="section" id="competencia">
+      <h2>Comparativa con la competencia (contexto)</h2>
+      <p class="body">La competencia no puntúa &mdash; es contexto. En Nules, El Clau es el negocio del sector con más reputación online, y por bastante:</p>
+      <table class="stack">
+        <thead><tr><th>Negocio</th><th>Reputación Google</th><th>Presencia digital</th></tr></thead>
+        <tbody>
+          <tr><td><strong>El Clau Ferretería</strong></td><td>4,5 &#9733; &middot; 224 opiniones</td><td>Web informativa, Instagram y Facebook, blog</td></tr>
+          <tr><td>El Clau Avinguda, S.L.</td><td>4,5 &#9733; &middot; 212 opiniones</td><td>Ficha de Google (relación con vosotros por confirmar)</td></tr>
+          <tr><td>VAS Nules Materials, S.L.</td><td>4,5 &#9733; &middot; 42 opiniones</td><td>Materiales de construcción, sin web fuerte</td></tr>
+          <tr><td>Ferreteria Camí La Mar</td><td>4,3 &#9733; &middot; 22 opiniones</td><td>Ficha de Google</td></tr>
+          <tr><td>Ferretería Casino Paricio</td><td>3,9 &#9733; &middot; 11 opiniones</td><td>Carpintería metálica; ficha de Google</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:12.5px;color:var(--text-dim);margin-top:10px">La oportunidad es clara: nadie en Nules domina la parte digital. Con la reputación que ya tienes, ser el primero que la trabaja de verdad te deja solo en la foto. La amenaza no es la ferretería de al lado &mdash; es la venta online de las grandes cadenas y de la propia Cadena88.</p>
+    </div>
+
+    <div class="section" id="metodo">
+      <h2>Nota metodológica</h2>
+      <div class="metodologica">
+        <p><strong>Fuentes y fecha:</strong> la mitad de fuera se leyó de fuentes públicas el 05/09/2026 &mdash; elclauferreteria.com, su ficha de Google Business ("Ferreteria Ahis Abad El Clau - Cadena88"), Instagram (@elclau_ferreteria), Facebook (elclauferreterianules), la Biblioteca de Anuncios de Meta, la ficha de Cadena88, el portafolio del proveedor web y directorios (clicoleo, QDQ, Páginas Amarillas, Cylex). La mitad de dentro sale del formulario Radar 360 de 36 preguntas, respondido el 05/09/2026.</p>
+        <p><strong>Sin acceso a sistemas internos:</strong> no se ha entrado en el programa de facturación, el de cliente, el gestor de la web ni ninguna cuenta del negocio. Todo sale de lo público y de lo que el propio negocio ha contado.</p>
+        <p><strong>Nada inventado:</strong> cada nota, cada nivel de madurez y cada afirmación se apoya en una cita &mdash; con su número de pregunta cuando viene del formulario, o su fuente y fecha cuando viene de fuera. Lo que no se pudo confirmar aparece en "Pendiente de confirmar", no como un hecho. Las <strong>horas/mes recuperables no se calculan</strong> porque P31 y P32 quedaron en blanco: no se rellena con una estimación.</p>
+        <p><strong>Las dos cifras no se promedian:</strong> la nota digital (43/100) y la madurez tecnológica (2,3/5) miden cosas distintas &mdash; una, lo que el negocio enseña; la otra, cómo trabaja por dentro. El contraste entre las dos es el titular: un negocio sólido y bien valorado, con una presencia digital que todavía no está a su altura.</p>
+      </div>
+    </div>
+
+    <div class="closing">
+      <h3>Gracias por probar el Radar 360 PRO</h3>
+      <p>Este es tu diagnóstico completo. El plan de acción de arriba está pensado para seguirse en el orden en que aparece &mdash; los cruces primero, y casi todos son de esta semana.</p>
+      <div class="other-links">
+        <a href="https://jbmarketing.es/apps/korix/">KORIX</a>
+        <a href="https://jbmarketing.es/apps/gestaqua/">MiDula</a>
+        <a href="https://jbmarketing.es/apps/partapp/">PartApp</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>Un servicio de JBMarketing &middot; jbmarketing.es/radar-360</p>
+</footer>
+
+</body>
+</html>
