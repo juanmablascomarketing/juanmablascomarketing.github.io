@@ -145,11 +145,13 @@ section{padding:100px 0}
 .section-head p{color:var(--text-mid);font-size:15.5px;margin-top:14px;max-width:56ch}
 
 /* ---------- servicios ---------- */
-.servicios-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.servicios-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--border);border:1px solid var(--border)}
 @media(max-width:900px){.servicios-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.servicios-grid{grid-template-columns:1fr}}
 .servicio{background:var(--bg);padding:30px 26px}
 .light-section .servicio{background:#F7F6F2}
+.servicio[href]{display:block;color:inherit;text-decoration:none;transition:opacity .15s}
+.servicio[href]:hover{opacity:.85}
 .servicio-num{font-family:var(--serif);font-size:30px;color:var(--border-strong);margin-bottom:16px}
 .servicio h3{font-family:var(--sans);font-size:16px;font-weight:700;margin-bottom:10px}
 .servicio p{font-size:13.5px;color:var(--text-mid);line-height:1.6}
@@ -281,6 +283,7 @@ footer{border-top:1px solid var(--border);padding:36px 0}
     <div class="servicio"><div class="servicio-num">02</div><h3>Soluciones digitales y webapps</h3><p>Aplicaciones web a medida para resolver problemas concretos de tu negocio o sector. Diseñadas para ser simples, útiles y rápidas de adoptar.</p></div>
     <div class="servicio"><div class="servicio-num">03</div><h3>Automatizaciones con IA</h3><p>Identifico los procesos repetitivos de tu negocio y los automatizo. Menos tiempo perdido en tareas manuales, más foco en lo que importa.</p></div>
     <div class="servicio"><div class="servicio-num">04</div><h3>Eventos y experiencias</h3><p>Planificación y ejecución de eventos desde cero: formativos, gastronómicos, empresariales y de marketing. Más de 20 años de experiencia real.</p></div>
+    <a href="/proteccion-datos/" class="servicio"><div class="servicio-num">05</div><h3>Protección de Datos y Cumplimiento</h3><p>Documentación RGPD, LOPDGDD, política de cookies y avisos legales adaptados a tu negocio real — sin letra pequeña ni plantillas genéricas.</p></a>
   </div>
 </section>
 
@@ -380,6 +383,7 @@ footer{border-top:1px solid var(--border);padding:36px 0}
     <ul class="footer-links">
       <li><a href="#servicios">Servicios</a></li>
       <li><a href="/radar-360/">Radar 360</a></li>
+      <li><a href="/proteccion-datos/">Protección de Datos</a></li>
       <li><a href="/legal/terminos/">Términos y Condiciones</a></li>
       <li><a href="/legal/privacidad/">Política de Privacidad</a></li>
       <li><a href="/legal/cookies/">Política de Cookies</a></li>
