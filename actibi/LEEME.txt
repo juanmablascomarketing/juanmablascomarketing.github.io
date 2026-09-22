@@ -1,0 +1,49 @@
+ESPACIO ACTIBI — maqueta de validación de diseño
+==================================================
+
+QUÉ ES
+Maqueta HTML/CSS/JS estática, sin dependencias externas (nada de CDN,
+nada de Google Fonts: las fuentes de marca van incrustadas). Pensada
+para subir tal cual a un repositorio de GitHub Pages en la ruta
+/actibi/, de forma que quede publicada en jbmarketing.es/actibi/.
+
+CÓMO DESPLEGARLA
+1. Copia toda esta carpeta "actibi/" (con su subcarpeta assets/) a la
+   raíz del repo de jbmarketing.es, tal cual, sin renombrar nada.
+2. Confirma que sirve archivos estáticos sin build (GitHub Pages lo
+   hace de forma nativa).
+3. La web quedará accesible en jbmarketing.es/actibi/ y
+   jbmarketing.es/actibi/index.html — ambas cargan la portada (Inicio).
+4. Todas las páginas llevan <meta name="robots" content="noindex,
+   nofollow">, para que no se indexen mientras está en validación.
+   Quítalo solo cuando se publique la versión definitiva en el
+   dominio propio de Actibi.
+
+ESTRUCTURA
+  index.html          → Inicio
+  entrenamiento.html   → Entrenamiento
+  fisioterapia.html    → Fisioterapia
+  tarifas.html         → Tarifas
+  nosotros.html        → Nosotros (equipo, espacio, playa)
+  assets/css/style.css → estilos, tokens de color y @font-face
+  assets/fonts/        → MADE TOMMY (Regular/Bold/ExtraBold) y Reef Bold
+  assets/img/          → fotos, logos y subrayados de marca
+  assets/js/main.js    → menú móvil, aviso de los CTA y conmutador
+                          mensual/trimestral de tarifas
+
+QUÉ NO HACE TODAVÍA (a propósito, es una maqueta)
+- Los botones "Apúntate", "Quiero esta plaza/bono" y "Ya soy socio/a"
+  solo muestran un aviso en pantalla ("Aquí se abriría..."). No hay
+  enlace real al alta de KORIX todavía.
+- El formulario/enlace de contacto real, RGPD, y el número de
+  autorización sanitaria están marcados como placeholder en el pie.
+
+PENDIENTE DE CONFIRMAR CON EL CLIENTE (marcado en el propio HTML)
+- Apellidos y fotos de Tony y Jordi (nosotros.html).
+- Cómo se pide cita de fisioterapia en la práctica (fisioterapia.html,
+  botón "Consúltanos").
+- Descripción de electroestimulación (fisioterapia.html).
+- Texto definitivo de la sección "El espacio" (ahora mismo lleva
+  lorem ipsum de relleno, claramente etiquetado).
+- Titular (razón social/NIF) y nº de autorización sanitaria (pie).
+- Horario de la próxima edición de los entrenamientos en la playa.

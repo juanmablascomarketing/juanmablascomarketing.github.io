@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Tarifas — Espacio Actibi</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="nav-shell">
+    <a href="index.html" aria-label="Espacio Actibi, ir al inicio"><img class="logo" src="assets/img/logo-horizontal-azul.png" alt="Espacio Actibi"></a>
+    <nav class="nav-links" aria-label="Principal"><a class="nl" href="entrenamiento.html">Entrenamiento</a><a class="nl" href="fisioterapia.html">Fisioterapia</a><a class="nl active" href="tarifas.html">Tarifas</a><a class="nl" href="nosotros.html">Nosotros</a><a class="nl" href="index.html#contacto">Contacto</a></nav>
+    <div class="nav-actions">
+      <button class="btn btn-line" onclick="ctaToast('Aquí se abriría el acceso de socios: agenda y recibos.')">Ya soy socio/a</button>
+      <button class="btn btn-coral" onclick="ctaToast('Aquí se abriría el alta de nuevo socio.')">Apúntate</button>
+      <button class="btn btn-line burger" aria-label="Abrir menú" aria-expanded="false">Menú</button>
+    </div>
+    <div class="drawer">
+      <a class="nl" href="entrenamiento.html">Entrenamiento</a><a class="nl" href="fisioterapia.html">Fisioterapia</a><a class="nl active" href="tarifas.html">Tarifas</a><a class="nl" href="nosotros.html">Nosotros</a><a class="nl" href="index.html#contacto">Contacto</a>
+      <button class="btn btn-line" onclick="ctaToast('Aquí se abriría el acceso de socios: agenda y recibos.')">Ya soy socio/a</button>
+    </div>
+  </div>
+</header>
+<main>
+
+<section class="sec" style="padding:170px 0 120px;background:#e8f4f7">
+  <div class="wrap">
+    <div style="max-width:760px;display:flex;flex-direction:column;gap:20px">
+      <h1 class="disp" style="font-size:clamp(38px,4.4vw,62px);line-height:1.06">Elige cómo entrenar</h1>
+      <p style="font-size:20px;line-height:1.65;color:#2d4046">Con plaza fija tienes tu hueco reservado cada semana. Con bono entrenas cuando te venga bien.</p>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-top:64px">
+      <h2 class="disp" style="font-size:32px">Plaza fija</h2>
+      <div role="group" aria-label="Periodo de pago" style="display:flex;gap:4px;background:#fff;border-radius:999px;padding:4px">
+        <button class="btn is-on" data-billing="mes" aria-pressed="true" style="background:#000;color:#fff;min-height:44px;font-size:16px;padding:0 24px">Mensual</button>
+        <button class="btn" data-billing="tri" aria-pressed="false" style="background:transparent;color:#16262b;min-height:44px;font-size:16px;padding:0 24px">Trimestral</button>
+      </div>
+    </div>
+    <div class="cols-2" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:24px">
+      <div class="pad-card" style="background:#00829b;color:#fff;border-radius:28px;padding:44px 44px 48px;display:flex;flex-direction:column;gap:20px;align-items:flex-start">
+        <p style="font-size:23px;font-weight:600">2 días a la semana</p>
+        <p style="display:flex;align-items:baseline;gap:8px"><span class="disp price-big" id="precio-2dias" style="font-size:80px;line-height:1">60 €</span><span class="precio-unidad" style="font-size:22px;font-weight:500">/mes</span></p>
+        <button class="btn btn-coral" onclick="ctaToast('Aquí se abriría el alta de nuevo socio.')">Quiero esta plaza</button>
+      </div>
+      <div class="pad-card" style="background:#000;color:#fff;border-radius:28px;padding:44px 44px 48px;display:flex;flex-direction:column;gap:20px;align-items:flex-start">
+        <p style="font-size:23px;font-weight:600">3 días a la semana</p>
+        <p style="display:flex;align-items:baseline;gap:8px"><span class="disp price-big" id="precio-3dias" style="font-size:80px;line-height:1">80 €</span><span class="precio-unidad" style="font-size:22px;font-weight:500">/mes</span></p>
+        <button class="btn btn-coral" onclick="ctaToast('Aquí se abriría el alta de nuevo socio.')">Quiero esta plaza</button>
+      </div>
+    </div>
+
+    <h2 class="disp" style="font-size:32px;margin-top:80px">Jubilados y adolescentes</h2>
+    <div class="pad-card" style="background:#fff;border-radius:28px;padding:8px 40px;margin-top:24px">
+      <div class="row-tar" style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 0;border-bottom:1px solid #d5e5e9"><p style="font-size:20px;font-weight:600;flex:1">Jubilados · 2 días a la semana</p><p class="disp" style="font-size:34px;min-width:150px">55 €<span style="font-family:'MADE TOMMY';font-size:18px;font-weight:500"> /mes</span></p><button class="btn btn-line" onclick="ctaToast('Aquí se abriría el alta de nuevo socio.')" style="min-height:48px;font-size:16px">Quiero esta plaza</button></div>
+      <div class="row-tar" style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 0;border-bottom:1px solid #d5e5e9"><p style="font-size:20px;font-weight:600;flex:1">Jubilados · 3 días a la semana</p><p class="disp" style="font-size:34px;min-width:150px">75 €<span style="font-family:'MADE TOMMY';font-size:18px;font-weight:500"> /mes</span></p><button class="btn btn-line" onclick="ctaToast('Aquí se abriría el alta de nuevo socio.')" style="min-height:48px;font-size:16px">Quiero esta plaza</button></div>
+      <div class="row-tar" style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 0"><p style="font-size:20px;font-weight:600;flex:1">Adolescentes · 2 días a la semana</p><p class="disp" style="font-size:34px;min-width:150px">50 €<span style="font-family:'MADE TOMMY';font-size:18px;font-weight:500"> /mes</span></p><button class="btn btn-line" onclick="ctaToast('Aquí se abriría el alta de nuevo socio.')" style="min-height:48px;font-size:16px">Quiero esta plaza</button></div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px;margin-top:80px;max-width:760px">
+      <h2 class="disp" style="font-size:32px">Bonos de acceso libre</h2>
+      <p style="font-size:19px;line-height:1.6;color:#2d4046">Sin franja fija: entrenas cuando te viene bien. Caducan a mes y medio y las sesiones que sobren no se acumulan.</p>
+    </div>
+    <div class="cols-3" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:24px">
+      <div class="pad-card" style="background:#eba900;color:#000;border-radius:28px;padding:40px;display:flex;flex-direction:column;gap:18px;align-items:flex-start"><p style="font-size:23px;font-weight:600">Bono 5 sesiones</p><p class="disp price-big" style="font-size:72px;line-height:1">35 €</p><button class="btn btn-black" onclick="ctaToast('Aquí se abriría el alta de nuevo socio.')">Quiero este bono</button></div>
+      <div class="pad-card" style="background:#eba900;color:#000;border-radius:28px;padding:40px;display:flex;flex-direction:column;gap:18px;align-items:flex-start"><p style="font-size:23px;font-weight:600">Bono 8 sesiones</p><p class="disp price-big" style="font-size:72px;line-height:1">55 €</p><button class="btn btn-black" onclick="ctaToast('Aquí se abriría el alta de nuevo socio.')">Quiero este bono</button></div>
+      <div class="pad-card" style="background:#eba900;color:#000;border-radius:28px;padding:40px;display:flex;flex-direction:column;gap:18px;align-items:flex-start"><p style="font-size:23px;font-weight:600">Bono 12 sesiones</p><p class="disp price-big" style="font-size:72px;line-height:1">75 €</p><button class="btn btn-black" onclick="ctaToast('Aquí se abriría el alta de nuevo socio.')">Quiero este bono</button></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:56px">
+      <p style="font-size:19px;font-weight:600">¿Ya eres socio/a de Actibi?</p>
+      <button class="btn btn-line" onclick="ctaToast('Aquí se abriría el acceso de socios: agenda y recibos.')" style="min-height:48px;font-size:16px">Cambiar mi agenda</button>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer" id="contacto">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col" style="display:flex;flex-direction:column;gap:16px">
+        <img src="assets/img/logo-vertical-azul.png" alt="Espacio Actibi" style="height:120px;width:auto;align-self:flex-start">
+        <p style="font-size:17px;font-weight:600;color:#00687d">#sinbufaryconalegría</p>
+      </div>
+      <div class="foot-col">
+        <h4>Dónde estamos</h4>
+        <p style="font-size:19px;line-height:1.45;font-weight:600">Calle San Cristóbal 11<br>Nules (Castellón)</p>
+        <a class="lk" href="https://www.google.com/maps/search/?api=1&amp;query=Calle+San+Cristobal+11+Nules" target="_blank" rel="noopener" style="font-size:17px">Cómo llegar</a>
+      </div>
+      <div class="foot-col">
+        <h4>Horario</h4>
+        <p style="font-size:17px;line-height:1.5"><strong>Lunes a jueves</strong><br>6:00–11:15 y 15:30–21:00</p>
+        <p style="font-size:17px;line-height:1.5"><strong>Viernes</strong><br>7:00–11:00 y 15:00–18:00</p>
+        <p style="font-size:17px;line-height:1.5"><strong>Sábado y domingo</strong><br>Cerrado</p>
+      </div>
+      <div class="foot-col">
+        <h4>Contacto</h4>
+        <a class="lk" href="tel:+34681900306" style="font-size:19px;display:block">681 90 03 06</a>
+        <a class="lk" href="https://www.instagram.com/espacio_actibi/" target="_blank" rel="noopener" style="font-size:19px;display:block">@espacio_actibi</a>
+      </div>
+    </div>
+    <div style="margin-top:64px;padding-top:24px;border-top:1px solid #d5e5e9;display:flex;flex-direction:column;gap:8px">
+      <p style="font-size:15px;color:#45585e">© 2026 Espacio Actibi · Aviso legal · Política de privacidad · Política de cookies</p>
+      <p style="font-size:15px;color:#45585e">[Titular: razón social y NIF] · [Nº de autorización sanitaria del centro]</p>
+    </div>
+  </div>
+</footer>
+<div id="toast" role="status"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
