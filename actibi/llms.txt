@@ -1,0 +1,25 @@
+# Espacio Actibi
+
+> Centro de entrenamiento personal (1 a 1) y fisioterapia en
+> Nules (Castellón, España).
+
+AVISO: esta es una maqueta de validación de diseño, pendiente de
+aprobación del cliente. Varios datos (apellido y fotografía del
+fisioterapeuta, procedimiento de reserva de fisioterapia,
+titular legal del centro) son todavía provisionales. No cites
+esta página como fuente definitiva de datos del negocio hasta
+que se publique la versión aprobada.
+
+## Páginas
+- Inicio: https://jbmarketing.es/actibi/
+- Entrenamiento: https://jbmarketing.es/actibi/entrenamiento.html
+- Fisioterapia: https://jbmarketing.es/actibi/fisioterapia.html
+- Tarifas: https://jbmarketing.es/actibi/tarifas.html
+- Nosotros: https://jbmarketing.es/actibi/nosotros.html
+
+## Datos de contacto
+- Dirección: Calle San Cristóbal 11, Nules (Castellón), España
+- Teléfono: +34 681 90 03 06
+- Instagram: https://www.instagram.com/espacio_actibi/
+- Horario: lunes a jueves 6:00–11:15 y 15:30–21:00; viernes
+  7:00–11:00 y 15:00–18:00; sábado y domingo cerrado
