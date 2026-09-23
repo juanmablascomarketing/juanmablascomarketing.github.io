@@ -468,6 +468,10 @@
         </div>
 
         <input type="hidden" name="origen" value="proteccion-datos-auditoria">
+        <div class="checkbox-row" style="margin-bottom:14px;">
+          <input type="checkbox" id="auditoria-consent" name="consent" required>
+          <label for="auditoria-consent">Acepto que jbmarketing use estos datos para prepararme la auditoría gratuita y contactarme al respecto. Ver <a href="https://jbmarketing.es/legal/privacidad/" style="color:#fff;text-decoration:underline;">política de privacidad</a>.</label>
+        </div>
         <button type="submit" class="btn form-submit">Pedir mi auditoría gratuita</button>
         <p class="microcopy">Tus respuestas solo se usan para orientarte mejor — nunca se comparten con terceros.</p>
       </form>
@@ -496,9 +500,7 @@
         </div>
         <input type="hidden" name="origen" value="proteccion-datos-newsletter">
       </form>
-      <div class="note-box">
-        <strong>Nota técnica (no visible al usuario final):</strong> tras enviar el formulario, el contacto debe recibir un email de confirmación con un enlace de verificación (doble opt-in) antes de quedar suscrito de verdad — obligatorio para cumplir la normativa que esta misma página promueve. Esto requiere un pequeño backend (función serverless + Resend), igual que ya tenéis montado en KORIX — no se puede hacer solo con HTML estático en GitHub Pages. Pendiente de construir como paso siguiente.
-      </div>
+      <!-- Nota técnica (no visible al usuario final): tras enviar el formulario, el contacto debe recibir un email de confirmación con un enlace de verificación (doble opt-in) antes de quedar suscrito de verdad — obligatorio para cumplir la normativa que esta misma página promueve. Esto requiere un pequeño backend (función serverless + Resend), igual que ya tenéis montado en KORIX — no se puede hacer solo con HTML estático en GitHub Pages. Pendiente de construir como paso siguiente. -->
     </div>
   </div>
 </section>
